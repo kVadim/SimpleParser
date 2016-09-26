@@ -1,5 +1,4 @@
-.suo
+*.suo
 .git
-bin/Debug/
-bin/Relese/
+bin/
 
