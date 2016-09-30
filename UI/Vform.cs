@@ -25,7 +25,6 @@ namespace SimpleParser01
         {
             InitializeComponent();
             URL.Text = "https://bitcoinwisdom.com/";
-            N.Value = 5;
             butRun.Select();
            
             comboSource.Add(Bitstamp.Text, BitstampValue.Text);
@@ -47,15 +46,21 @@ namespace SimpleParser01
         {            
             # region Contorl_behavior_before
 
-            N.Enabled = false; N.Refresh();
-            URL.ReadOnly = true; URL.Refresh();
-            butRun.Enabled = false; butRun.Refresh();
-            butBrowse.Enabled = false; butBrowse.Refresh();
-            butRefresh.Enabled = false; butRefresh.Refresh();
+            N.Enabled = false; 
+            URL.ReadOnly = true; 
+            butRun.Enabled = false; 
+            butBrowse.Enabled = false; 
+            butRefresh.Enabled = false;
             isHidden.Enabled = false;
-            comboBoxBurse.Enabled = false; comboBoxBurse.Refresh();
-            comboBoxBurse1.Enabled = false; comboBoxBurse1.Refresh();
-            persent.Enabled = false; persent.Refresh();
+            comboBoxBurse.Enabled = false; 
+            comboBoxBurse1.Enabled = false; 
+            persentMin.Enabled = false;
+            persentMax.Enabled = false;
+            label_min.Enabled = false;
+            label_max.Enabled = false;
+            label_frequency.Enabled = false;
+            min.Enabled = false;
+            max.Enabled = false;
             # endregion
            
             if (!backgroundWorker1.IsBusy) { backgroundWorker1.RunWorkerAsync(); }         
@@ -120,7 +125,7 @@ namespace SimpleParser01
 
                double OperandOne = double.Parse(dictionary[comboBoxBurse.SelectedIndex], CultureInfo.InvariantCulture);
                double OperandTwo = double.Parse(dictionary[comboBoxBurse1.SelectedIndex], CultureInfo.InvariantCulture); 
-               double per = (double)persent.Value;
+               double per = (double)persentMin.Value;
                double CurrentPercent = ((OperandOne - OperandTwo) * 100) / OperandOne;
             
                URL.BackColor = Color.LightGray;
@@ -180,6 +185,7 @@ namespace SimpleParser01
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
+            #region Driver_Initialization
             if (isHidden.Checked == true)
             {
                 var driverService = PhantomJSDriverService.CreateDefaultService();
@@ -195,6 +201,9 @@ namespace SimpleParser01
 
             driver.Navigate().GoToUrl("https://bitcoinwisdom.com/");
             driver.Manage().Window.Maximize();
+            #endregion
+
+
 
             int delay = (int)N.Value;
                     
@@ -229,18 +238,25 @@ namespace SimpleParser01
             driver.Quit();
            
             # region Contorl_behavior_after
+
             URL.BackColor = Color.LightGray;
             URL.ForeColor = Color.Black;
-            N.ReadOnly = false; 
-            URL.ReadOnly = false;                  
-            butRun.Enabled = true;               
-            butBrowse.Enabled = true;            
-            butRun.Text = "Run";             
-            butRefresh.Enabled = true;  
-            isHidden.Enabled = true;  
-            comboBoxBurse.Enabled = true;  
-            comboBoxBurse1.Enabled = true; 
-            persent.Enabled = true; 
+            butRun.Text = "Run"; 
+            N.Enabled = true;
+            URL.ReadOnly = false;
+            butRun.Enabled = true;
+            butBrowse.Enabled = true;
+            butRefresh.Enabled = true;
+            isHidden.Enabled = true;
+            comboBoxBurse.Enabled = true;
+            comboBoxBurse1.Enabled = true;
+            persentMin.Enabled = true;
+            persentMax.Enabled = true;
+            label_min.Enabled = true;
+            label_max.Enabled = true;
+            label_frequency.Enabled = true;
+            min.Enabled = true;
+            max.Enabled = true;
             # endregion
         }
 

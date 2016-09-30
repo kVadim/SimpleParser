@@ -45,17 +45,17 @@
             this.isHidden = new System.Windows.Forms.CheckBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.comboBoxBurse = new System.Windows.Forms.ComboBox();
-            this.persent = new System.Windows.Forms.NumericUpDown();
+            this.persentMin = new System.Windows.Forms.NumericUpDown();
             this.comboBoxBurse1 = new System.Windows.Forms.ComboBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.P2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.persentMax = new System.Windows.Forms.NumericUpDown();
+            this.max = new System.Windows.Forms.CheckBox();
+            this.min = new System.Windows.Forms.CheckBox();
+            this.label_frequency = new System.Windows.Forms.Label();
+            this.label_max = new System.Windows.Forms.Label();
+            this.label_min = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.N)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.persent)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.persentMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.persentMax)).BeginInit();
             this.SuspendLayout();
             // 
             // butRun
@@ -128,14 +128,14 @@
             // 
             this.N.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.N.InterceptArrowKeys = false;
-            this.N.Location = new System.Drawing.Point(347, 86);
+            this.N.Location = new System.Drawing.Point(338, 87);
             this.N.Minimum = new decimal(new int[] {
             2,
             0,
             0,
             0});
             this.N.Name = "N";
-            this.N.Size = new System.Drawing.Size(36, 20);
+            this.N.Size = new System.Drawing.Size(48, 20);
             this.N.TabIndex = 2;
             this.N.Value = new decimal(new int[] {
             4,
@@ -246,7 +246,7 @@
             this.isHidden.Checked = true;
             this.isHidden.CheckState = System.Windows.Forms.CheckState.Checked;
             this.isHidden.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.isHidden.Location = new System.Drawing.Point(326, 10);
+            this.isHidden.Location = new System.Drawing.Point(317, 10);
             this.isHidden.Name = "isHidden";
             this.isHidden.Size = new System.Drawing.Size(93, 17);
             this.isHidden.TabIndex = 4;
@@ -271,24 +271,24 @@
             this.comboBoxBurse.Text = "No data ..";
             this.comboBoxBurse.SelectedIndexChanged += new System.EventHandler(this.comboBoxBurse_SelectedIndexChanged);
             // 
-            // persent
+            // persentMin
             // 
-            this.persent.DecimalPlaces = 1;
-            this.persent.Increment = new decimal(new int[] {
+            this.persentMin.DecimalPlaces = 1;
+            this.persentMin.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.persent.Location = new System.Drawing.Point(347, 60);
-            this.persent.Name = "persent";
-            this.persent.Size = new System.Drawing.Size(36, 20);
-            this.persent.TabIndex = 6;
-            this.persent.Value = new decimal(new int[] {
-            2,
+            this.persentMin.Location = new System.Drawing.Point(338, 60);
+            this.persentMin.Name = "persentMin";
+            this.persentMin.Size = new System.Drawing.Size(48, 20);
+            this.persentMin.TabIndex = 6;
+            this.persentMin.Value = new decimal(new int[] {
+            1,
             0,
             0,
             0});
-            this.persent.ValueChanged += new System.EventHandler(this.persent_ValueChanged);
+            this.persentMin.ValueChanged += new System.EventHandler(this.persent_ValueChanged);
             // 
             // comboBoxBurse1
             // 
@@ -298,81 +298,80 @@
             this.comboBoxBurse1.Size = new System.Drawing.Size(135, 21);
             this.comboBoxBurse1.TabIndex = 5;
             this.comboBoxBurse1.Text = "No data ..";
-            this.comboBoxBurse1.SelectedIndexChanged += new System.EventHandler(this.comboBoxBurse1_SelectedIndexChanged);
             // 
-            // numericUpDown1
+            // persentMax
             // 
-            this.numericUpDown1.DecimalPlaces = 1;
-            this.numericUpDown1.Increment = new decimal(new int[] {
+            this.persentMax.DecimalPlaces = 1;
+            this.persentMax.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numericUpDown1.Location = new System.Drawing.Point(347, 33);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(36, 20);
-            this.numericUpDown1.TabIndex = 6;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.persentMax.Location = new System.Drawing.Point(338, 33);
+            this.persentMax.Name = "persentMax";
+            this.persentMax.Size = new System.Drawing.Size(48, 20);
+            this.persentMax.TabIndex = 6;
+            this.persentMax.Value = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.persent_ValueChanged);
+            this.persentMax.ValueChanged += new System.EventHandler(this.persent_ValueChanged);
             // 
-            // P2
+            // max
             // 
-            this.P2.AutoSize = true;
-            this.P2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.P2.Location = new System.Drawing.Point(326, 36);
-            this.P2.Name = "P2";
-            this.P2.Size = new System.Drawing.Size(15, 14);
-            this.P2.TabIndex = 7;
-            this.P2.UseVisualStyleBackColor = true;
-            this.P2.CheckedChanged += new System.EventHandler(this.P2_CheckedChanged);
+            this.max.AutoSize = true;
+            this.max.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.max.Location = new System.Drawing.Point(317, 36);
+            this.max.Name = "max";
+            this.max.Size = new System.Drawing.Size(15, 14);
+            this.max.TabIndex = 7;
+            this.max.UseVisualStyleBackColor = true;
+            this.max.CheckedChanged += new System.EventHandler(this.P2_CheckedChanged);
             // 
-            // checkBox1
+            // min
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox1.Location = new System.Drawing.Point(326, 62);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.P2_CheckedChanged);
+            this.min.AutoSize = true;
+            this.min.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.min.Location = new System.Drawing.Point(317, 62);
+            this.min.Name = "min";
+            this.min.Size = new System.Drawing.Size(15, 14);
+            this.min.TabIndex = 7;
+            this.min.UseVisualStyleBackColor = true;
+            this.min.CheckedChanged += new System.EventHandler(this.P2_CheckedChanged);
             // 
-            // label1
+            // label_frequency
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(389, 88);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 15);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Frequency";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label_frequency.AutoSize = true;
+            this.label_frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_frequency.Location = new System.Drawing.Point(392, 88);
+            this.label_frequency.Name = "label_frequency";
+            this.label_frequency.Size = new System.Drawing.Size(73, 15);
+            this.label_frequency.TabIndex = 9;
+            this.label_frequency.Text = "Frequency";
+            this.label_frequency.Click += new System.EventHandler(this.label1_Click);
             // 
-            // label2
+            // label_max
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(389, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 15);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Maximum";
-            this.label2.Click += new System.EventHandler(this.label1_Click);
+            this.label_max.AutoSize = true;
+            this.label_max.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_max.Location = new System.Drawing.Point(392, 36);
+            this.label_max.Name = "label_max";
+            this.label_max.Size = new System.Drawing.Size(70, 15);
+            this.label_max.TabIndex = 9;
+            this.label_max.Text = "Maximum";
+            this.label_max.Click += new System.EventHandler(this.label1_Click);
             // 
-            // label3
+            // label_min
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(389, 62);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 15);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Minumum";
-            this.label3.Click += new System.EventHandler(this.label1_Click);
+            this.label_min.AutoSize = true;
+            this.label_min.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_min.Location = new System.Drawing.Point(392, 62);
+            this.label_min.Name = "label_min";
+            this.label_min.Size = new System.Drawing.Size(71, 15);
+            this.label_min.TabIndex = 9;
+            this.label_min.Text = "Minumum";
+            this.label_min.Click += new System.EventHandler(this.label1_Click);
             // 
             // Vform
             // 
@@ -381,13 +380,13 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.butStop;
             this.ClientSize = new System.Drawing.Size(484, 242);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.P2);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.persent);
+            this.Controls.Add(this.label_min);
+            this.Controls.Add(this.label_max);
+            this.Controls.Add(this.label_frequency);
+            this.Controls.Add(this.min);
+            this.Controls.Add(this.max);
+            this.Controls.Add(this.persentMax);
+            this.Controls.Add(this.persentMin);
             this.Controls.Add(this.comboBoxBurse1);
             this.Controls.Add(this.comboBoxBurse);
             this.Controls.Add(this.isHidden);
@@ -410,12 +409,12 @@
             this.Name = "Vform";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "SimpleParser  0.1";
+            this.Text = "SimpleParser  0.2";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Vform_Load);
             ((System.ComponentModel.ISupportInitialize)(this.N)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.persent)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.persentMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.persentMax)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -440,14 +439,14 @@
         private System.Windows.Forms.CheckBox isHidden;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ComboBox comboBoxBurse;
-        private System.Windows.Forms.NumericUpDown persent;
+        private System.Windows.Forms.NumericUpDown persentMin;
         private System.Windows.Forms.ComboBox comboBoxBurse1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.CheckBox P2;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown persentMax;
+        private System.Windows.Forms.CheckBox max;
+        private System.Windows.Forms.CheckBox min;
+        private System.Windows.Forms.Label label_frequency;
+        private System.Windows.Forms.Label label_max;
+        private System.Windows.Forms.Label label_min;
     }
 }
 
