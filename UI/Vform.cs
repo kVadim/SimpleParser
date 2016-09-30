@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Net.Mail;
@@ -17,9 +16,10 @@ namespace SimpleParser01
     public partial class Vform : Form
     {
         public static IWebDriver driver;
-        int counter = 1000;
         Dictionary<string, string> comboSource = new Dictionary<string, string>();
-      
+        int flag = 0;
+        int delay = 0;
+        int timespan = 60;
         
         public Vform()
         {
@@ -45,7 +45,7 @@ namespace SimpleParser01
         void butRun_Click(object sender, EventArgs e)
         {            
             # region Contorl_behavior_before
-
+            URL.Text = "https://bitcoinwisdom.com/";
             N.Enabled = false; 
             URL.ReadOnly = true; 
             butRun.Enabled = false; 
@@ -61,6 +61,8 @@ namespace SimpleParser01
             label_frequency.Enabled = false;
             min.Enabled = false;
             max.Enabled = false;
+            flag = 0;
+            delay = (int)N.Value;
             # endregion
            
             if (!backgroundWorker1.IsBusy) { backgroundWorker1.RunWorkerAsync(); }         
@@ -115,32 +117,55 @@ namespace SimpleParser01
 
            }
 
+        public void ShowErrorInURL(string message) { URL.Text = message; URL.BackColor = Color.Red; URL.ForeColor = Color.White; }
+
         public void CheckDifference()
            {
-               Dictionary<int, string> dictionary =   new Dictionary<int, string>();
-               dictionary.Add(0, BitstampValue.Text);
-               dictionary.Add(1, BTCvalue.Text);
-               dictionary.Add(2, BitfinexValue.Text);
-               dictionary.Add(3, HuobiValue.Text);
-
-               double OperandOne = double.Parse(dictionary[comboBoxBurse.SelectedIndex], CultureInfo.InvariantCulture);
-               double OperandTwo = double.Parse(dictionary[comboBoxBurse1.SelectedIndex], CultureInfo.InvariantCulture); 
-               double per = (double)persentMin.Value;
-               double CurrentPercent = ((OperandOne - OperandTwo) * 100) / OperandOne;
-            
-               URL.BackColor = Color.LightGray;
-               URL.ForeColor = Color.Black;
-
-               if ( CurrentPercent > per )
+               if (comboBoxBurse.SelectedIndex == comboBoxBurse1.SelectedIndex) { ShowErrorInURL("Warning:   Monitoring has stopped. Reason - pairs are not defined"); }
+               else
                {
-                   URL.BackColor = Color.Green;
-                   URL.ForeColor = Color.White;
+                   URL.BackColor = Color.LightGray;
+                   URL.ForeColor = Color.Black;
+
+                   Dictionary<int, string> dictionary = new Dictionary<int, string>();
+                   dictionary.Add(0, BitstampValue.Text);
+                   dictionary.Add(1, BTCvalue.Text);
+                   dictionary.Add(2, BitfinexValue.Text);
+                   dictionary.Add(3, HuobiValue.Text);
+
+                   double OperandOne = double.Parse(dictionary[comboBoxBurse.SelectedIndex], CultureInfo.InvariantCulture);
+                   double OperandTwo = double.Parse(dictionary[comboBoxBurse1.SelectedIndex], CultureInfo.InvariantCulture);
+
+                   string FirstB = comboBoxBurse.SelectedItem.ToString();
+                   string SecondB = comboBoxBurse1.SelectedItem.ToString();
+                   string SecondBa = comboBoxBurse1.SelectedItem.ToString();
+                   string SecondBc = comboBoxBurse1.ToString();
+                   
+                   double permin = (double)persentMin.Value;
+                   double permax = (double)persentMax.Value;
+
+                   double CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
+                   string actualPercent = Math.Round( CurrentPercent, 3).ToString();
+
+                   timespan = 60;
+
+                   if (CurrentPercent > permax)
+                   {
+                       URL.BackColor = Color.Green;
+                       URL.ForeColor = Color.White;
+                       URL.Refresh();
+                       flag++;
+                       if (flag * delay > timespan)
+                       { 
+                           timespan = timespan * 3;
+                           SendMessage(actualPercent, permax.ToString(), "", ""); 
+                       }
+
+                   }
+
+                   URL.Text = "Current difference:  " + actualPercent + " %" + "   FLAG: " + flag.ToString() + "  " + FirstB + "  " + SecondB + "  " + SecondBa + "  " + SecondBc;
                    URL.Refresh();
                }
-
-             //  URL.Text = "https://bitcoinwisdom.com   " + CurrentPercent.ToString().Substring(0, 5);
-               URL.Refresh();
-              
            }
         void butBrowse_Click(object sender, EventArgs e)
         {
@@ -153,35 +178,20 @@ namespace SimpleParser01
             smtpClient.Send(objMail);
         }
 
-        private void Vform_Load(object sender, EventArgs e)
+        public void SendMessage(string CurrentPercent, string permax, string B1, string B2)
         {
-
+            MailMessage objMail = new MailMessage("ParserForKlim@gmail.com", "ParserForKlim@gmail.com", "Check", "This is a test fo.");
+            NetworkCredential objNC = new NetworkCredential("ParserForKlim@gmail.com", "evenuglygirlsarepretty");
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+            smtpClient.Port = 587;
+            smtpClient.EnableSsl = true;
+            smtpClient.Credentials = objNC;
+            smtpClient.Send(objMail);
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
+      
 
-        }
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown1_ValueChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void butStop_Click(object sender, EventArgs e)
-        {
-            if (backgroundWorker1.IsBusy) { backgroundWorker1.CancelAsync(); }
-        }
-
-        private void countNum_Click(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -199,15 +209,18 @@ namespace SimpleParser01
                 driver = new ChromeDriver(chromeDriverService, new ChromeOptions());
             }
 
-            driver.Navigate().GoToUrl("https://bitcoinwisdom.com/");
+           // try
+            //{
+                driver.Navigate().GoToUrl("https://bitcoinwisdom.com/");
+           // }
+           // catch { ShowErrorInURL("Error: Failed to open site bitcoinwisdom.com. Please check internet connection"); }
+
             driver.Manage().Window.Maximize();
             #endregion
-
-
-
-            int delay = (int)N.Value;
-                    
-            for (int i = 0; i < counter; i++)
+           
+            int i = 1;
+       
+            while(true)
             {
                 backgroundWorker1.ReportProgress(i);
                 Thread.Sleep(delay * 1000);
@@ -215,27 +228,34 @@ namespace SimpleParser01
                 if (backgroundWorker1.CancellationPending) 
                 {
                     e.Cancel = true;
-                    backgroundWorker1.ReportProgress(0);
+                    backgroundWorker1.ReportProgress(0);                   
                     return;
                 }
+                i++;
             }
-
-            driver.Quit();
-       
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             int i = e.ProgressPercentage;          
             ReadData();
-            CheckDifference();
-            butRun.Text = (counter - 1 - i).ToString();
+            if(max.Checked || min.Checked){ CheckDifference();}
+            butRun.Text = i.ToString();
             butRun.Refresh();
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             driver.Quit();
+
+            //try
+            //{
+            //    Runtime.getRuntime().exec("taskkill /F /IM IEDriverServer.exe");
+            //}
+            //catch (IOException e)
+            //{
+            //    e.printStackTrace();
+            //}
            
             # region Contorl_behavior_after
 
@@ -258,8 +278,13 @@ namespace SimpleParser01
             min.Enabled = true;
             max.Enabled = true;
             # endregion
+
+           
         }
 
+
+
+        #region Useless_methods
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -294,23 +319,38 @@ namespace SimpleParser01
         {
 
         }
-    }
-
-
-    public static class Utils
-    {
-        public static string ParseHuobi(this string houbisting, char ch)
+        private void countNum_Click(object sender, EventArgs e)
         {
-            if (houbisting.Contains(ch))
-            {
-                houbisting = houbisting.Substring(0, 6);
-            }
-            else
-            {
-                double result = double.Parse(houbisting, CultureInfo.InvariantCulture)/6.67;           
-                houbisting = "** " + result.ToString().Substring(0, 6) + " **";
-            }
-            return houbisting;
+
         }
+
+        private void Vform_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butStop_Click(object sender, EventArgs e)
+        {
+            if (backgroundWorker1.IsBusy) { backgroundWorker1.CancelAsync(); }
+        }
+        #endregion
+
     }
+
+
 }

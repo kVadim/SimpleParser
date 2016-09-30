@@ -129,6 +129,11 @@
             this.N.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.N.InterceptArrowKeys = false;
             this.N.Location = new System.Drawing.Point(338, 87);
+            this.N.Maximum = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
             this.N.Minimum = new decimal(new int[] {
             2,
             0,
@@ -280,6 +285,11 @@
             0,
             65536});
             this.persentMin.Location = new System.Drawing.Point(338, 60);
+            this.persentMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.persentMin.Name = "persentMin";
             this.persentMin.Size = new System.Drawing.Size(48, 20);
             this.persentMin.TabIndex = 6;
@@ -308,6 +318,11 @@
             0,
             65536});
             this.persentMax.Location = new System.Drawing.Point(338, 33);
+            this.persentMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.persentMax.Name = "persentMax";
             this.persentMax.Size = new System.Drawing.Size(48, 20);
             this.persentMax.TabIndex = 6;
@@ -321,6 +336,8 @@
             // max
             // 
             this.max.AutoSize = true;
+            this.max.Checked = true;
+            this.max.CheckState = System.Windows.Forms.CheckState.Checked;
             this.max.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.max.Location = new System.Drawing.Point(317, 36);
             this.max.Name = "max";
@@ -332,6 +349,8 @@
             // min
             // 
             this.min.AutoSize = true;
+            this.min.Checked = true;
+            this.min.CheckState = System.Windows.Forms.CheckState.Checked;
             this.min.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.min.Location = new System.Drawing.Point(317, 62);
             this.min.Name = "min";
