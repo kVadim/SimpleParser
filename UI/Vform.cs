@@ -133,7 +133,7 @@ namespace SimpleParser01
                    URL.Refresh();
                }
 
-               URL.Text = "https://bitcoinwisdom.com                                                       " + CurrentPercent.ToString().Substring(0, 5);
+             //  URL.Text = "https://bitcoinwisdom.com   " + CurrentPercent.ToString().Substring(0, 5);
                URL.Refresh();
               
            }
@@ -250,6 +250,16 @@ namespace SimpleParser01
         }
 
         private void butRefresh_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void persent_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void P2_CheckedChanged(object sender, EventArgs e)
         {
 
         }
