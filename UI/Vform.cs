@@ -263,6 +263,21 @@ namespace SimpleParser01
         {
 
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxBurse1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxBurse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

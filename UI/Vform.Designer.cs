@@ -47,11 +47,12 @@
             this.comboBoxBurse = new System.Windows.Forms.ComboBox();
             this.persent = new System.Windows.Forms.NumericUpDown();
             this.comboBoxBurse1 = new System.Windows.Forms.ComboBox();
-            this.P2_label = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.P2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.N)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.persent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -64,9 +65,9 @@
             this.butRun.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.butRun.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.butRun.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.butRun.Location = new System.Drawing.Point(12, 12);
+            this.butRun.Location = new System.Drawing.Point(11, 10);
             this.butRun.Name = "butRun";
-            this.butRun.Size = new System.Drawing.Size(100, 24);
+            this.butRun.Size = new System.Drawing.Size(90, 24);
             this.butRun.TabIndex = 0;
             this.butRun.Text = "Run";
             this.butRun.UseVisualStyleBackColor = true;
@@ -78,9 +79,9 @@
             this.butStop.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.butStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.butStop.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.butStop.Location = new System.Drawing.Point(120, 12);
+            this.butStop.Location = new System.Drawing.Point(107, 10);
             this.butStop.Name = "butStop";
-            this.butStop.Size = new System.Drawing.Size(100, 24);
+            this.butStop.Size = new System.Drawing.Size(90, 24);
             this.butStop.TabIndex = 0;
             this.butStop.Text = "Stop";
             this.butStop.UseVisualStyleBackColor = true;
@@ -91,9 +92,9 @@
             this.butBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butBrowse.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.butBrowse.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.butBrowse.Location = new System.Drawing.Point(229, 12);
+            this.butBrowse.Location = new System.Drawing.Point(203, 10);
             this.butBrowse.Name = "butBrowse";
-            this.butBrowse.Size = new System.Drawing.Size(100, 24);
+            this.butBrowse.Size = new System.Drawing.Size(90, 24);
             this.butBrowse.TabIndex = 0;
             this.butBrowse.Text = "Report";
             this.butBrowse.UseVisualStyleBackColor = true;
@@ -117,23 +118,24 @@
             // 
             this.URL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.URL.Location = new System.Drawing.Point(120, 47);
+            this.URL.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.URL.Location = new System.Drawing.Point(11, 117);
             this.URL.Name = "URL";
-            this.URL.Size = new System.Drawing.Size(209, 20);
+            this.URL.Size = new System.Drawing.Size(461, 20);
             this.URL.TabIndex = 1;
             // 
             // N
             // 
             this.N.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.N.InterceptArrowKeys = false;
-            this.N.Location = new System.Drawing.Point(353, 80);
+            this.N.Location = new System.Drawing.Point(347, 86);
             this.N.Minimum = new decimal(new int[] {
             2,
             0,
             0,
             0});
             this.N.Name = "N";
-            this.N.Size = new System.Drawing.Size(42, 20);
+            this.N.Size = new System.Drawing.Size(36, 20);
             this.N.TabIndex = 2;
             this.N.Value = new decimal(new int[] {
             4,
@@ -243,9 +245,10 @@
             this.isHidden.AutoSize = true;
             this.isHidden.Checked = true;
             this.isHidden.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.isHidden.Location = new System.Drawing.Point(15, 49);
+            this.isHidden.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.isHidden.Location = new System.Drawing.Point(326, 10);
             this.isHidden.Name = "isHidden";
-            this.isHidden.Size = new System.Drawing.Size(83, 17);
+            this.isHidden.Size = new System.Drawing.Size(93, 17);
             this.isHidden.TabIndex = 4;
             this.isHidden.Text = "Hidden Run";
             this.isHidden.UseVisualStyleBackColor = true;
@@ -261,11 +264,12 @@
             // comboBoxBurse
             // 
             this.comboBoxBurse.FormattingEnabled = true;
-            this.comboBoxBurse.Location = new System.Drawing.Point(11, 80);
+            this.comboBoxBurse.Location = new System.Drawing.Point(12, 50);
             this.comboBoxBurse.Name = "comboBoxBurse";
-            this.comboBoxBurse.Size = new System.Drawing.Size(155, 21);
+            this.comboBoxBurse.Size = new System.Drawing.Size(135, 21);
             this.comboBoxBurse.TabIndex = 5;
             this.comboBoxBurse.Text = "No data ..";
+            this.comboBoxBurse.SelectedIndexChanged += new System.EventHandler(this.comboBoxBurse_SelectedIndexChanged);
             // 
             // persent
             // 
@@ -275,9 +279,9 @@
             0,
             0,
             65536});
-            this.persent.Location = new System.Drawing.Point(353, 12);
+            this.persent.Location = new System.Drawing.Point(347, 60);
             this.persent.Name = "persent";
-            this.persent.Size = new System.Drawing.Size(42, 20);
+            this.persent.Size = new System.Drawing.Size(36, 20);
             this.persent.TabIndex = 6;
             this.persent.Value = new decimal(new int[] {
             2,
@@ -289,23 +293,12 @@
             // comboBoxBurse1
             // 
             this.comboBoxBurse1.FormattingEnabled = true;
-            this.comboBoxBurse1.Location = new System.Drawing.Point(174, 80);
+            this.comboBoxBurse1.Location = new System.Drawing.Point(158, 50);
             this.comboBoxBurse1.Name = "comboBoxBurse1";
-            this.comboBoxBurse1.Size = new System.Drawing.Size(155, 21);
+            this.comboBoxBurse1.Size = new System.Drawing.Size(135, 21);
             this.comboBoxBurse1.TabIndex = 5;
             this.comboBoxBurse1.Text = "No data ..";
-            // 
-            // P2_label
-            // 
-            this.P2_label.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.P2_label.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.P2_label.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.P2_label.Location = new System.Drawing.Point(12, 115);
-            this.P2_label.Name = "P2_label";
-            this.P2_label.Size = new System.Drawing.Size(460, 19);
-            this.P2_label.TabIndex = 8;
-            this.P2_label.Text = "-";
-            this.P2_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.comboBoxBurse1.SelectedIndexChanged += new System.EventHandler(this.comboBoxBurse1_SelectedIndexChanged);
             // 
             // numericUpDown1
             // 
@@ -315,9 +308,9 @@
             0,
             0,
             65536});
-            this.numericUpDown1.Location = new System.Drawing.Point(353, 38);
+            this.numericUpDown1.Location = new System.Drawing.Point(347, 33);
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(42, 20);
+            this.numericUpDown1.Size = new System.Drawing.Size(36, 20);
             this.numericUpDown1.TabIndex = 6;
             this.numericUpDown1.Value = new decimal(new int[] {
             2,
@@ -330,11 +323,10 @@
             // 
             this.P2.AutoSize = true;
             this.P2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.P2.Location = new System.Drawing.Point(401, 15);
+            this.P2.Location = new System.Drawing.Point(326, 36);
             this.P2.Name = "P2";
-            this.P2.Size = new System.Drawing.Size(49, 17);
+            this.P2.Size = new System.Drawing.Size(15, 14);
             this.P2.TabIndex = 7;
-            this.P2.Text = "Max";
             this.P2.UseVisualStyleBackColor = true;
             this.P2.CheckedChanged += new System.EventHandler(this.P2_CheckedChanged);
             // 
@@ -342,23 +334,45 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox1.Location = new System.Drawing.Point(401, 41);
+            this.checkBox1.Location = new System.Drawing.Point(326, 62);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(46, 17);
+            this.checkBox1.Size = new System.Drawing.Size(15, 14);
             this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "Min";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.P2_CheckedChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(401, 83);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(389, 88);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.Size = new System.Drawing.Size(73, 15);
             this.label1.TabIndex = 9;
-            this.label1.Text = "Seconds";
+            this.label1.Text = "Frequency";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(389, 36);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 15);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Maximum";
+            this.label2.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(389, 62);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 15);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Minumum";
+            this.label3.Click += new System.EventHandler(this.label1_Click);
             // 
             // Vform
             // 
@@ -367,8 +381,9 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.butStop;
             this.ClientSize = new System.Drawing.Size(484, 242);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.P2_label);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.P2);
             this.Controls.Add(this.numericUpDown1);
@@ -427,11 +442,12 @@
         private System.Windows.Forms.ComboBox comboBoxBurse;
         private System.Windows.Forms.NumericUpDown persent;
         private System.Windows.Forms.ComboBox comboBoxBurse1;
-        private System.Windows.Forms.Label P2_label;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.CheckBox P2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 
