@@ -47,6 +47,8 @@
             this.comboBoxBurse = new System.Windows.Forms.ComboBox();
             this.persent = new System.Windows.Forms.NumericUpDown();
             this.comboBoxBurse1 = new System.Windows.Forms.ComboBox();
+            this.P2 = new System.Windows.Forms.CheckBox();
+            this.P2_label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.N)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.persent)).BeginInit();
             this.SuspendLayout();
@@ -100,7 +102,7 @@
             this.butRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.butRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.butRefresh.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.butRefresh.Location = new System.Drawing.Point(12, 192);
+            this.butRefresh.Location = new System.Drawing.Point(12, 224);
             this.butRefresh.Name = "butRefresh";
             this.butRefresh.Size = new System.Drawing.Size(460, 6);
             this.butRefresh.TabIndex = 0;
@@ -141,7 +143,7 @@
             this.Bitstamp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Bitstamp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Bitstamp.Location = new System.Drawing.Point(12, 110);
+            this.Bitstamp.Location = new System.Drawing.Point(12, 140);
             this.Bitstamp.Name = "Bitstamp";
             this.Bitstamp.Size = new System.Drawing.Size(106, 36);
             this.Bitstamp.TabIndex = 3;
@@ -153,7 +155,7 @@
             this.BTC.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BTC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BTC.Location = new System.Drawing.Point(130, 110);
+            this.BTC.Location = new System.Drawing.Point(130, 140);
             this.BTC.Name = "BTC";
             this.BTC.Size = new System.Drawing.Size(106, 36);
             this.BTC.TabIndex = 3;
@@ -165,7 +167,7 @@
             this.Bitfinex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Bitfinex.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Bitfinex.Location = new System.Drawing.Point(248, 110);
+            this.Bitfinex.Location = new System.Drawing.Point(248, 140);
             this.Bitfinex.Name = "Bitfinex";
             this.Bitfinex.Size = new System.Drawing.Size(106, 36);
             this.Bitfinex.TabIndex = 3;
@@ -177,7 +179,7 @@
             this.Huobi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Huobi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Huobi.Location = new System.Drawing.Point(366, 110);
+            this.Huobi.Location = new System.Drawing.Point(366, 140);
             this.Huobi.Name = "Huobi";
             this.Huobi.Size = new System.Drawing.Size(106, 36);
             this.Huobi.TabIndex = 3;
@@ -189,7 +191,7 @@
             this.BitstampValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BitstampValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BitstampValue.Location = new System.Drawing.Point(12, 146);
+            this.BitstampValue.Location = new System.Drawing.Point(12, 176);
             this.BitstampValue.Name = "BitstampValue";
             this.BitstampValue.Size = new System.Drawing.Size(106, 36);
             this.BitstampValue.TabIndex = 3;
@@ -201,7 +203,7 @@
             this.BTCvalue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BTCvalue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BTCvalue.Location = new System.Drawing.Point(130, 146);
+            this.BTCvalue.Location = new System.Drawing.Point(130, 176);
             this.BTCvalue.Name = "BTCvalue";
             this.BTCvalue.Size = new System.Drawing.Size(106, 36);
             this.BTCvalue.TabIndex = 3;
@@ -213,7 +215,7 @@
             this.BitfinexValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BitfinexValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BitfinexValue.Location = new System.Drawing.Point(248, 146);
+            this.BitfinexValue.Location = new System.Drawing.Point(248, 176);
             this.BitfinexValue.Name = "BitfinexValue";
             this.BitfinexValue.Size = new System.Drawing.Size(106, 36);
             this.BitfinexValue.TabIndex = 3;
@@ -225,7 +227,7 @@
             this.HuobiValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.HuobiValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.HuobiValue.Location = new System.Drawing.Point(366, 146);
+            this.HuobiValue.Location = new System.Drawing.Point(366, 176);
             this.HuobiValue.Name = "HuobiValue";
             this.HuobiValue.Size = new System.Drawing.Size(106, 36);
             this.HuobiValue.TabIndex = 3;
@@ -255,9 +257,9 @@
             // comboBoxBurse
             // 
             this.comboBoxBurse.FormattingEnabled = true;
-            this.comboBoxBurse.Location = new System.Drawing.Point(12, 72);
+            this.comboBoxBurse.Location = new System.Drawing.Point(40, 106);
             this.comboBoxBurse.Name = "comboBoxBurse";
-            this.comboBoxBurse.Size = new System.Drawing.Size(186, 21);
+            this.comboBoxBurse.Size = new System.Drawing.Size(160, 21);
             this.comboBoxBurse.TabIndex = 5;
             this.comboBoxBurse.Text = "No data ..";
             // 
@@ -282,11 +284,31 @@
             // comboBoxBurse1
             // 
             this.comboBoxBurse1.FormattingEnabled = true;
-            this.comboBoxBurse1.Location = new System.Drawing.Point(204, 72);
+            this.comboBoxBurse1.Location = new System.Drawing.Point(219, 106);
             this.comboBoxBurse1.Name = "comboBoxBurse1";
-            this.comboBoxBurse1.Size = new System.Drawing.Size(175, 21);
+            this.comboBoxBurse1.Size = new System.Drawing.Size(160, 21);
             this.comboBoxBurse1.TabIndex = 5;
             this.comboBoxBurse1.Text = "No data ..";
+            // 
+            // P2
+            // 
+            this.P2.AutoSize = true;
+            this.P2.Location = new System.Drawing.Point(15, 109);
+            this.P2.Name = "P2";
+            this.P2.Size = new System.Drawing.Size(15, 14);
+            this.P2.TabIndex = 7;
+            this.P2.UseVisualStyleBackColor = true;
+            // 
+            // P2_label
+            // 
+            this.P2_label.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.P2_label.Location = new System.Drawing.Point(394, 107);
+            this.P2_label.MinimumSize = new System.Drawing.Size(50, 20);
+            this.P2_label.Name = "P2_label";
+            this.P2_label.Size = new System.Drawing.Size(50, 20);
+            this.P2_label.TabIndex = 8;
+            this.P2_label.Text = "-";
+            this.P2_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Vform
             // 
@@ -294,7 +316,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.butStop;
-            this.ClientSize = new System.Drawing.Size(484, 212);
+            this.ClientSize = new System.Drawing.Size(484, 242);
+            this.Controls.Add(this.P2_label);
+            this.Controls.Add(this.P2);
             this.Controls.Add(this.persent);
             this.Controls.Add(this.comboBoxBurse1);
             this.Controls.Add(this.comboBoxBurse);
@@ -313,8 +337,8 @@
             this.Controls.Add(this.butBrowse);
             this.Controls.Add(this.butStop);
             this.Controls.Add(this.butRun);
-            this.MaximumSize = new System.Drawing.Size(500, 250);
-            this.MinimumSize = new System.Drawing.Size(500, 250);
+            this.MaximumSize = new System.Drawing.Size(500, 280);
+            this.MinimumSize = new System.Drawing.Size(500, 280);
             this.Name = "Vform";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -349,6 +373,8 @@
         private System.Windows.Forms.ComboBox comboBoxBurse;
         private System.Windows.Forms.NumericUpDown persent;
         private System.Windows.Forms.ComboBox comboBoxBurse1;
+        private System.Windows.Forms.CheckBox P2;
+        private System.Windows.Forms.Label P2_label;
     }
 }
 
