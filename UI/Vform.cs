@@ -4,19 +4,17 @@ using OpenQA.Selenium.PhantomJS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Mail;
 using System.Net;
-using System.Web;
-using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium.Support.Events;
 using System.Globalization;
+
+
+//Todo list
+//Countless iterations
 
 namespace SimpleParser01
 {
@@ -24,44 +22,37 @@ namespace SimpleParser01
     {
         public static IWebDriver driver;
         int counter = 1000;
-        Dictionary<string, string> comboSource = new Dictionary<string, string>();
       
-        
         public Vform()
         {
             InitializeComponent();
             URL.Text = "https://bitcoinwisdom.com/";
-            N.Value = 5;
             butRun.Select();
-           
-            comboSource.Add(Bitstamp.Text, BitstampValue.Text);
-            comboSource.Add(BTC.Text, BTCvalue.Text);
-            comboSource.Add(Bitfinex.Text, BitfinexValue.Text);
-            comboSource.Add(Huobi.Text, HuobiValue.Text);
-
-            comboBoxBurse1.DataSource = new BindingSource(comboSource, null); ;
-            comboBoxBurse1.DisplayMember = "Key";
-            comboBoxBurse1.ValueMember = "Value";
-
-            comboBoxBurse.DataSource = new BindingSource(comboSource, null); ;
-            comboBoxBurse.DisplayMember = "Key";
-            comboBoxBurse.ValueMember = "Value";
-            
         }
 
         void butRun_Click(object sender, EventArgs e)
         {            
             # region Contorl_behavior_before
-
-            N.Enabled = false; N.Refresh();
-            URL.ReadOnly = true; URL.Refresh();
-            butRun.Enabled = false; butRun.Refresh();
-            butBrowse.Enabled = false; butBrowse.Refresh();
-            butRefresh.Enabled = false; butRefresh.Refresh();
+            Sec.Enabled = false; 
+            URL.ReadOnly = true; 
+            butRun.Enabled = false; 
+            butBrowse.Enabled = false; 
             isHidden.Enabled = false;
-            comboBoxBurse.Enabled = false; comboBoxBurse.Refresh();
-            comboBoxBurse1.Enabled = false; comboBoxBurse1.Refresh();
-            persent.Enabled = false; persent.Refresh();
+            label_Sec.Enabled = false;
+            persentMin.Enabled = false;
+            persentMax.Enabled = false;
+            checkBoxMin.Enabled = false;
+            checkBoxMax.Enabled = false;
+            checkBox1.Enabled = false;
+            checkBox2.Enabled = false;
+            checkBox3.Enabled = false;
+            checkBox4.Enabled = false;
+            checkBox5.Enabled = false;
+            checkBox6.Enabled = false;
+            p1.Enabled = false;
+            p2.Enabled = false;
+            p3.Enabled = false;
+            p4.Enabled = false;
             # endregion
            
             if (!backgroundWorker1.IsBusy) { backgroundWorker1.RunWorkerAsync(); }         
@@ -116,30 +107,55 @@ namespace SimpleParser01
 
            }
 
+        public string CheckMin(double A, double B) { return "2.1"; }
+        public string CheckMax(double A, double B) { return "0.3"; }
+
         public void CheckDifference()
            {
-               Dictionary<int, string> dictionary =   new Dictionary<int, string>();
-               dictionary.Add(0, BitstampValue.Text);
-               dictionary.Add(1, BTCvalue.Text);
-               dictionary.Add(2, BitfinexValue.Text);
-               dictionary.Add(3, HuobiValue.Text);
+               double OperandOne; 
+               double OperandTwo;
+               double perMin = (double)persentMin.Value;
+               double perMax = (double)persentMax.Value;
 
-               double OperandOne = double.Parse(dictionary[comboBoxBurse.SelectedIndex], CultureInfo.InvariantCulture);
-               double OperandTwo = double.Parse(dictionary[comboBoxBurse1.SelectedIndex], CultureInfo.InvariantCulture); 
-               double per = (double)persent.Value;
-               double CurrentPercent = ((OperandOne - OperandTwo) * 100) / OperandOne;
+
+               if (checkBox1.Checked) 
+               {
+                   OperandOne = double.Parse(BitstampValue.Text, CultureInfo.InvariantCulture);
+                   OperandTwo = double.Parse(HuobiValue.Text, CultureInfo.InvariantCulture);
+                   p1.Text = CheckMin(OperandOne,OperandTwo) + "/" + CheckMax(OperandOne,OperandTwo);
+                   p1.Refresh();
+               }
+
+               if (checkBox2.Checked) { }
+               if (checkBox3.Checked) { }
+               if (checkBox4.Checked) { }
+               if (checkBox5.Checked) { }
+               if (checkBox6.Checked) { }
+
+
+
+               //Dictionary<int, string> dictionary =   new Dictionary<int, string>();
+               //dictionary.Add(0, BitstampValue.Text);
+               //dictionary.Add(1, BTCvalue.Text);
+               //dictionary.Add(2, BitfinexValue.Text);
+               //dictionary.Add(3, HuobiValue.Text);
+
+              //double OperandOne = double.Parse(dictionary[comboBoxBurse.SelectedIndex], CultureInfo.InvariantCulture);
+              // double OperandTwo = double.Parse(dictionary[comboBoxBurse1.SelectedIndex], CultureInfo.InvariantCulture); 
+              // double per = (double)persentMin.Value;
+             //  double CurrentPercent = ((OperandOne - OperandTwo) * 100) / OperandOne;
             
                URL.BackColor = Color.LightGray;
                URL.ForeColor = Color.Black;
 
-               if ( CurrentPercent > per )
-               {
-                   URL.BackColor = Color.Green;
-                   URL.ForeColor = Color.White;
-                   URL.Refresh();
-               }
+               //if ( CurrentPercent > per )
+               //{
+               //    URL.BackColor = Color.Green;
+               //    URL.ForeColor = Color.White;
+               //    URL.Refresh();
+               //}
 
-               URL.Text = "https://bitcoinwisdom.com                                                       " + CurrentPercent.ToString().Substring(0, 5);
+              // URL.Text = "https://bitcoinwisdom.com                                                       " + CurrentPercent.ToString().Substring(0, 5);
                URL.Refresh();
               
            }
@@ -186,6 +202,7 @@ namespace SimpleParser01
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
+            #region WebDriver Selection
             if (isHidden.Checked == true)
             {
                 var driverService = PhantomJSDriverService.CreateDefaultService();
@@ -201,8 +218,9 @@ namespace SimpleParser01
 
             driver.Navigate().GoToUrl("https://bitcoinwisdom.com/");
             driver.Manage().Window.Maximize();
+            #endregion
 
-            int delay = (int)N.Value;
+            int delay = (int)Sec.Value;
                     
             for (int i = 0; i < counter; i++)
             {
@@ -237,16 +255,16 @@ namespace SimpleParser01
             # region Contorl_behavior_after
             URL.BackColor = Color.LightGray;
             URL.ForeColor = Color.Black;
-            N.ReadOnly = false; 
+            Sec.ReadOnly = false; 
             URL.ReadOnly = false;                  
             butRun.Enabled = true;               
             butBrowse.Enabled = true;            
             butRun.Text = "Run";             
-            butRefresh.Enabled = true;  
+          //  butRefresh.Enabled = true;  
             isHidden.Enabled = true;  
-            comboBoxBurse.Enabled = true;  
-            comboBoxBurse1.Enabled = true; 
-            persent.Enabled = true; 
+        //    comboBoxBurse.Enabled = true;  
+        //    comboBoxBurse1.Enabled = true; 
+            persentMin.Enabled = true; 
             # endregion
         }
 
@@ -256,6 +274,31 @@ namespace SimpleParser01
         }
 
         private void butRefresh_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void persent_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Bitstamp_Click(object sender, EventArgs e)
         {
 
         }
