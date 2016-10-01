@@ -25,6 +25,7 @@ namespace SimpleParser01
         int timespan = 60;
         Process[] processes;
         bool exception;
+        
 
         
         public Vform()
@@ -46,6 +47,8 @@ namespace SimpleParser01
             comboBoxBurse.DataSource = new BindingSource(comboSource, null); ;
             comboBoxBurse.DisplayMember = "Key";
             comboBoxBurse.ValueMember = "Value";
+            comboBoxBurse.SelectedIndex = 1;
+
             
         }
 
@@ -164,7 +167,7 @@ namespace SimpleParser01
                    string B2 = comboBoxBurse1.SelectedItem.ToString();
                    string firstB = B1.Substring(1, B1.Length - 5);
                    string secondB = B2.Substring(1, B2.Length - 5);
-                   
+                
                    double permin = (double)persentMin.Value;
                    double permax = (double)persentMax.Value;
 
@@ -173,15 +176,20 @@ namespace SimpleParser01
                   
                    if (Math.Abs(CurrentPercent) > permax)
                    {
+                       DateTime dt_now = DateTime.Now;
                        URL.BackColor = Color.Green;
                        URL.ForeColor = Color.White;
                        URL.Refresh();
                        flag++;
-                       if (flag * delay > timespan)
-                       { 
-                           timespan = timespan * 3;
-                           SendMessage(actualPercent, permax.ToString(), firstB, secondB); 
-                       }
+
+                       string body = "  " + firstB + " - " + secondB+ " " + dt_now;
+                       string subject = CurrentPercent + " / " + permax;
+                       SendMessage(subject,body);
+                       //if (flag * delay > timespan)
+                       //{ 
+                       //    timespan = timespan * 3;
+                       //    SendMessage(actualPercent, permax.ToString(), firstB, secondB); 
+                       //}
                    }
                    if (!exception)
                    {
@@ -190,17 +198,14 @@ namespace SimpleParser01
                    }
                }
            }
-        void butBrowse_Click(object sender, EventArgs e)
+        //void butBrowse_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        public void SendMessage(string subject, string body)
         {
             
-        }
-
-        public void SendMessage(string CurrentPercent, string permax, string B1, string B2)
-        {
-            string body ="  " + B1 + " - " + B2;
-            string subject = CurrentPercent+" / "+permax;
-
-
             MailMessage objMail = new MailMessage("ParserForKlim@gmail.com", "ParserForKlim@gmail.com", subject, body);
             NetworkCredential objNC = new NetworkCredential("ParserForKlim@gmail.com", "evenuglygirlsarepretty");
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
@@ -429,6 +434,21 @@ namespace SimpleParser01
             notifyIcon1.Visible = false;
             WindowState = FormWindowState.Normal;
             this.Show();
+        }
+
+        private void butReport_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxBurse1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void isHidden_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
 
        
