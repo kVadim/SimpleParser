@@ -30,7 +30,7 @@
         {
             this.butRun = new System.Windows.Forms.Button();
             this.butStop = new System.Windows.Forms.Button();
-            this.butBrowse = new System.Windows.Forms.Button();
+            this.butReport = new System.Windows.Forms.Button();
             this.butRefresh = new System.Windows.Forms.Button();
             this.URL = new System.Windows.Forms.TextBox();
             this.N = new System.Windows.Forms.NumericUpDown();
@@ -88,19 +88,19 @@
             this.butStop.UseVisualStyleBackColor = true;
             this.butStop.Click += new System.EventHandler(this.butStop_Click);
             // 
-            // butBrowse
+            // butReport
             // 
-            this.butBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butBrowse.Enabled = false;
-            this.butBrowse.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.butBrowse.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.butBrowse.Location = new System.Drawing.Point(203, 10);
-            this.butBrowse.Name = "butBrowse";
-            this.butBrowse.Size = new System.Drawing.Size(90, 24);
-            this.butBrowse.TabIndex = 0;
-            this.butBrowse.Text = "Report";
-            this.butBrowse.UseVisualStyleBackColor = true;
-            this.butBrowse.Click += new System.EventHandler(this.butBrowse_Click);
+            this.butReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butReport.Enabled = false;
+            this.butReport.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.butReport.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.butReport.Location = new System.Drawing.Point(203, 10);
+            this.butReport.Name = "butReport";
+            this.butReport.Size = new System.Drawing.Size(90, 24);
+            this.butReport.TabIndex = 0;
+            this.butReport.Text = "Report";
+            this.butReport.UseVisualStyleBackColor = true;
+            this.butReport.Click += new System.EventHandler(this.butBrowse_Click);
             // 
             // butRefresh
             // 
@@ -422,7 +422,7 @@
             this.Controls.Add(this.N);
             this.Controls.Add(this.URL);
             this.Controls.Add(this.butRefresh);
-            this.Controls.Add(this.butBrowse);
+            this.Controls.Add(this.butReport);
             this.Controls.Add(this.butStop);
             this.Controls.Add(this.butRun);
             this.MaximumSize = new System.Drawing.Size(500, 280);
@@ -445,7 +445,7 @@
 
         private System.Windows.Forms.Button butRun;
         private System.Windows.Forms.Button butStop;
-        private System.Windows.Forms.Button butBrowse;
+        private System.Windows.Forms.Button butReport;
         private System.Windows.Forms.Button butRefresh;
         private System.Windows.Forms.TextBox URL;
         private System.Windows.Forms.NumericUpDown N;

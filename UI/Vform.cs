@@ -24,6 +24,7 @@ namespace SimpleParser01
         int delay = 0;
         int timespan = 60;
         Process[] processes;
+        bool excep;
 
         
         public Vform()
@@ -31,7 +32,6 @@ namespace SimpleParser01
             InitializeComponent();
             URL.Text = "https://bitcoinwisdom.com/";
             butRun.Select();
-           
             comboSource.Add(Bitstamp.Text, BitstampValue.Text);
             comboSource.Add(BTC.Text, BTCvalue.Text);
             comboSource.Add(Bitfinex.Text, BitfinexValue.Text);
@@ -40,6 +40,8 @@ namespace SimpleParser01
             comboBoxBurse1.DataSource = new BindingSource(comboSource, null); ;
             comboBoxBurse1.DisplayMember = "Key";
             comboBoxBurse1.ValueMember = "Value";
+            comboBoxBurse1.SelectedIndex = 3;
+
 
             comboBoxBurse.DataSource = new BindingSource(comboSource, null); ;
             comboBoxBurse.DisplayMember = "Key";
@@ -50,12 +52,15 @@ namespace SimpleParser01
         void butRun_Click(object sender, EventArgs e)
         {            
             # region Contorl_behavior_before
+            excep = false;
             URL.Text = "https://bitcoinwisdom.com/";
+            URL.BackColor = Color.LightGray;
+            URL.ForeColor = Color.Black;
             butStop.Enabled = true;
             N.Enabled = false; 
             URL.ReadOnly = true; 
             butRun.Enabled = false; 
-            butBrowse.Enabled = false; 
+            butReport.Enabled = false; 
             butRefresh.Enabled = false;
             isHidden.Enabled = false;
             comboBoxBurse.Enabled = false; 
@@ -71,20 +76,14 @@ namespace SimpleParser01
             delay = (int)N.Value;
             # endregion
             if (!backgroundWorker1.IsBusy)
-            {
-               try
-                {
-                    backgroundWorker1.RunWorkerAsync();
-                }
-               catch (NoSuchElementException ex) { URL.Text = ex.Message; URL.Refresh(); StopAfterError(); }
-               catch (Exception ex) { URL.Text = ex.Message; URL.Refresh(); StopAfterError(); };
-               
+            {               
+                    backgroundWorker1.RunWorkerAsync();                             
             }         
         }
 
         private void butStop_Click(object sender, EventArgs e)
         {
-            if (backgroundWorker1.IsBusy) { butStop.Enabled = false; backgroundWorker1.CancelAsync(); }
+            if (backgroundWorker1.IsBusy) { backgroundWorker1.CancelAsync(); }
         }
 
 
@@ -137,16 +136,21 @@ namespace SimpleParser01
 
            }
 
-        public void ShowErrorInURL(string message) { URL.Text = message; URL.BackColor = Color.Red; URL.ForeColor = Color.White; }
+        public void ShowErrorInURL(string message)
+        { URL.Text = message; URL.BackColor = Color.Red; URL.ForeColor = Color.White; URL.Refresh(); }
 
         public void CheckDifference()
            {
                if (comboBoxBurse.SelectedIndex == comboBoxBurse1.SelectedIndex) { ShowErrorInURL("Warning:   Monitoring has stopped. Reason - pairs are not defined"); }
                else
                {
-                   URL.BackColor = Color.LightGray;
-                   URL.ForeColor = Color.Black;
 
+                   if (!excep)
+                   {
+                       URL.BackColor = Color.LightGray;
+                       URL.ForeColor = Color.Black;
+                   }
+                  
                    Dictionary<int, string> dictionary = new Dictionary<int, string>();
                    dictionary.Add(0, BitstampValue.Text);
                    dictionary.Add(1, BTCvalue.Text);
@@ -179,9 +183,11 @@ namespace SimpleParser01
                            SendMessage(actualPercent, permax.ToString(), firstB, secondB); 
                        }
                    }
-
-                   URL.Text = "Current difference:  " + actualPercent + " %" + "   FLAG: " + flag.ToString();
-                   URL.Refresh();
+                   if (!excep)
+                   {
+                       URL.Text = "Current difference:  " + actualPercent + " %" + "   FLAG: " + flag.ToString();
+                       URL.Refresh();
+                   }
                }
            }
         void butBrowse_Click(object sender, EventArgs e)
@@ -211,9 +217,6 @@ namespace SimpleParser01
         }
 
       
-
-      
-
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             #region Driver_Initialization
@@ -231,20 +234,19 @@ namespace SimpleParser01
             }
 
            
-                driver.Navigate().GoToUrl("https://bittcoinwisdom.com/");
+                driver.Navigate().GoToUrl("https://bitcoinwisdom.com/");
 
             driver.Manage().Window.Maximize();
             #endregion
            
             int i = 1;
-       
-            while(true)
-            {
-                 try{ backgroundWorker1.ReportProgress(i);}
-                 catch (NoSuchElementException ex)
-                 { URL.Text = "Error: Failed to find elements - please check internet connection"; URL.Refresh(); StopAfterError(); break; }
-                 catch (Exception ex) { URL.Text = ex.Message; URL.Refresh(); StopAfterError(); break; }
 
+            while (!excep)
+            {
+                
+
+                backgroundWorker1.ReportProgress(i);
+                 
                 Thread.Sleep(delay * 1000);
 
                 if (backgroundWorker1.CancellationPending) 
@@ -252,7 +254,7 @@ namespace SimpleParser01
                     e.Cancel = true;
                     backgroundWorker1.ReportProgress(0);                   
                     return;
-                }
+                }                
                 i++;
             }
         }
@@ -265,7 +267,11 @@ namespace SimpleParser01
             {
                 ReadData();
             }
-           catch (Exception ex) { throw ex; }
+           catch (Exception ex)
+            {
+               excep = true;
+               ShowErrorInURL("Error: Failed to find elements - please check internet connection");            
+           }
 
             
             if(max.Checked || min.Checked){ CheckDifference();}
@@ -276,25 +282,20 @@ namespace SimpleParser01
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             driver.Quit();
-            RemovePhantomjsProcesses();
-            //try
-            //{
-            //    Runtime.getRuntime().exec("taskkill /F /IM IEDriverServer.exe");
-            //}
-            //catch (IOException e)
-            //{
-            //    e.printStackTrace();
-            //}
+            RemovePhantomjsProcesses();          
 
             # region Contorl_behavior_after
-
-            URL.BackColor = Color.LightGray;
-            URL.ForeColor = Color.Black;
+            butStop.Enabled = false;
+            if (!excep)
+            {
+                URL.BackColor = Color.LightGray;
+                URL.ForeColor = Color.Black;
+            }
             butRun.Text = "Run"; 
             N.Enabled = true;
             URL.ReadOnly = false;
             butRun.Enabled = true;
-            butBrowse.Enabled = true;
+            butReport.Enabled = true;
             butRefresh.Enabled = true;
             isHidden.Enabled = true;
             comboBoxBurse.Enabled = true;
@@ -314,14 +315,21 @@ namespace SimpleParser01
         {
             driver.Quit();
             RemovePhantomjsProcesses();
-
+            //try
+            //{
+            //    Runtime.getRuntime().exec("taskkill /F /IM IEDriverServer.exe");
+            //}
+            //catch (IOException e)
+            //{
+            //    e.printStackTrace();
+            //}
             # region Contorl_behavior_after
 
             butRun.Text = "Run";
             N.Enabled = true;
             URL.ReadOnly = false;
             butRun.Enabled = true;
-            butBrowse.Enabled = true;
+            butReport.Enabled = true;
             butRefresh.Enabled = true;
             isHidden.Enabled = true;
             comboBoxBurse.Enabled = true;
@@ -336,10 +344,13 @@ namespace SimpleParser01
             # endregion
 
         }
+
+
         public void RemovePhantomjsProcesses()
         {
+           Thread.Sleep(1000);
            processes = Process.GetProcessesByName("phantomjs");
-           foreach (Process p in processes) { p.Kill(); }
+           if (processes.Length > 0) { foreach (Process p in processes) { p.Kill(); } }
         }
 
         #region Useless_methods
