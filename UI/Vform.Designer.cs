@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Vform));
             this.butRun = new System.Windows.Forms.Button();
             this.butStop = new System.Windows.Forms.Button();
             this.butReport = new System.Windows.Forms.Button();
@@ -53,6 +55,7 @@
             this.label_frequency = new System.Windows.Forms.Label();
             this.label_max = new System.Windows.Forms.Label();
             this.label_min = new System.Windows.Forms.Label();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.N)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.persentMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.persentMax)).BeginInit();
@@ -105,7 +108,6 @@
             // butRefresh
             // 
             this.butRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butRefresh.Enabled = false;
             this.butRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.butRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.butRefresh.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
@@ -394,6 +396,13 @@
             this.label_min.Text = "Minumum";
             this.label_min.Click += new System.EventHandler(this.label1_Click);
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            // 
             // Vform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -433,6 +442,7 @@
             this.Text = "SimpleParser  0.2";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Vform_Load);
+            this.Resize += new System.EventHandler(this.butRefresh_Click);
             ((System.ComponentModel.ISupportInitialize)(this.N)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.persentMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.persentMax)).EndInit();
@@ -468,6 +478,7 @@
         private System.Windows.Forms.Label label_frequency;
         private System.Windows.Forms.Label label_max;
         private System.Windows.Forms.Label label_min;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 

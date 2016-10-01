@@ -192,13 +192,7 @@ namespace SimpleParser01
            }
         void butBrowse_Click(object sender, EventArgs e)
         {
-            //MailMessage objMail = new MailMessage("ParserForKlim@gmail.com", "ParserForKlim@gmail.com", "Check", "This is a test fo.");
-            //NetworkCredential objNC = new NetworkCredential("ParserForKlim@gmail.com", "evenuglygirlsarepretty");
-            //SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
-            //smtpClient.Port = 587;
-            //smtpClient.EnableSsl = true;
-            //smtpClient.Credentials = objNC;
-            //smtpClient.Send(objMail);
+            
         }
 
         public void SendMessage(string CurrentPercent, string permax, string B1, string B2)
@@ -353,16 +347,27 @@ namespace SimpleParser01
            if (processes.Length > 0) { foreach (Process p in processes) { p.Kill(); } }
         }
 
+        private void butRefresh_Click(object sender, EventArgs e)
+        {
+            if(WindowState==FormWindowState.Minimized)
+            {
+                this.Hide();
+                ShowIcon = false;
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(1000);
+            
+            }
+        }
+
+
+
         #region Useless_methods
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void butRefresh_Click(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void persent_ValueChanged(object sender, EventArgs e)
         {
@@ -395,7 +400,8 @@ namespace SimpleParser01
 
         private void Vform_Load(object sender, EventArgs e)
         {
-
+            notifyIcon1.BalloonTipTitle = "SimpleParser";
+            notifyIcon1.BalloonTipText = "Minimazed";
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -415,6 +421,17 @@ namespace SimpleParser01
 
 
         #endregion
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            ShowInTaskbar = true;
+            notifyIcon1.Visible = false;
+            WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+
+       
 
     }
 
