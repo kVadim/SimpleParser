@@ -2,7 +2,9 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.PhantomJS;
 using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
@@ -136,20 +138,18 @@ namespace SimpleParser01
                    double OperandOne = double.Parse(dictionary[comboBoxBurse.SelectedIndex], CultureInfo.InvariantCulture);
                    double OperandTwo = double.Parse(dictionary[comboBoxBurse1.SelectedIndex], CultureInfo.InvariantCulture);
 
-                   string FirstB = comboBoxBurse.SelectedItem.ToString();
-                   string SecondB = comboBoxBurse1.SelectedItem.ToString();
-                   string SecondBa = comboBoxBurse1.SelectedItem.ToString();
-                   string SecondBc = comboBoxBurse1.ToString();
+                   string B1 = comboBoxBurse.SelectedItem.ToString();
+                   string B2 = comboBoxBurse1.SelectedItem.ToString();
+                   string firstB = B1.Substring(1, B1.Length - 5);
+                   string secondB = B2.Substring(1, B2.Length - 5);
                    
                    double permin = (double)persentMin.Value;
                    double permax = (double)persentMax.Value;
 
                    double CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
                    string actualPercent = Math.Round( CurrentPercent, 3).ToString();
-
-                   timespan = 60;
-
-                   if (CurrentPercent > permax)
+                  
+                   if (Math.Abs(CurrentPercent) > permax)
                    {
                        URL.BackColor = Color.Green;
                        URL.ForeColor = Color.White;
@@ -158,12 +158,11 @@ namespace SimpleParser01
                        if (flag * delay > timespan)
                        { 
                            timespan = timespan * 3;
-                           SendMessage(actualPercent, permax.ToString(), "", ""); 
+                           SendMessage(actualPercent, permax.ToString(), firstB, secondB); 
                        }
-
                    }
 
-                   URL.Text = "Current difference:  " + actualPercent + " %" + "   FLAG: " + flag.ToString() + "  " + FirstB + "  " + SecondB + "  " + SecondBa + "  " + SecondBc;
+                   URL.Text = "Current difference:  " + actualPercent + " %" + "   FLAG: " + flag.ToString();
                    URL.Refresh();
                }
            }
@@ -180,7 +179,11 @@ namespace SimpleParser01
 
         public void SendMessage(string CurrentPercent, string permax, string B1, string B2)
         {
-            MailMessage objMail = new MailMessage("ParserForKlim@gmail.com", "ParserForKlim@gmail.com", "Check", "This is a test fo.");
+            string body ="  " + B1 + " - " + B2;
+            string subject = CurrentPercent+" / "+permax;
+
+
+            MailMessage objMail = new MailMessage("ParserForKlim@gmail.com", "ParserForKlim@gmail.com", subject, body);
             NetworkCredential objNC = new NetworkCredential("ParserForKlim@gmail.com", "evenuglygirlsarepretty");
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
             smtpClient.Port = 587;
