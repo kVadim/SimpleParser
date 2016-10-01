@@ -48,6 +48,7 @@ namespace SimpleParser01
         {            
             # region Contorl_behavior_before
             URL.Text = "https://bitcoinwisdom.com/";
+            butStop.Enabled = true;
             N.Enabled = false; 
             URL.ReadOnly = true; 
             butRun.Enabled = false; 
@@ -66,9 +67,24 @@ namespace SimpleParser01
             flag = 0;
             delay = (int)N.Value;
             # endregion
-           
-            if (!backgroundWorker1.IsBusy) { backgroundWorker1.RunWorkerAsync(); }         
+            if (!backgroundWorker1.IsBusy)
+            {
+                try
+                {
+                    backgroundWorker1.RunWorkerAsync();
+                }
+                catch (NoSuchElementException ex) { URL.Text = ex.Message; URL.Refresh(); backgroundWorker1.ReportProgress(0); }
+                catch (Exception ex) { URL.Text = ex.Message; URL.Refresh(); backgroundWorker1.ReportProgress(0); }
+                //finally {  }
+            }         
         }
+
+        private void butStop_Click(object sender, EventArgs e)
+        {
+            if (backgroundWorker1.IsBusy) { butStop.Enabled = false; backgroundWorker1.CancelAsync(); }
+
+        }
+
 
         public void ReadData()
         {
@@ -168,13 +184,13 @@ namespace SimpleParser01
            }
         void butBrowse_Click(object sender, EventArgs e)
         {
-            MailMessage objMail = new MailMessage("ParserForKlim@gmail.com", "ParserForKlim@gmail.com", "Check", "This is a test fo.");
-            NetworkCredential objNC = new NetworkCredential("ParserForKlim@gmail.com", "evenuglygirlsarepretty");
-            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
-            smtpClient.Port = 587;
-            smtpClient.EnableSsl = true;
-            smtpClient.Credentials = objNC;
-            smtpClient.Send(objMail);
+            //MailMessage objMail = new MailMessage("ParserForKlim@gmail.com", "ParserForKlim@gmail.com", "Check", "This is a test fo.");
+            //NetworkCredential objNC = new NetworkCredential("ParserForKlim@gmail.com", "evenuglygirlsarepretty");
+            //SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+            //smtpClient.Port = 587;
+            //smtpClient.EnableSsl = true;
+            //smtpClient.Credentials = objNC;
+            //smtpClient.Send(objMail);
         }
 
         public void SendMessage(string CurrentPercent, string permax, string B1, string B2)
@@ -212,11 +228,8 @@ namespace SimpleParser01
                 driver = new ChromeDriver(chromeDriverService, new ChromeOptions());
             }
 
-           // try
-            //{
+           
                 driver.Navigate().GoToUrl("https://bitcoinwisdom.com/");
-           // }
-           // catch { ShowErrorInURL("Error: Failed to open site bitcoinwisdom.com. Please check internet connection"); }
 
             driver.Manage().Window.Maximize();
             #endregion
@@ -240,8 +253,17 @@ namespace SimpleParser01
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            int i = e.ProgressPercentage;          
-            ReadData();
+            int i = e.ProgressPercentage;
+
+            try
+            {
+                ReadData();
+            }
+            catch (NoSuchElementException ex)
+            { URL.Text = "Error: Failed to find elements - please check internet connection"; URL.Refresh(); StopAfterError(); }
+            catch (Exception ex) { URL.Text = ex.Message; URL.Refresh(); backgroundWorker1.ReportProgress(0); }
+
+            
             if(max.Checked || min.Checked){ CheckDifference();}
             butRun.Text = i.ToString();
             butRun.Refresh();
@@ -281,8 +303,35 @@ namespace SimpleParser01
             min.Enabled = true;
             max.Enabled = true;
             # endregion
-
            
+        }
+
+        private void StopAfterError()
+        {
+            driver.Quit();
+
+            # region Contorl_behavior_after
+
+            //URL.BackColor = Color.LightGray;
+           // URL.ForeColor = Color.Black;
+            butRun.Text = "Run";
+            N.Enabled = true;
+            URL.ReadOnly = false;
+            butRun.Enabled = true;
+            butBrowse.Enabled = true;
+            butRefresh.Enabled = true;
+            isHidden.Enabled = true;
+            comboBoxBurse.Enabled = true;
+            comboBoxBurse1.Enabled = true;
+            persentMin.Enabled = true;
+            persentMax.Enabled = true;
+            label_min.Enabled = true;
+            label_max.Enabled = true;
+            label_frequency.Enabled = true;
+            min.Enabled = true;
+            max.Enabled = true;
+            # endregion
+
         }
 
 
@@ -347,10 +396,7 @@ namespace SimpleParser01
 
         }
 
-        private void butStop_Click(object sender, EventArgs e)
-        {
-            if (backgroundWorker1.IsBusy) { backgroundWorker1.CancelAsync(); }
-        }
+
         #endregion
 
     }

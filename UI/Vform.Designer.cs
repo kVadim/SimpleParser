@@ -76,6 +76,7 @@
             // butStop
             // 
             this.butStop.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.butStop.Enabled = false;
             this.butStop.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.butStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.butStop.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
@@ -90,6 +91,7 @@
             // butBrowse
             // 
             this.butBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butBrowse.Enabled = false;
             this.butBrowse.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.butBrowse.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.butBrowse.Location = new System.Drawing.Point(203, 10);
