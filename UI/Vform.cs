@@ -24,7 +24,7 @@ namespace SimpleParser01
         int delay = 0;
         int timespan = 60;
         Process[] processes;
-        bool excep;
+        bool exception;
 
         
         public Vform()
@@ -52,7 +52,7 @@ namespace SimpleParser01
         void butRun_Click(object sender, EventArgs e)
         {            
             # region Contorl_behavior_before
-            excep = false;
+            exception = false;
             URL.Text = "https://bitcoinwisdom.com/";
             URL.BackColor = Color.LightGray;
             URL.ForeColor = Color.Black;
@@ -145,7 +145,7 @@ namespace SimpleParser01
                else
                {
 
-                   if (!excep)
+                   if (!exception)
                    {
                        URL.BackColor = Color.LightGray;
                        URL.ForeColor = Color.Black;
@@ -183,7 +183,7 @@ namespace SimpleParser01
                            SendMessage(actualPercent, permax.ToString(), firstB, secondB); 
                        }
                    }
-                   if (!excep)
+                   if (!exception)
                    {
                        URL.Text = "Current difference:  " + actualPercent + " %" + "   FLAG: " + flag.ToString();
                        URL.Refresh();
@@ -241,7 +241,7 @@ namespace SimpleParser01
            
             int i = 1;
 
-            while (!excep)
+            while (!exception)
             {
                 
 
@@ -269,7 +269,7 @@ namespace SimpleParser01
             }
            catch (Exception ex)
             {
-               excep = true;
+               exception = true;
                ShowErrorInURL("Error: Failed to find elements - please check internet connection");            
            }
 
@@ -286,7 +286,7 @@ namespace SimpleParser01
 
             # region Contorl_behavior_after
             butStop.Enabled = false;
-            if (!excep)
+            if (!exception)
             {
                 URL.BackColor = Color.LightGray;
                 URL.ForeColor = Color.Black;
