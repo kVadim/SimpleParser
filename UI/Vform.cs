@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Net.Mail;
 using System.Net;
 using System.Globalization;
+using System.Diagnostics;
 
 namespace SimpleParser01
 {
@@ -22,6 +23,8 @@ namespace SimpleParser01
         int flag = 0;
         int delay = 0;
         int timespan = 60;
+        Process[] processes;
+
         
         public Vform()
         {
@@ -69,20 +72,19 @@ namespace SimpleParser01
             # endregion
             if (!backgroundWorker1.IsBusy)
             {
-                try
+               try
                 {
                     backgroundWorker1.RunWorkerAsync();
                 }
-                catch (NoSuchElementException ex) { URL.Text = ex.Message; URL.Refresh(); backgroundWorker1.ReportProgress(0); }
-                catch (Exception ex) { URL.Text = ex.Message; URL.Refresh(); backgroundWorker1.ReportProgress(0); }
-                //finally {  }
+               catch (NoSuchElementException ex) { URL.Text = ex.Message; URL.Refresh(); StopAfterError(); }
+               catch (Exception ex) { URL.Text = ex.Message; URL.Refresh(); StopAfterError(); };
+               
             }         
         }
 
         private void butStop_Click(object sender, EventArgs e)
         {
             if (backgroundWorker1.IsBusy) { butStop.Enabled = false; backgroundWorker1.CancelAsync(); }
-
         }
 
 
@@ -229,7 +231,7 @@ namespace SimpleParser01
             }
 
            
-                driver.Navigate().GoToUrl("https://bitcoinwisdom.com/");
+                driver.Navigate().GoToUrl("https://bittcoinwisdom.com/");
 
             driver.Manage().Window.Maximize();
             #endregion
@@ -238,7 +240,11 @@ namespace SimpleParser01
        
             while(true)
             {
-                backgroundWorker1.ReportProgress(i);
+                 try{ backgroundWorker1.ReportProgress(i);}
+                 catch (NoSuchElementException ex)
+                 { URL.Text = "Error: Failed to find elements - please check internet connection"; URL.Refresh(); StopAfterError(); break; }
+                 catch (Exception ex) { URL.Text = ex.Message; URL.Refresh(); StopAfterError(); break; }
+
                 Thread.Sleep(delay * 1000);
 
                 if (backgroundWorker1.CancellationPending) 
@@ -259,9 +265,7 @@ namespace SimpleParser01
             {
                 ReadData();
             }
-            catch (NoSuchElementException ex)
-            { URL.Text = "Error: Failed to find elements - please check internet connection"; URL.Refresh(); StopAfterError(); }
-            catch (Exception ex) { URL.Text = ex.Message; URL.Refresh(); backgroundWorker1.ReportProgress(0); }
+           catch (Exception ex) { throw ex; }
 
             
             if(max.Checked || min.Checked){ CheckDifference();}
@@ -272,7 +276,7 @@ namespace SimpleParser01
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             driver.Quit();
-
+            RemovePhantomjsProcesses();
             //try
             //{
             //    Runtime.getRuntime().exec("taskkill /F /IM IEDriverServer.exe");
@@ -281,7 +285,7 @@ namespace SimpleParser01
             //{
             //    e.printStackTrace();
             //}
-           
+
             # region Contorl_behavior_after
 
             URL.BackColor = Color.LightGray;
@@ -309,11 +313,10 @@ namespace SimpleParser01
         private void StopAfterError()
         {
             driver.Quit();
+            RemovePhantomjsProcesses();
 
             # region Contorl_behavior_after
 
-            //URL.BackColor = Color.LightGray;
-           // URL.ForeColor = Color.Black;
             butRun.Text = "Run";
             N.Enabled = true;
             URL.ReadOnly = false;
@@ -333,8 +336,11 @@ namespace SimpleParser01
             # endregion
 
         }
-
-
+        public void RemovePhantomjsProcesses()
+        {
+           processes = Process.GetProcessesByName("phantomjs");
+           foreach (Process p in processes) { p.Kill(); }
+        }
 
         #region Useless_methods
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
