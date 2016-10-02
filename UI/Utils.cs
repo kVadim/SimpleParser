@@ -21,13 +21,13 @@ namespace SimpleParser01
                     string partOfstring = houbistring.Substring(pos, houbistring.Length - pos);
                     double result = double.Parse(partOfstring, CultureInfo.InvariantCulture) / cny;
                     result = Math.Round(result, 2);
-                    houbistring = result.ToString();
+                    houbistring = result.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
                 }
                 else
                 {
                     double result = double.Parse(houbistring, CultureInfo.InvariantCulture) / cny;
                     result = Math.Round(result, 2);
-                    houbistring = result.ToString();
+                    houbistring = result.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
                 }
             }
             else

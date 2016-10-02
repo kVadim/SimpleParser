@@ -47,12 +47,12 @@ namespace SimpleParser01
             comboBoxBurse1.DataSource = new BindingSource(comboSource, null); ;
             comboBoxBurse1.DisplayMember = "Key";
             comboBoxBurse1.ValueMember = "Value";
-            comboBoxBurse1.SelectedIndex = 3;
+            comboBoxBurse1.SelectedIndex = 1;
 
             comboBoxBurse.DataSource = new BindingSource(comboSource, null); ;
             comboBoxBurse.DisplayMember = "Key";
             comboBoxBurse.ValueMember = "Value";
-            comboBoxBurse.SelectedIndex = 1;
+            comboBoxBurse.SelectedIndex = 3;
         }
 
         //void reRunAfterDisconnect()
@@ -210,9 +210,11 @@ namespace SimpleParser01
                    double CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
                    string actualPercent = Math.Round( CurrentPercent, 2).ToString();
 
-                   string body = "      ___" + firstB + " - " + secondB + "    ___time:" + String.Format("{0:T}", dt);
-                   string subject_max = "MAX Diff:  " + actualPercent + "% / " + permax + "%";
-                   string subject_min = "MINIMUM Diff:  " + actualPercent + "% / " + permin + "%";
+
+                   string body = "____" + firstB + " - " + secondB + "____cny: " + CNYvalue+ "____time:" + String.Format("{0:T}", dt);
+
+                   string subject_max = "MAX Diff:  " + actualPercent + " > " + permax + "%";
+                   string subject_min = "MINIMUM Diff:  " + actualPercent + " < " + permin + "%";
                   
                    if (max.Checked && Math.Abs(CurrentPercent) > permax)
                    {
