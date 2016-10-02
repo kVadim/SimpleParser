@@ -25,13 +25,14 @@ namespace SimpleParser01
         DateTime dt;
         DateTime dt_last_sent_max, dt_last_sent_min;
         bool exception;
-        bool sent;
+        bool sent, sent_min;
         bool Hidden;
         double permin, permax; 
         double interval;
         double CNYvalue;       
         string firstB,secondB;
-        int tryToConnect=0;
+        int tryToConnect;
+
                 
         public Vform()
         {
@@ -91,6 +92,7 @@ namespace SimpleParser01
 
             exception = false;
             sent = false;
+            sent_min = false;
             Hidden = isHidden.Checked;
             permin = (double)persentMin.Value;
             permax = (double)persentMax.Value;
@@ -249,24 +251,24 @@ namespace SimpleParser01
                        underflag++;
 
 
-                       if (sent == false)
+                       if (sent_min == false)
                        {
                            SendMessage(subject_min, body);
-                           sent = true;
+                           sent_min = true;
                            dt_last_sent_min = dt;
                        }
                        if (dt > dt_last_sent_min.AddSeconds(interval))
                        {
-                           sent = false;
+                           sent_min = false;
                        }
 
                    }
                    if (min.Checked && CurrentPercent > permin)
                    {
-                       if (dt > dt_last_sent_min.AddSeconds(interval) && sent == true)
+                       if (dt > dt_last_sent_min.AddSeconds(interval) && sent_min == true)
                        {
                            SendMessage("NEGATIVE__" + subject_min, body);
-                           sent = false;
+                           sent_min = false;
                        }
 
                    }
@@ -341,6 +343,8 @@ namespace SimpleParser01
             try
             {
                 ReadData();
+                exception = false;
+                tryToConnect = 0;
             }
            catch (Exception ex)
             {
@@ -388,16 +392,30 @@ namespace SimpleParser01
             # endregion
 
                 
-            if (exception == true && tryToConnect<10 ) 
+            if (exception == true ) 
             {
                 tryToConnect++;
-                Thread.Sleep(10000); this.butRun_Click(this, e); 
+
+                if (tryToConnect < 10)
+                {
+                    Thread.Sleep(10000);
+                    this.butRun_Click(this, e);
+                }
+                else if (tryToConnect == 10)
+                {
+                    Thread.Sleep(900000);
+                    this.butRun_Click(this, e);
+                    tryToConnect = 0;
+                }
+
+
             }
+            
+
+
         }
 
      
-
-
         public void RemovePhantomjsProcesses()
         {
            Thread.Sleep(1000);
