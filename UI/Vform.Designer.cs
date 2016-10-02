@@ -440,7 +440,7 @@
             // CNY
             // 
             this.CNY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CNY.DecimalPlaces = 1;
+            this.CNY.DecimalPlaces = 2;
             this.CNY.Increment = new decimal(new int[] {
             1,
             0,
@@ -462,10 +462,10 @@
             this.CNY.Size = new System.Drawing.Size(54, 20);
             this.CNY.TabIndex = 2;
             this.CNY.Value = new decimal(new int[] {
-            700,
+            667,
             0,
             0,
-            0});
+            131072});
             this.CNY.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
             // 
             // label_cny

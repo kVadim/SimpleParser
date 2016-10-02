@@ -21,13 +21,13 @@ namespace SimpleParser01
         public static IWebDriver driver;
         IJavaScriptExecutor js;
         Dictionary<string, string> comboSource = new Dictionary<string, string>();
-        int flag;
+        int flag, underflag;
         int delay;
         Process[] processes;
         DateTime dt;
-        DateTime dt_last_sended;
+        DateTime dt_last_sent_max, dt_last_sent_min;
         bool exception;
-        bool send;
+        bool sent;
         bool Hidden;
         double permin; 
         double permax; 
@@ -91,7 +91,7 @@ namespace SimpleParser01
             # endregion
 
             exception = false;
-            send = false;
+            sent = false;
             Hidden = isHidden.Checked;
             permin = (double)persentMin.Value;
             permax = (double)persentMax.Value;
@@ -99,6 +99,7 @@ namespace SimpleParser01
             interval = (double)M.Value * 60 - (double)N.Value;
             delay = (int)N.Value;
             flag = 0;
+            underflag = 0;
             string B1 = comboBoxBurse.SelectedItem.ToString();
             string B2 = comboBoxBurse1.SelectedItem.ToString();
             firstB = B1.Substring(1, B1.Length - 5);
@@ -167,7 +168,7 @@ namespace SimpleParser01
                 }
                 BitfinexValue.Refresh();
 
-                string _huobValueInDollars = huobi.Text.ParseHuobi('/');
+                string _huobValueInDollars = huobi.Text.ParseHuobi('/', CNYvalue);
               
                 if (HuobiValue.Text == "0") { HuobiValue.Text = _huobValueInDollars; }
                 else if (HuobiValue.Text != _huobValueInDollars) { HuobiValue.BackColor = Color.Red; HuobiValue.Text = _huobValueInDollars; }
@@ -210,9 +211,10 @@ namespace SimpleParser01
                    string actualPercent = Math.Round( CurrentPercent, 2).ToString();
 
                    string body = "      ___" + firstB + " - " + secondB + "    ___time:" + String.Format("{0:T}", dt);
-                   string subject = "Diff:  "+actualPercent + " / " + permax+ "%";
+                   string subject_max = "Diff:  "+actualPercent + " / " + permax+ "%";
+                   string subject_min = "MINIMUM Diff:  " + actualPercent + " / " + permin + "%";
                   
-                   if (Math.Abs(CurrentPercent) > permax)
+                   if (max.Checked && Math.Abs(CurrentPercent) > permax)
                    {
                        URL.BackColor = Color.Green;
                        URL.ForeColor = Color.White;
@@ -220,30 +222,60 @@ namespace SimpleParser01
                        flag++;
                       
 
-                       if (send == false)
-                       {                       
-                           SendMessage(subject, body);
-                           send = true;
-                           dt_last_sended=dt;
-                       }
-                       if (dt > dt_last_sended.AddSeconds(interval))
+                       if (sent == false)
                        {
-                           send = false;
+                           SendMessage(subject_max, body);
+                           sent = true;
+                           dt_last_sent_max=dt;
+                       }
+                       if (dt > dt_last_sent_max.AddSeconds(interval))
+                       {
+                           sent = false;
                        }
 
                    }
-                   if (Math.Abs(CurrentPercent) < permax)
+                   if ( max.Checked && Math.Abs(CurrentPercent) < permax )
                    {
-                       if (dt > dt_last_sended.AddSeconds(interval) && send == true)
+                       if (dt > dt_last_sent_max.AddSeconds(interval) && sent == true)
                        {
-                           SendMessage(subject, "NEGATIVE"+body);
-                           send = false;
+                           SendMessage("NEGATIVE__" + subject_max, body);
+                           sent = false;
                        }                    
+
+                   }
+
+                   if (min.Checked && CurrentPercent < permin)
+                   {
+                       URL.BackColor = Color.Blue;
+                       URL.ForeColor = Color.White;
+                       URL.Refresh();
+                       underflag++;
+
+
+                       if (sent == false)
+                       {
+                           SendMessage(subject_min, body);
+                           sent = true;
+                           dt_last_sent_min = dt;
+                       }
+                       if (dt > dt_last_sent_min.AddSeconds(interval))
+                       {
+                           sent = false;
+                       }
+
+                   }
+                   if (min.Checked && CurrentPercent > permin)
+                   {
+                       if (dt > dt_last_sent_min.AddSeconds(interval) && sent == true)
+                       {
+                           SendMessage("NEGATIVE__" + subject_min, body);
+                           sent = false;
+                       }
 
                    }
                    if (!exception)
                    {
-                       URL.Text = "Current difference:  " + actualPercent + " %" + "   FLAG: " + flag.ToString()+ "  time: " + String.Format("{0:T}", dt);
+                       URL.Text = "Current difference:  " + actualPercent + " %" + "   __FLAG_Max: " + flag.ToString()+ "   __FLAG_Min: " + underflag.ToString()+ "  ___time: " + String.Format("{0:T}", dt);
                        URL.Refresh();
                    }
                }

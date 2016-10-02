@@ -9,7 +9,8 @@ namespace SimpleParser01
 {
     public static class Utils
     {
-        public static string ParseHuobi(this string houbisting, char ch)
+
+        public static string ParseHuobi(this string houbisting, char ch, double cny)
         {
             if (houbisting.Contains(ch))
             {
@@ -17,7 +18,8 @@ namespace SimpleParser01
             }
             else
             {
-                double result = double.Parse(houbisting, CultureInfo.InvariantCulture) / 6.67;
+
+                double result = double.Parse(houbisting, CultureInfo.InvariantCulture)/cny;
                 houbisting = "** " + result.ToString().Substring(0, 6) + " **";
             }
             return houbisting;
