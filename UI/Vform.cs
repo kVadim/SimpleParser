@@ -209,7 +209,7 @@ namespace SimpleParser01
                    double CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
                    string actualPercent = Math.Round( CurrentPercent, 2).ToString();
 
-                   string body = "      _" + firstB + " - " + secondB + "    _time:" + String.Format("{0:T}", dt);
+                   string body = "      ___" + firstB + " - " + secondB + "    ___time:" + String.Format("{0:T}", dt);
                    string subject = "Diff:  "+actualPercent + " / " + permax+ "%";
                   
                    if (Math.Abs(CurrentPercent) > permax)
@@ -236,7 +236,7 @@ namespace SimpleParser01
                    {
                        if (dt > dt_last_sended.AddSeconds(interval) && send == true)
                        {
-                           SendMessage(subject, "negaitve"+body);
+                           SendMessage(subject, "NEGATIVE"+body);
                            send = false;
                        }                    
 

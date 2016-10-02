@@ -519,7 +519,7 @@
             this.Name = "Vform";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "SimpleParser  0.2";
+            this.Text = "SimpleParser  0.3";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Vform_Load);
             this.Resize += new System.EventHandler(this.butRefresh_Click);
