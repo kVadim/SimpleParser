@@ -55,12 +55,12 @@ namespace SimpleParser01
             comboBoxBurse.SelectedIndex = 1;
         }
 
-        void reRunAfterDisconnect()
-        {
-            Thread.Sleep(10000);
-            butRefresh.Click += new System.EventHandler(this.butRun_Click);
-            //this.butRun_Click();      
-        }
+        //void reRunAfterDisconnect()
+        //{
+        //    Thread.Sleep(10000);
+        //    butRefresh.Click += new System.EventHandler(this.butRun_Click);
+        //    //this.butRun_Click();      
+        //}
 
         void butRun_Click(object sender, EventArgs e)
         {            
@@ -71,10 +71,10 @@ namespace SimpleParser01
             butStop.Enabled = true;
             N.Enabled = false;
             M.Enabled = false;
+            cny_checkBox.Enabled = false;
             CNY.Enabled = false; 
             URL.ReadOnly = true; 
             butRun.Enabled = false; 
-            butReport.Enabled = false; 
             butRefresh.Enabled = false;
             isHidden.Enabled = false;
             comboBoxBurse.Enabled = false; 
@@ -210,8 +210,8 @@ namespace SimpleParser01
                    string actualPercent = Math.Round( CurrentPercent, 2).ToString();
 
                    string body = "      ___" + firstB + " - " + secondB + "    ___time:" + String.Format("{0:T}", dt);
-                   string subject_max = "Diff:  "+actualPercent + " / " + permax+ "%";
-                   string subject_min = "MINIMUM Diff:  " + actualPercent + " / " + permin + "%";
+                   string subject_max = "MAX Diff:  " + actualPercent + "% / " + permax+ "%";
+                   string subject_min = "MINIMUM Diff:  " + actualPercent + "% / " + permin + "%";
                   
                    if (max.Checked && Math.Abs(CurrentPercent) > permax)
                    {
@@ -372,10 +372,10 @@ namespace SimpleParser01
             butRun.Text = "Run"; 
             N.Enabled = true;
             M.Enabled = true;
+            cny_checkBox.Enabled = true;
             CNY.Enabled = true;
             URL.ReadOnly = false;
             butRun.Enabled = true;
-            butReport.Enabled = true;
             butRefresh.Enabled = true;
             isHidden.Enabled = true;
             comboBoxBurse.Enabled = true;
@@ -396,23 +396,19 @@ namespace SimpleParser01
             {
                 tryToConnect++;
 
-                if (tryToConnect < 10)
+                if (tryToConnect < 9)
                 {
-                    Thread.Sleep(10000);
+                    Thread.Sleep(15000);
                     this.butRun_Click(this, e);
                 }
-                else if (tryToConnect == 10)
+                else if (tryToConnect == 9)
                 {
                     Thread.Sleep(900000);
-                    this.butRun_Click(this, e);
                     tryToConnect = 0;
+                    this.butRun_Click(this, e);
                 }
-
-
             }
             
-
-
         }
 
      

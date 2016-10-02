@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Vform));
             this.butRun = new System.Windows.Forms.Button();
             this.butStop = new System.Windows.Forms.Button();
-            this.butReport = new System.Windows.Forms.Button();
             this.butRefresh = new System.Windows.Forms.Button();
             this.URL = new System.Windows.Forms.TextBox();
             this.N = new System.Windows.Forms.NumericUpDown();
@@ -60,6 +59,8 @@
             this.label_mins = new System.Windows.Forms.Label();
             this.CNY = new System.Windows.Forms.NumericUpDown();
             this.label_cny = new System.Windows.Forms.Label();
+            this.cny_checkBox = new System.Windows.Forms.CheckBox();
+            this.butReport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.N)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.persentMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.persentMax)).BeginInit();
@@ -76,7 +77,7 @@
             this.butRun.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.butRun.Location = new System.Drawing.Point(11, 10);
             this.butRun.Name = "butRun";
-            this.butRun.Size = new System.Drawing.Size(80, 24);
+            this.butRun.Size = new System.Drawing.Size(85, 24);
             this.butRun.TabIndex = 0;
             this.butRun.Text = "Run";
             this.butRun.UseVisualStyleBackColor = true;
@@ -89,26 +90,13 @@
             this.butStop.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.butStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.butStop.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.butStop.Location = new System.Drawing.Point(97, 10);
+            this.butStop.Location = new System.Drawing.Point(102, 10);
             this.butStop.Name = "butStop";
-            this.butStop.Size = new System.Drawing.Size(80, 24);
+            this.butStop.Size = new System.Drawing.Size(85, 24);
             this.butStop.TabIndex = 0;
             this.butStop.Text = "Stop";
             this.butStop.UseVisualStyleBackColor = true;
             this.butStop.Click += new System.EventHandler(this.butStop_Click);
-            // 
-            // butReport
-            // 
-            this.butReport.Enabled = false;
-            this.butReport.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.butReport.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.butReport.Location = new System.Drawing.Point(183, 10);
-            this.butReport.Name = "butReport";
-            this.butReport.Size = new System.Drawing.Size(80, 24);
-            this.butReport.TabIndex = 0;
-            this.butReport.Text = "Report";
-            this.butReport.UseVisualStyleBackColor = true;
-            this.butReport.Click += new System.EventHandler(this.butReport_Click);
             // 
             // butRefresh
             // 
@@ -116,7 +104,7 @@
             this.butRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.butRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.butRefresh.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.butRefresh.Location = new System.Drawing.Point(12, 234);
+            this.butRefresh.Location = new System.Drawing.Point(12, 224);
             this.butRefresh.Name = "butRefresh";
             this.butRefresh.Size = new System.Drawing.Size(460, 6);
             this.butRefresh.TabIndex = 0;
@@ -127,7 +115,7 @@
             // 
             this.URL.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.URL.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.URL.Location = new System.Drawing.Point(11, 127);
+            this.URL.Location = new System.Drawing.Point(11, 120);
             this.URL.Name = "URL";
             this.URL.Size = new System.Drawing.Size(461, 20);
             this.URL.TabIndex = 1;
@@ -136,7 +124,7 @@
             // 
             this.N.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.N.InterceptArrowKeys = false;
-            this.N.Location = new System.Drawing.Point(303, 67);
+            this.N.Location = new System.Drawing.Point(320, 89);
             this.N.Maximum = new decimal(new int[] {
             900,
             0,
@@ -148,7 +136,7 @@
             0,
             0});
             this.N.Name = "N";
-            this.N.Size = new System.Drawing.Size(44, 20);
+            this.N.Size = new System.Drawing.Size(51, 20);
             this.N.TabIndex = 2;
             this.N.Value = new decimal(new int[] {
             5,
@@ -161,7 +149,7 @@
             // 
             this.Bitstamp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.Bitstamp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Bitstamp.Location = new System.Drawing.Point(12, 150);
+            this.Bitstamp.Location = new System.Drawing.Point(12, 140);
             this.Bitstamp.Name = "Bitstamp";
             this.Bitstamp.Size = new System.Drawing.Size(106, 36);
             this.Bitstamp.TabIndex = 3;
@@ -172,7 +160,7 @@
             // 
             this.BTC.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.BTC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BTC.Location = new System.Drawing.Point(130, 150);
+            this.BTC.Location = new System.Drawing.Point(130, 140);
             this.BTC.Name = "BTC";
             this.BTC.Size = new System.Drawing.Size(106, 36);
             this.BTC.TabIndex = 3;
@@ -183,7 +171,7 @@
             // 
             this.Bitfinex.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.Bitfinex.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Bitfinex.Location = new System.Drawing.Point(248, 150);
+            this.Bitfinex.Location = new System.Drawing.Point(248, 140);
             this.Bitfinex.Name = "Bitfinex";
             this.Bitfinex.Size = new System.Drawing.Size(106, 36);
             this.Bitfinex.TabIndex = 3;
@@ -194,7 +182,7 @@
             // 
             this.Huobi.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.Huobi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Huobi.Location = new System.Drawing.Point(366, 150);
+            this.Huobi.Location = new System.Drawing.Point(366, 140);
             this.Huobi.Name = "Huobi";
             this.Huobi.Size = new System.Drawing.Size(106, 36);
             this.Huobi.TabIndex = 3;
@@ -205,7 +193,7 @@
             // 
             this.BitstampValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.BitstampValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BitstampValue.Location = new System.Drawing.Point(12, 186);
+            this.BitstampValue.Location = new System.Drawing.Point(12, 176);
             this.BitstampValue.Name = "BitstampValue";
             this.BitstampValue.Size = new System.Drawing.Size(106, 36);
             this.BitstampValue.TabIndex = 3;
@@ -216,7 +204,7 @@
             // 
             this.BTCvalue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.BTCvalue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BTCvalue.Location = new System.Drawing.Point(130, 186);
+            this.BTCvalue.Location = new System.Drawing.Point(130, 176);
             this.BTCvalue.Name = "BTCvalue";
             this.BTCvalue.Size = new System.Drawing.Size(106, 36);
             this.BTCvalue.TabIndex = 3;
@@ -227,7 +215,7 @@
             // 
             this.BitfinexValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.BitfinexValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BitfinexValue.Location = new System.Drawing.Point(248, 186);
+            this.BitfinexValue.Location = new System.Drawing.Point(248, 176);
             this.BitfinexValue.Name = "BitfinexValue";
             this.BitfinexValue.Size = new System.Drawing.Size(106, 36);
             this.BitfinexValue.TabIndex = 3;
@@ -238,7 +226,7 @@
             // 
             this.HuobiValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.HuobiValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.HuobiValue.Location = new System.Drawing.Point(366, 186);
+            this.HuobiValue.Location = new System.Drawing.Point(366, 176);
             this.HuobiValue.Name = "HuobiValue";
             this.HuobiValue.Size = new System.Drawing.Size(106, 36);
             this.HuobiValue.TabIndex = 3;
@@ -251,7 +239,7 @@
             this.isHidden.Checked = true;
             this.isHidden.CheckState = System.Windows.Forms.CheckState.Checked;
             this.isHidden.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.isHidden.Location = new System.Drawing.Point(42, 54);
+            this.isHidden.Location = new System.Drawing.Point(148, 52);
             this.isHidden.Name = "isHidden";
             this.isHidden.Size = new System.Drawing.Size(83, 17);
             this.isHidden.TabIndex = 4;
@@ -270,9 +258,9 @@
             // comboBoxBurse
             // 
             this.comboBoxBurse.FormattingEnabled = true;
-            this.comboBoxBurse.Location = new System.Drawing.Point(15, 91);
+            this.comboBoxBurse.Location = new System.Drawing.Point(12, 88);
             this.comboBoxBurse.Name = "comboBoxBurse";
-            this.comboBoxBurse.Size = new System.Drawing.Size(120, 21);
+            this.comboBoxBurse.Size = new System.Drawing.Size(130, 21);
             this.comboBoxBurse.TabIndex = 5;
             this.comboBoxBurse.Text = "No data ..";
             this.comboBoxBurse.SelectedIndexChanged += new System.EventHandler(this.comboBoxBurse_SelectedIndexChanged);
@@ -285,14 +273,14 @@
             0,
             0,
             65536});
-            this.persentMin.Location = new System.Drawing.Point(303, 41);
+            this.persentMin.Location = new System.Drawing.Point(320, 37);
             this.persentMin.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             65536});
             this.persentMin.Name = "persentMin";
-            this.persentMin.Size = new System.Drawing.Size(44, 20);
+            this.persentMin.Size = new System.Drawing.Size(51, 20);
             this.persentMin.TabIndex = 6;
             this.persentMin.Value = new decimal(new int[] {
             1,
@@ -304,9 +292,9 @@
             // comboBoxBurse1
             // 
             this.comboBoxBurse1.FormattingEnabled = true;
-            this.comboBoxBurse1.Location = new System.Drawing.Point(143, 91);
+            this.comboBoxBurse1.Location = new System.Drawing.Point(148, 88);
             this.comboBoxBurse1.Name = "comboBoxBurse1";
-            this.comboBoxBurse1.Size = new System.Drawing.Size(120, 21);
+            this.comboBoxBurse1.Size = new System.Drawing.Size(130, 21);
             this.comboBoxBurse1.TabIndex = 5;
             this.comboBoxBurse1.Text = "No data ..";
             this.comboBoxBurse1.SelectedIndexChanged += new System.EventHandler(this.comboBoxBurse1_SelectedIndexChanged_1);
@@ -319,14 +307,14 @@
             0,
             0,
             65536});
-            this.persentMax.Location = new System.Drawing.Point(303, 14);
+            this.persentMax.Location = new System.Drawing.Point(320, 10);
             this.persentMax.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             65536});
             this.persentMax.Name = "persentMax";
-            this.persentMax.Size = new System.Drawing.Size(44, 20);
+            this.persentMax.Size = new System.Drawing.Size(51, 20);
             this.persentMax.TabIndex = 6;
             this.persentMax.Value = new decimal(new int[] {
             2,
@@ -341,7 +329,7 @@
             this.max.Checked = true;
             this.max.CheckState = System.Windows.Forms.CheckState.Checked;
             this.max.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.max.Location = new System.Drawing.Point(282, 17);
+            this.max.Location = new System.Drawing.Point(299, 13);
             this.max.Name = "max";
             this.max.Size = new System.Drawing.Size(15, 14);
             this.max.TabIndex = 7;
@@ -354,7 +342,7 @@
             this.min.Checked = true;
             this.min.CheckState = System.Windows.Forms.CheckState.Checked;
             this.min.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.min.Location = new System.Drawing.Point(282, 43);
+            this.min.Location = new System.Drawing.Point(299, 39);
             this.min.Name = "min";
             this.min.Size = new System.Drawing.Size(15, 14);
             this.min.TabIndex = 7;
@@ -365,18 +353,18 @@
             // 
             this.label_frequency.AutoSize = true;
             this.label_frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_frequency.Location = new System.Drawing.Point(353, 69);
+            this.label_frequency.Location = new System.Drawing.Point(377, 91);
             this.label_frequency.Name = "label_frequency";
-            this.label_frequency.Size = new System.Drawing.Size(109, 15);
+            this.label_frequency.Size = new System.Drawing.Size(62, 15);
             this.label_frequency.TabIndex = 9;
-            this.label_frequency.Text = "Frequency (sec)";
+            this.label_frequency.Text = "Seconds";
             this.label_frequency.Click += new System.EventHandler(this.label1_Click);
             // 
             // label_max
             // 
             this.label_max.AutoSize = true;
             this.label_max.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_max.Location = new System.Drawing.Point(353, 17);
+            this.label_max.Location = new System.Drawing.Point(377, 12);
             this.label_max.Name = "label_max";
             this.label_max.Size = new System.Drawing.Size(86, 15);
             this.label_max.TabIndex = 9;
@@ -387,7 +375,7 @@
             // 
             this.label_min.AutoSize = true;
             this.label_min.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_min.Location = new System.Drawing.Point(353, 43);
+            this.label_min.Location = new System.Drawing.Point(377, 39);
             this.label_min.Name = "label_min";
             this.label_min.Size = new System.Drawing.Size(83, 15);
             this.label_min.TabIndex = 9;
@@ -405,7 +393,7 @@
             // 
             this.M.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.M.InterceptArrowKeys = false;
-            this.M.Location = new System.Drawing.Point(303, 93);
+            this.M.Location = new System.Drawing.Point(11, 49);
             this.M.Maximum = new decimal(new int[] {
             900,
             0,
@@ -430,7 +418,7 @@
             // 
             this.label_mins.AutoSize = true;
             this.label_mins.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_mins.Location = new System.Drawing.Point(353, 95);
+            this.label_mins.Location = new System.Drawing.Point(61, 51);
             this.label_mins.Name = "label_mins";
             this.label_mins.Size = new System.Drawing.Size(58, 15);
             this.label_mins.TabIndex = 9;
@@ -447,7 +435,7 @@
             0,
             65536});
             this.CNY.InterceptArrowKeys = false;
-            this.CNY.Location = new System.Drawing.Point(143, 53);
+            this.CNY.Location = new System.Drawing.Point(320, 63);
             this.CNY.Maximum = new decimal(new int[] {
             900,
             0,
@@ -459,7 +447,7 @@
             0,
             0});
             this.CNY.Name = "CNY";
-            this.CNY.Size = new System.Drawing.Size(54, 20);
+            this.CNY.Size = new System.Drawing.Size(51, 20);
             this.CNY.TabIndex = 2;
             this.CNY.Value = new decimal(new int[] {
             667,
@@ -471,13 +459,39 @@
             // label_cny
             // 
             this.label_cny.AutoSize = true;
-            this.label_cny.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_cny.Location = new System.Drawing.Point(203, 55);
+            this.label_cny.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_cny.Location = new System.Drawing.Point(377, 66);
             this.label_cny.Name = "label_cny";
-            this.label_cny.Size = new System.Drawing.Size(31, 15);
+            this.label_cny.Size = new System.Drawing.Size(63, 15);
             this.label_cny.TabIndex = 9;
-            this.label_cny.Text = "CNY";
+            this.label_cny.Text = "CNY  -  $";
             this.label_cny.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // cny_checkBox
+            // 
+            this.cny_checkBox.AutoSize = true;
+            this.cny_checkBox.Checked = true;
+            this.cny_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cny_checkBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cny_checkBox.Location = new System.Drawing.Point(299, 66);
+            this.cny_checkBox.Name = "cny_checkBox";
+            this.cny_checkBox.Size = new System.Drawing.Size(15, 14);
+            this.cny_checkBox.TabIndex = 7;
+            this.cny_checkBox.UseVisualStyleBackColor = true;
+            this.cny_checkBox.CheckedChanged += new System.EventHandler(this.P2_CheckedChanged);
+            // 
+            // butReport
+            // 
+            this.butReport.Enabled = false;
+            this.butReport.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.butReport.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.butReport.Location = new System.Drawing.Point(193, 10);
+            this.butReport.Name = "butReport";
+            this.butReport.Size = new System.Drawing.Size(85, 24);
+            this.butReport.TabIndex = 0;
+            this.butReport.Text = "Report";
+            this.butReport.UseVisualStyleBackColor = true;
+            this.butReport.Click += new System.EventHandler(this.butReport_Click);
             // 
             // Vform
             // 
@@ -485,12 +499,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.butStop;
-            this.ClientSize = new System.Drawing.Size(484, 252);
+            this.ClientSize = new System.Drawing.Size(484, 242);
             this.Controls.Add(this.label_min);
             this.Controls.Add(this.label_max);
             this.Controls.Add(this.label_cny);
             this.Controls.Add(this.label_mins);
             this.Controls.Add(this.label_frequency);
+            this.Controls.Add(this.cny_checkBox);
             this.Controls.Add(this.min);
             this.Controls.Add(this.max);
             this.Controls.Add(this.persentMax);
@@ -514,8 +529,8 @@
             this.Controls.Add(this.butReport);
             this.Controls.Add(this.butStop);
             this.Controls.Add(this.butRun);
-            this.MaximumSize = new System.Drawing.Size(600, 290);
-            this.MinimumSize = new System.Drawing.Size(500, 290);
+            this.MaximumSize = new System.Drawing.Size(600, 280);
+            this.MinimumSize = new System.Drawing.Size(500, 280);
             this.Name = "Vform";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -537,7 +552,6 @@
 
         private System.Windows.Forms.Button butRun;
         private System.Windows.Forms.Button butStop;
-        private System.Windows.Forms.Button butReport;
         private System.Windows.Forms.Button butRefresh;
         private System.Windows.Forms.TextBox URL;
         private System.Windows.Forms.NumericUpDown N;
@@ -565,6 +579,8 @@
         private System.Windows.Forms.Label label_mins;
         private System.Windows.Forms.NumericUpDown CNY;
         private System.Windows.Forms.Label label_cny;
+        private System.Windows.Forms.CheckBox cny_checkBox;
+        private System.Windows.Forms.Button butReport;
     }
 }
 
