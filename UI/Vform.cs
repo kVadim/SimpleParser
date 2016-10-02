@@ -286,14 +286,21 @@ namespace SimpleParser01
 
         public void SendMessage(string subject, string body)
         {
-            
-            MailMessage objMail = new MailMessage("ParserForKlim@gmail.com", "ParserForKlim@gmail.com", subject, body);
-            NetworkCredential objNC = new NetworkCredential("ParserForKlim@gmail.com", "evenuglygirlsarepretty");
-            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
-            smtpClient.Port = 587;
-            smtpClient.EnableSsl = true;
-            smtpClient.Credentials = objNC;
-            smtpClient.Send(objMail);
+            try
+            {
+                MailMessage objMail = new MailMessage("ParserForKlim@gmail.com", "ParserForKlim@gmail.com", subject, body);
+                NetworkCredential objNC = new NetworkCredential("ParserForKlim@gmail.com", "evenuglygirlsarepretty");
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+                smtpClient.Port = 587;
+                smtpClient.EnableSsl = true;
+                smtpClient.Credentials = objNC;
+                smtpClient.Send(objMail);
+            }
+            catch
+            {
+
+            }
+          
         }
 
       
@@ -401,15 +408,15 @@ namespace SimpleParser01
 
                 if (tryToConnect < 9)
                 {
-                    Thread.Sleep(15000);
+                    Thread.Sleep(7000);
                     this.butRun_Click(this, e);
                 }
-                else if (tryToConnect == 9)
-                {
-                    Thread.Sleep(900000);
-                    tryToConnect = 0;
-                    this.butRun_Click(this, e);
-                }
+                //else if (tryToConnect == 9)
+                //{
+                //    Thread.Sleep(900000);
+                //    tryToConnect = 0;
+                //    this.butRun_Click(this, e);
+                //}
             }
             
         }
@@ -442,8 +449,7 @@ namespace SimpleParser01
 
         }
 
-      
-
+     
         private void persent_ValueChanged(object sender, EventArgs e)
         {
 

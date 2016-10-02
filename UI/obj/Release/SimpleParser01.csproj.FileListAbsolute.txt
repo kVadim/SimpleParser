@@ -34,7 +34,6 @@ D:\SimpleParser\UI\bin\Release\WebDriver.dll
 D:\SimpleParser\UI\bin\Release\WebDriver.Support.dll
 D:\SimpleParser\UI\bin\Release\WebDriver.xml
 D:\SimpleParser\UI\bin\Release\WebDriver.Support.xml
-D:\SimpleParser\UI\obj\Release\SimpleParser01.csprojResolveAssemblyReference.cache
 D:\SimpleParser\UI\obj\Release\SimpleParser01.Vform.resources
 D:\SimpleParser\UI\obj\Release\SimpleParser01.Properties.Resources.resources
 D:\SimpleParser\UI\obj\Release\SimpleParser01.csproj.GenerateResource.Cache

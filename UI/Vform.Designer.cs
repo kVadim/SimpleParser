@@ -417,10 +417,10 @@
             // label_mins
             // 
             this.label_mins.AutoSize = true;
-            this.label_mins.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_mins.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_mins.Location = new System.Drawing.Point(61, 51);
             this.label_mins.Name = "label_mins";
-            this.label_mins.Size = new System.Drawing.Size(58, 15);
+            this.label_mins.Size = new System.Drawing.Size(51, 15);
             this.label_mins.TabIndex = 9;
             this.label_mins.Text = "Minutes";
             this.label_mins.Click += new System.EventHandler(this.label1_Click);

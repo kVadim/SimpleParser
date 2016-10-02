@@ -13,15 +13,20 @@ namespace SimpleParser01
         public static string ParseHuobi(this string houbistring, char ch, double cny, bool cny_checkbox)
         {
             int pos = houbistring.LastIndexOf(ch) + 1;
-
-            if (cny_checkbox)
-            {
+           
                 if (houbistring.Contains(ch))
                 {
-                    string partOfstring = houbistring.Substring(pos, houbistring.Length - pos);
-                    double result = double.Parse(partOfstring, CultureInfo.InvariantCulture) / cny;
-                    result = Math.Round(result, 2);
-                    houbistring = result.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+                    if (cny_checkbox)
+                        {
+                            string partOfstring = houbistring.Substring(pos, houbistring.Length - pos);
+                            double result = double.Parse(partOfstring, CultureInfo.InvariantCulture) / cny;
+                            result = Math.Round(result, 2);
+                            houbistring = result.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+                        }
+                        else
+                        {
+                            houbistring = houbistring.Substring(0, pos - 1);
+                        }
                 }
                 else
                 {
@@ -29,21 +34,6 @@ namespace SimpleParser01
                     result = Math.Round(result, 2);
                     houbistring = result.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
                 }
-            }
-            else
-            {
-                if (houbistring.Contains(ch))
-                {
-                    houbistring = houbistring.Substring(0, pos-1);
-                }
-                else
-                {
-                    houbistring = "99999";
-                    
-                }
-
-            }
-
             return houbistring;
         }
     }
