@@ -283,10 +283,10 @@
             this.persentMin.Size = new System.Drawing.Size(51, 20);
             this.persentMin.TabIndex = 6;
             this.persentMin.Value = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
-            0});
+            65536});
             this.persentMin.ValueChanged += new System.EventHandler(this.persent_ValueChanged);
             // 
             // comboBoxBurse1
@@ -317,10 +317,10 @@
             this.persentMax.Size = new System.Drawing.Size(51, 20);
             this.persentMax.TabIndex = 6;
             this.persentMax.Value = new decimal(new int[] {
-            2,
+            7,
             0,
             0,
-            0});
+            65536});
             this.persentMax.ValueChanged += new System.EventHandler(this.persent_ValueChanged);
             // 
             // max

@@ -167,7 +167,8 @@ namespace SimpleParser01
                 }
                 BitfinexValue.Refresh();
 
-                string _huobValueInDollars = huobi.Text.ParseHuobi('/', CNYvalue);
+
+                string _huobValueInDollars = huobi.Text.ParseHuobi('/', CNYvalue, cny_checkBox.Checked);
               
                 if (HuobiValue.Text == "0") { HuobiValue.Text = _huobValueInDollars; }
                 else if (HuobiValue.Text != _huobValueInDollars) { HuobiValue.BackColor = Color.Red; HuobiValue.Text = _huobValueInDollars; }
@@ -210,7 +211,7 @@ namespace SimpleParser01
                    string actualPercent = Math.Round( CurrentPercent, 2).ToString();
 
                    string body = "      ___" + firstB + " - " + secondB + "    ___time:" + String.Format("{0:T}", dt);
-                   string subject_max = "MAX Diff:  " + actualPercent + "% / " + permax+ "%";
+                   string subject_max = "MAX Diff:  " + actualPercent + "% / " + permax + "%";
                    string subject_min = "MINIMUM Diff:  " + actualPercent + "% / " + permin + "%";
                   
                    if (max.Checked && Math.Abs(CurrentPercent) > permax)
