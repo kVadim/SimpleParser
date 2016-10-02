@@ -19,13 +19,23 @@ namespace SimpleParser01
     public partial class Vform : Form
     {
         public static IWebDriver driver;
+        IJavaScriptExecutor js;
         Dictionary<string, string> comboSource = new Dictionary<string, string>();
-        int flag = 0;
-        int delay = 0;
-        int timespan = 60;
+        int flag;
+        int delay;
         Process[] processes;
+        DateTime dt;
+        DateTime dt_last_sended;
         bool exception;
-        
+        bool send;
+        bool Hidden;
+        double permin; 
+        double permax; 
+        double interval;
+        double CNYvalue;       
+        string firstB;
+        string secondB;
+                
 
         
         public Vform()
@@ -55,12 +65,13 @@ namespace SimpleParser01
         void butRun_Click(object sender, EventArgs e)
         {            
             # region Contorl_behavior_before
-            exception = false;
             URL.Text = "https://bitcoinwisdom.com/";
             URL.BackColor = Color.LightGray;
             URL.ForeColor = Color.Black;
             butStop.Enabled = true;
-            N.Enabled = false; 
+            N.Enabled = false;
+            M.Enabled = false;
+            CNY.Enabled = false; 
             URL.ReadOnly = true; 
             butRun.Enabled = false; 
             butReport.Enabled = false; 
@@ -73,11 +84,28 @@ namespace SimpleParser01
             label_min.Enabled = false;
             label_max.Enabled = false;
             label_frequency.Enabled = false;
+            label_mins.Enabled = false;
+            label_cny.Enabled = false;
             min.Enabled = false;
-            max.Enabled = false;
-            flag = 0;
-            delay = (int)N.Value;
+            max.Enabled = false;           
             # endregion
+
+            exception = false;
+            send = false;
+            Hidden = isHidden.Checked;
+            permin = (double)persentMin.Value;
+            permax = (double)persentMax.Value;
+            CNYvalue = (double)CNY.Value;
+            interval = (double)M.Value * 60 - (double)N.Value;
+            delay = (int)N.Value;
+            flag = 0;
+            string B1 = comboBoxBurse.SelectedItem.ToString();
+            string B2 = comboBoxBurse1.SelectedItem.ToString();
+            firstB = B1.Substring(1, B1.Length - 5);
+            secondB = B2.Substring(1, B2.Length - 5); 
+             
+
+                           
             if (!backgroundWorker1.IsBusy)
             {               
                     backgroundWorker1.RunWorkerAsync();                             
@@ -94,7 +122,6 @@ namespace SimpleParser01
         {
 
             #region default setting
-                IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
                 IWebElement bitstamp = driver.FindElement(By.CssSelector("#market_bitstampbtcusd"));
                 IWebElement bts = driver.FindElement(By.CssSelector("#market_btcebtcusd"));
                 IWebElement bitfinex = driver.FindElement(By.CssSelector("#market_bitfinexbtcusd"));
@@ -107,32 +134,47 @@ namespace SimpleParser01
                 BitfinexValue.BackColor = Color.Gray;
                 HuobiValue.BackColor = Color.Gray;
 
-                js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bitstamp, " border: 3px solid black;");
-                js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bts, " border: 3px solid black;");
-                js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bitfinex, " border: 3px solid black;");
-                js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", huobi, " border: 3px solid black;");
+                if (Hidden == false)
+                {
+                    js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bitstamp, " border: 3px solid black;");
+                    js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bts, " border: 3px solid black;");
+                    js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bitfinex, " border: 3px solid black;");
+                    js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", huobi, " border: 3px solid black;");
+                }
             # endregion
 
                 if (BitstampValue.Text == "0") { BitstampValue.Text = bitstamp.Text; }
                 else if (BitstampValue.Text != bitstamp.Text) { BitstampValue.BackColor = Color.Red; BitstampValue.Text = bitstamp.Text; }
-                js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bitstamp, " border: 3px solid red;");
+                if (Hidden == false)
+                {
+                    js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bitstamp, " border: 3px solid red;");
+                }
                 BitstampValue.Refresh();
               
                 if (BTCvalue.Text == "0") { BTCvalue.Text = bts.Text; }
                 else if (BTCvalue.Text != bts.Text) { BTCvalue.BackColor = Color.Red; BTCvalue.Text = bts.Text; }
-                js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bts, " border: 3px solid red;");
+                if (Hidden == false)
+                {
+                    js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bts, " border: 3px solid red;");
+                }
                 BTCvalue.Refresh();
 
                 if (BitfinexValue.Text == "0") { BitfinexValue.Text = bitfinex.Text; }
                 else if (BitfinexValue.Text != bitfinex.Text) { BitfinexValue.BackColor = Color.Red; BitfinexValue.Text = bitfinex.Text; }
-                js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bitfinex, " border: 3px solid red;");
+                if (Hidden == false)
+                {
+                    js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bitfinex, " border: 3px solid red;");
+                }
                 BitfinexValue.Refresh();
 
                 string _huobValueInDollars = huobi.Text.ParseHuobi('/');
               
                 if (HuobiValue.Text == "0") { HuobiValue.Text = _huobValueInDollars; }
                 else if (HuobiValue.Text != _huobValueInDollars) { HuobiValue.BackColor = Color.Red; HuobiValue.Text = _huobValueInDollars; }
-                js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", huobi, " border: 3px solid red;");
+                if (Hidden == false)
+                {
+                    js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", huobi, " border: 3px solid red;");
+                }
                 HuobiValue.Refresh();
 
 
@@ -147,6 +189,7 @@ namespace SimpleParser01
                if (comboBoxBurse.SelectedIndex == comboBoxBurse1.SelectedIndex) { ShowErrorInURL("Warning:   Monitoring has stopped. Reason - pairs are not defined"); }
                else
                {
+                   dt = DateTime.Now;
 
                    if (!exception)
                    {
@@ -162,46 +205,50 @@ namespace SimpleParser01
 
                    double OperandOne = double.Parse(dictionary[comboBoxBurse.SelectedIndex], CultureInfo.InvariantCulture);
                    double OperandTwo = double.Parse(dictionary[comboBoxBurse1.SelectedIndex], CultureInfo.InvariantCulture);
-
-                   string B1 = comboBoxBurse.SelectedItem.ToString();
-                   string B2 = comboBoxBurse1.SelectedItem.ToString();
-                   string firstB = B1.Substring(1, B1.Length - 5);
-                   string secondB = B2.Substring(1, B2.Length - 5);
-                
-                   double permin = (double)persentMin.Value;
-                   double permax = (double)persentMax.Value;
-
+                           
                    double CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
-                   string actualPercent = Math.Round( CurrentPercent, 3).ToString();
+                   string actualPercent = Math.Round( CurrentPercent, 2).ToString();
+
+                   string body = "      _" + firstB + " - " + secondB + "    _time:" + String.Format("{0:T}", dt);
+                   string subject = "Diff:  "+actualPercent + " / " + permax+ "%";
                   
                    if (Math.Abs(CurrentPercent) > permax)
                    {
-                       DateTime dt_now = DateTime.Now;
                        URL.BackColor = Color.Green;
                        URL.ForeColor = Color.White;
                        URL.Refresh();
                        flag++;
+                      
 
-                       string body = "  " + firstB + " - " + secondB+ " " + dt_now;
-                       string subject = CurrentPercent + " / " + permax;
-                       SendMessage(subject,body);
-                       //if (flag * delay > timespan)
-                       //{ 
-                       //    timespan = timespan * 3;
-                       //    SendMessage(actualPercent, permax.ToString(), firstB, secondB); 
-                       //}
+                       if (send == false)
+                       {                       
+                           SendMessage(subject, body);
+                           send = true;
+                           dt_last_sended=dt;
+                       }
+                       if (dt > dt_last_sended.AddSeconds(interval))
+                       {
+                           send = false;
+                       }
+
+                   }
+                   if (Math.Abs(CurrentPercent) < permax)
+                   {
+                       if (dt > dt_last_sended.AddSeconds(interval) && send == true)
+                       {
+                           SendMessage(subject, "negaitve"+body);
+                           send = false;
+                       }                    
+
                    }
                    if (!exception)
                    {
-                       URL.Text = "Current difference:  " + actualPercent + " %" + "   FLAG: " + flag.ToString();
+                       URL.Text = "Current difference:  " + actualPercent + " %" + "   FLAG: " + flag.ToString()+ "  time: " + String.Format("{0:T}", dt);
                        URL.Refresh();
                    }
                }
            }
-        //void butBrowse_Click(object sender, EventArgs e)
-        //{
-
-        //}
+       
 
         public void SendMessage(string subject, string body)
         {
@@ -219,7 +266,7 @@ namespace SimpleParser01
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             #region Driver_Initialization
-            if (isHidden.Checked == true)
+            if (Hidden == true)
             {
                 var driverService = PhantomJSDriverService.CreateDefaultService();
                 driverService.HideCommandPromptWindow = true;
@@ -230,6 +277,8 @@ namespace SimpleParser01
                 var chromeDriverService = ChromeDriverService.CreateDefaultService();
                 chromeDriverService.HideCommandPromptWindow = true;
                 driver = new ChromeDriver(chromeDriverService, new ChromeOptions());
+
+                js = (IJavaScriptExecutor)driver;
             }
 
            
@@ -242,10 +291,8 @@ namespace SimpleParser01
 
             while (!exception)
             {
-                
-
-                backgroundWorker1.ReportProgress(i);
-                 
+         
+                backgroundWorker1.ReportProgress(i);                
                 Thread.Sleep(delay * 1000);
 
                 if (backgroundWorker1.CancellationPending) 
@@ -271,8 +318,7 @@ namespace SimpleParser01
                exception = true;
                ShowErrorInURL("Error: Failed to find elements - please check internet connection");            
            }
-
-            
+          
             if(max.Checked || min.Checked){ CheckDifference();}
             butRun.Text = i.ToString();
             butRun.Refresh();
@@ -292,6 +338,8 @@ namespace SimpleParser01
             }
             butRun.Text = "Run"; 
             N.Enabled = true;
+            M.Enabled = true;
+            CNY.Enabled = true;
             URL.ReadOnly = false;
             butRun.Enabled = true;
             butReport.Enabled = true;
@@ -304,45 +352,15 @@ namespace SimpleParser01
             label_min.Enabled = true;
             label_max.Enabled = true;
             label_frequency.Enabled = true;
-            min.Enabled = true;
-            max.Enabled = true;
-            # endregion
-           
-        }
-
-        private void StopAfterError()
-        {
-            driver.Quit();
-            RemovePhantomjsProcesses();
-            //try
-            //{
-            //    Runtime.getRuntime().exec("taskkill /F /IM IEDriverServer.exe");
-            //}
-            //catch (IOException e)
-            //{
-            //    e.printStackTrace();
-            //}
-            # region Contorl_behavior_after
-
-            butRun.Text = "Run";
-            N.Enabled = true;
-            URL.ReadOnly = false;
-            butRun.Enabled = true;
-            butReport.Enabled = true;
-            butRefresh.Enabled = true;
-            isHidden.Enabled = true;
-            comboBoxBurse.Enabled = true;
-            comboBoxBurse1.Enabled = true;
-            persentMin.Enabled = true;
-            persentMax.Enabled = true;
-            label_min.Enabled = true;
-            label_max.Enabled = true;
-            label_frequency.Enabled = true;
+            label_mins.Enabled = true;
+            label_cny.Enabled = true;
             min.Enabled = true;
             max.Enabled = true;
             # endregion
 
         }
+
+     
 
 
         public void RemovePhantomjsProcesses()

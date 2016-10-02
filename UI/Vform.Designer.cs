@@ -56,15 +56,15 @@
             this.label_max = new System.Windows.Forms.Label();
             this.label_min = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
+            this.M = new System.Windows.Forms.NumericUpDown();
+            this.label_mins = new System.Windows.Forms.Label();
+            this.CNY = new System.Windows.Forms.NumericUpDown();
+            this.label_cny = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.N)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.persentMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.persentMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.M)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CNY)).BeginInit();
             this.SuspendLayout();
             // 
             // butRun
@@ -250,10 +250,10 @@
             this.isHidden.AutoSize = true;
             this.isHidden.Checked = true;
             this.isHidden.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.isHidden.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.isHidden.Location = new System.Drawing.Point(44, 57);
+            this.isHidden.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.isHidden.Location = new System.Drawing.Point(42, 54);
             this.isHidden.Name = "isHidden";
-            this.isHidden.Size = new System.Drawing.Size(93, 17);
+            this.isHidden.Size = new System.Drawing.Size(83, 17);
             this.isHidden.TabIndex = 4;
             this.isHidden.Text = "Hidden Run";
             this.isHidden.UseVisualStyleBackColor = true;
@@ -401,83 +401,83 @@
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
-            // numericUpDown1
+            // M
             // 
-            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.InterceptArrowKeys = false;
-            this.numericUpDown1.Location = new System.Drawing.Point(303, 93);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.M.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.M.InterceptArrowKeys = false;
+            this.M.Location = new System.Drawing.Point(303, 93);
+            this.M.Maximum = new decimal(new int[] {
             900,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            3,
+            this.M.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(44, 20);
-            this.numericUpDown1.TabIndex = 2;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.M.Name = "M";
+            this.M.Size = new System.Drawing.Size(44, 20);
+            this.M.TabIndex = 2;
+            this.M.Value = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
+            this.M.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
             // 
-            // label1
+            // label_mins
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(353, 95);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 15);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Minutes";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label_mins.AutoSize = true;
+            this.label_mins.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_mins.Location = new System.Drawing.Point(353, 95);
+            this.label_mins.Name = "label_mins";
+            this.label_mins.Size = new System.Drawing.Size(58, 15);
+            this.label_mins.TabIndex = 9;
+            this.label_mins.Text = "Minutes";
+            this.label_mins.Click += new System.EventHandler(this.label1_Click);
             // 
-            // numericUpDown2
+            // CNY
             // 
-            this.numericUpDown2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown2.DecimalPlaces = 1;
-            this.numericUpDown2.Increment = new decimal(new int[] {
+            this.CNY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CNY.DecimalPlaces = 1;
+            this.CNY.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numericUpDown2.InterceptArrowKeys = false;
-            this.numericUpDown2.Location = new System.Drawing.Point(143, 56);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.CNY.InterceptArrowKeys = false;
+            this.CNY.Location = new System.Drawing.Point(143, 53);
+            this.CNY.Maximum = new decimal(new int[] {
             900,
             0,
             0,
             0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
+            this.CNY.Minimum = new decimal(new int[] {
             3,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(56, 20);
-            this.numericUpDown2.TabIndex = 2;
-            this.numericUpDown2.Value = new decimal(new int[] {
+            this.CNY.Name = "CNY";
+            this.CNY.Size = new System.Drawing.Size(54, 20);
+            this.CNY.TabIndex = 2;
+            this.CNY.Value = new decimal(new int[] {
             700,
             0,
             0,
             0});
-            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
+            this.CNY.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
             // 
-            // label2
+            // label_cny
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(205, 58);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 15);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "LTC";
-            this.label2.Click += new System.EventHandler(this.label1_Click);
+            this.label_cny.AutoSize = true;
+            this.label_cny.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_cny.Location = new System.Drawing.Point(203, 55);
+            this.label_cny.Name = "label_cny";
+            this.label_cny.Size = new System.Drawing.Size(31, 15);
+            this.label_cny.TabIndex = 9;
+            this.label_cny.Text = "CNY";
+            this.label_cny.Click += new System.EventHandler(this.label1_Click);
             // 
             // Vform
             // 
@@ -488,8 +488,8 @@
             this.ClientSize = new System.Drawing.Size(484, 252);
             this.Controls.Add(this.label_min);
             this.Controls.Add(this.label_max);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label_cny);
+            this.Controls.Add(this.label_mins);
             this.Controls.Add(this.label_frequency);
             this.Controls.Add(this.min);
             this.Controls.Add(this.max);
@@ -505,8 +505,8 @@
             this.Controls.Add(this.BTCvalue);
             this.Controls.Add(this.BTC);
             this.Controls.Add(this.BitstampValue);
-            this.Controls.Add(this.numericUpDown2);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.CNY);
+            this.Controls.Add(this.M);
             this.Controls.Add(this.Bitstamp);
             this.Controls.Add(this.N);
             this.Controls.Add(this.URL);
@@ -526,8 +526,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.N)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.persentMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.persentMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.M)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CNY)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -561,10 +561,10 @@
         private System.Windows.Forms.Label label_max;
         private System.Windows.Forms.Label label_min;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown M;
+        private System.Windows.Forms.Label label_mins;
+        private System.Windows.Forms.NumericUpDown CNY;
+        private System.Windows.Forms.Label label_cny;
     }
 }
 
