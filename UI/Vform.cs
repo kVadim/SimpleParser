@@ -2,9 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.PhantomJS;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
@@ -29,15 +27,12 @@ namespace SimpleParser01
         bool exception;
         bool sent;
         bool Hidden;
-        double permin; 
-        double permax; 
+        double permin, permax; 
         double interval;
         double CNYvalue;       
-        string firstB;
-        string secondB;
+        string firstB,secondB;
+        int tryToConnect=0;
                 
-
-        
         public Vform()
         {
             InitializeComponent();
@@ -53,13 +48,17 @@ namespace SimpleParser01
             comboBoxBurse1.ValueMember = "Value";
             comboBoxBurse1.SelectedIndex = 3;
 
-
             comboBoxBurse.DataSource = new BindingSource(comboSource, null); ;
             comboBoxBurse.DisplayMember = "Key";
             comboBoxBurse.ValueMember = "Value";
             comboBoxBurse.SelectedIndex = 1;
+        }
 
-            
+        void reRunAfterDisconnect()
+        {
+            Thread.Sleep(10000);
+            butRefresh.Click += new System.EventHandler(this.butRun_Click);
+            //this.butRun_Click();      
         }
 
         void butRun_Click(object sender, EventArgs e)
@@ -103,14 +102,12 @@ namespace SimpleParser01
             string B1 = comboBoxBurse.SelectedItem.ToString();
             string B2 = comboBoxBurse1.SelectedItem.ToString();
             firstB = B1.Substring(1, B1.Length - 5);
-            secondB = B2.Substring(1, B2.Length - 5); 
-             
+            secondB = B2.Substring(1, B2.Length - 5);
 
-                           
-            if (!backgroundWorker1.IsBusy)
-            {               
-                    backgroundWorker1.RunWorkerAsync();                             
-            }         
+                    if (!backgroundWorker1.IsBusy)
+                    {
+                        backgroundWorker1.RunWorkerAsync();
+                    }
         }
 
         private void butStop_Click(object sender, EventArgs e)
@@ -390,6 +387,12 @@ namespace SimpleParser01
             max.Enabled = true;
             # endregion
 
+                
+            if (exception == true && tryToConnect<10 ) 
+            {
+                tryToConnect++;
+                Thread.Sleep(10000); this.butRun_Click(this, e); 
+            }
         }
 
      

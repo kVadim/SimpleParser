@@ -66,14 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UI.exe" size="20880">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UI.exe" size="101776">
       <assemblyIdentity name="UI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>uEAPLUNYzwrs1YtrUoTSRAUkDKC65favGdaSwemSh94=</dsig:DigestValue>
+        <dsig:DigestValue>JlqSQFInGhlgFurqEa61MXfDa1fT2elGf0pXhd1uOro=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -110,22 +110,22 @@
       <dsig:DigestValue>HPmyqnMr0MZag8VdlrqYxO1GK5NyDX/YwLzFNoO/z/s=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="phantomjs-license.txt" size="1451">
+  <file name="phantomjs-license.txt" size="1429">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>BsHK/ilMy1R/S6HuNJqlDHkoRbHoqK5XoryobojXEwk=</dsig:DigestValue>
+      <dsig:DigestValue>3kLL8ZwW2EwrM7iPYitNPLkuMJRa3IQXDj22+6UhSkU=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="UI.exe.config" size="187">
+  <file name="UI.exe.config" size="182">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>xm4bo26HQ0LNVwz1vdPYtzhkpMnp2AI5i+f0b+OahTI=</dsig:DigestValue>
+      <dsig:DigestValue>PbQiHFOih9uz3RPvvsStiPKcsu3PE8/gyCn2QGUyyf4=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
