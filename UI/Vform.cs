@@ -11,9 +11,6 @@ using System.Net.Mail;
 using System.Net;
 using System.Globalization;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Runtime;
-
 
 namespace SimpleParser01
 {
@@ -24,28 +21,27 @@ namespace SimpleParser01
         Dictionary<string, string> comboSource = new Dictionary<string, string>();
         int flag, underflag;
         int delay;
+        int tryToConnect;
         Process[] processes;
         DateTime dt;
         DateTime dt_last_sent_max, dt_last_sent_min;
         bool exception;
         bool sent, sent_min;
         bool Hidden;
+        bool iconnection, iconnection_Flag;
         double permin, permax; 
         double interval;
         double CNYvalue;       
         string firstB,secondB;
-        int tryToConnect;
         string CNYvalueIfcheckd;
+        string error_subject, error_body;
 
-        public bool CheckConnection()
-        {
-            return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
-        }
 
-                
+                   
         public Vform()
         {
             InitializeComponent();
+            MaximizeBox = false;
             URL.Text = "https://bitcoinwisdom.com/";
             butRun.Select();
             comboSource.Add(Bitstamp.Text, BitstampValue.Text);
@@ -92,7 +88,8 @@ namespace SimpleParser01
             min.Enabled = false;
             max.Enabled = false;           
             # endregion
-
+            
+            error_body = "";
             exception = false;
             sent = false;
             sent_min = false;
@@ -108,12 +105,76 @@ namespace SimpleParser01
             string B2 = comboBoxBurse1.SelectedItem.ToString();
             firstB = B1.Substring(1, B1.Length - 5);
             secondB = B2.Substring(1, B2.Length - 5);
+
+
             if (cny_checkBox.Checked)   {CNYvalueIfcheckd = CNYvalue.ToString();}  else { CNYvalueIfcheckd = "NaN "; }
             if (!backgroundWorker1.IsBusy)
                     {
                         backgroundWorker1.RunWorkerAsync();
                     }
+            iconnection = iconnection_Flag = CheckConnection();
         }
+
+        private void butStop_Click(object sender, EventArgs e)
+        {
+            if (backgroundWorker1.IsBusy) { backgroundWorker1.CancelAsync(); }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            #region Driver_Initialization
+            if (Hidden == true)
+            {
+                var driverService = PhantomJSDriverService.CreateDefaultService();
+                driverService.HideCommandPromptWindow = true;
+                driver = new PhantomJSDriver(driverService);
+            }
+            else
+            {
+                var chromeDriverService = ChromeDriverService.CreateDefaultService();
+                chromeDriverService.HideCommandPromptWindow = true;
+                driver = new ChromeDriver(chromeDriverService, new ChromeOptions());
+
+                js = (IJavaScriptExecutor)driver;
+            }
+            driver.Navigate().GoToUrl("https://bitcoinwisdom.com/");
+            driver.Manage().Window.Maximize();
+            #endregion
+
+            int i = 1;
+            int y = 1;          
+
+            while (!exception)
+            {
+                if (y == 6) { iconnection = CheckConnection(); y = 0; }
+                if (!iconnection && iconnection_Flag)
+                {                   
+                    iconnection_Flag = false; 
+                    error_subject = "Connection lost from: " + DateTime.Now.ToString("HH:mm:ss");                             
+                }
+                if (iconnection  && !iconnection_Flag)
+                {
+                    driver.Navigate().GoToUrl("https://bitcoinwisdom.com/");
+                    iconnection_Flag = true; 
+                    error_body = "...till... " + DateTime.Now.ToString("HH:mm:ss");                  
+                    Thread.Sleep(2000);
+                    SendMessage(error_subject, error_body); 
+                }
+
+                backgroundWorker1.ReportProgress(i);
+                Thread.Sleep(delay * 1000);
+
+                if (backgroundWorker1.CancellationPending)
+                {
+                    e.Cancel = true;
+                    backgroundWorker1.ReportProgress(0);
+                    return;
+                }
+                i++;
+                y++;
+            }
+        }
+
 
 
         public void ReadData()
@@ -180,8 +241,6 @@ namespace SimpleParser01
 
            }
 
-        public void ShowErrorInURL(string message)
-        { URL.Text = message; URL.BackColor = Color.Red; URL.ForeColor = Color.White; URL.Refresh(); }
 
         public void CheckDifference()
            {
@@ -190,7 +249,7 @@ namespace SimpleParser01
                {
                    dt = DateTime.Now;
 
-                   if (!exception)
+                   if (!exception )
                    {
                        URL.BackColor = Color.LightGray;
                        URL.ForeColor = Color.Black;
@@ -206,16 +265,12 @@ namespace SimpleParser01
                    double OperandTwo = double.Parse(dictionary[comboBoxBurse1.SelectedIndex], CultureInfo.InvariantCulture);
                            
                    double CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
-                   string actualPercent = Math.Round( CurrentPercent, 2).ToString();
-
-                   
-
-                  
-
+                   string actualPercent = Math.Round(CurrentPercent, 2).ToString("0.00");
+               
                    string body = "........." + firstB + " - " + secondB + ".......CNY: " + CNYvalueIfcheckd+ "..........." + String.Format("{0:T}", dt);
 
                    string subject_max = "MAX Diff:  " + actualPercent + " > " + permax + "%";
-                   string subject_min = "MINIMUM Diff:  " + actualPercent + " < " + permin + "%";
+                   string subject_min = "min Diff:  " + actualPercent + " < " + permin + "%";
                   
                    if (max.Checked && Math.Abs(CurrentPercent) > permax)
                    {
@@ -241,7 +296,7 @@ namespace SimpleParser01
                    {
                        if (dt > dt_last_sent_max.AddSeconds(interval) && sent == true)
                        {
-                           SendMessage("NEGATIVE__" + subject_max, body);
+                           SendMessage(subject_max, body + ".....NEGATIVE");
                            sent = false;
                        }                    
 
@@ -271,12 +326,11 @@ namespace SimpleParser01
                    {
                        if (dt > dt_last_sent_min.AddSeconds(interval) && sent_min == true)
                        {
-                           SendMessage("NEGATIVE__" + subject_min, body);
+                           SendMessage(subject_min, body + ".....NEGATIVE");
                            sent_min = false;
                        }
 
                    }
-                   bool iconnection = CheckConnection();
                    if (!exception)
                    {
                        URL.Text = "Current difference:  " + actualPercent + " %" + "   __FMax: " + flag.ToString() + "   __FMin: " + underflag.ToString() + "  ___time: " + String.Format("{0:T}", dt) + "___" + iconnection;
@@ -305,55 +359,9 @@ namespace SimpleParser01
           
         }
 
+        public void ShowErrorInURL(string message)
+        { URL.Text = message; URL.BackColor = Color.Red; URL.ForeColor = Color.White; URL.Refresh(); }
       
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            #region Driver_Initialization
-            if (Hidden == true)
-            {
-                var driverService = PhantomJSDriverService.CreateDefaultService();
-                driverService.HideCommandPromptWindow = true;
-                driver = new PhantomJSDriver(driverService);
-            }
-            else
-            {
-                var chromeDriverService = ChromeDriverService.CreateDefaultService();
-                chromeDriverService.HideCommandPromptWindow = true;
-                driver = new ChromeDriver(chromeDriverService, new ChromeOptions());
-
-                js = (IJavaScriptExecutor)driver;
-            }
-            driver.Navigate().GoToUrl("https://bitcoinwisdom.com/");
-
-            driver.Manage().Window.Maximize();
-            #endregion
-           
-            int i = 1;
-
-            while (!exception)
-            {
-         
-                backgroundWorker1.ReportProgress(i);                
-                Thread.Sleep(delay * 1000);
-
-                if (backgroundWorker1.CancellationPending) 
-                {
-                    e.Cancel = true;
-                    backgroundWorker1.ReportProgress(0);                   
-                    return;
-                }                
-                i++;
-            }
-        }
-
-        //[DllImport("wininet.dll")]
-        //private extern static bool InternetGetConnectedState(out int Description, int ReservedValue);
-
-        //public static bool CheckNet()
-        //{
-        //    int desc;
-        //    return InternetGetConnectedState(out desc, 0);
-        //}
 
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -371,8 +379,12 @@ namespace SimpleParser01
                exception = true;
                ShowErrorInURL("Error: Failed to find elements - please check internet connection");            
            }
-          
-            if(max.Checked || min.Checked){ CheckDifference();}
+
+            if (max.Checked || min.Checked) 
+            {
+                if (iconnection_Flag) { CheckDifference(); } else { ShowErrorInURL(error_subject); }
+            }
+            
             butRun.Text = i.ToString();
             butRun.Refresh();
         }
@@ -431,7 +443,11 @@ namespace SimpleParser01
             
         }
 
-     
+   
+  
+
+
+
         public void RemovePhantomjsProcesses()
         {
            Thread.Sleep(1000);
@@ -451,10 +467,23 @@ namespace SimpleParser01
             }
         }
 
-        private void butStop_Click(object sender, EventArgs e)
+      
+
+        public bool CheckConnection()
         {
-            if (backgroundWorker1.IsBusy) { backgroundWorker1.CancelAsync(); }
+            return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
         }
+
+
+
+
+
+
+
+
+
+
+
 
 
         #region Useless_methods
