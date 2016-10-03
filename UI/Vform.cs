@@ -11,6 +11,9 @@ using System.Net.Mail;
 using System.Net;
 using System.Globalization;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Runtime;
+
 
 namespace SimpleParser01
 {
@@ -32,6 +35,12 @@ namespace SimpleParser01
         double CNYvalue;       
         string firstB,secondB;
         int tryToConnect;
+        string CNYvalueIfcheckd;
+
+        public bool CheckConnection()
+        {
+            return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+        }
 
                 
         public Vform()
@@ -55,12 +64,6 @@ namespace SimpleParser01
             comboBoxBurse.SelectedIndex = 3;
         }
 
-        //void reRunAfterDisconnect()
-        //{
-        //    Thread.Sleep(10000);
-        //    butRefresh.Click += new System.EventHandler(this.butRun_Click);
-        //    //this.butRun_Click();      
-        //}
 
         void butRun_Click(object sender, EventArgs e)
         {            
@@ -105,16 +108,11 @@ namespace SimpleParser01
             string B2 = comboBoxBurse1.SelectedItem.ToString();
             firstB = B1.Substring(1, B1.Length - 5);
             secondB = B2.Substring(1, B2.Length - 5);
-
-                    if (!backgroundWorker1.IsBusy)
+            if (cny_checkBox.Checked)   {CNYvalueIfcheckd = CNYvalue.ToString();}  else { CNYvalueIfcheckd = "NaN "; }
+            if (!backgroundWorker1.IsBusy)
                     {
                         backgroundWorker1.RunWorkerAsync();
                     }
-        }
-
-        private void butStop_Click(object sender, EventArgs e)
-        {
-            if (backgroundWorker1.IsBusy) { backgroundWorker1.CancelAsync(); }
         }
 
 
@@ -210,8 +208,11 @@ namespace SimpleParser01
                    double CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
                    string actualPercent = Math.Round( CurrentPercent, 2).ToString();
 
+                   
 
-                   string body = "____" + firstB + " - " + secondB + "____cny: " + CNYvalue+ "____time:" + String.Format("{0:T}", dt);
+                  
+
+                   string body = "........." + firstB + " - " + secondB + ".......CNY: " + CNYvalueIfcheckd+ "..........." + String.Format("{0:T}", dt);
 
                    string subject_max = "MAX Diff:  " + actualPercent + " > " + permax + "%";
                    string subject_min = "MINIMUM Diff:  " + actualPercent + " < " + permin + "%";
@@ -275,9 +276,10 @@ namespace SimpleParser01
                        }
 
                    }
+                   bool iconnection = CheckConnection();
                    if (!exception)
                    {
-                       URL.Text = "Current difference:  " + actualPercent + " %" + "   __FLAG_Max: " + flag.ToString()+ "   __FLAG_Min: " + underflag.ToString()+ "  ___time: " + String.Format("{0:T}", dt);
+                       URL.Text = "Current difference:  " + actualPercent + " %" + "   __FMax: " + flag.ToString() + "   __FMin: " + underflag.ToString() + "  ___time: " + String.Format("{0:T}", dt) + "___" + iconnection;
                        URL.Refresh();
                    }
                }
@@ -321,9 +323,7 @@ namespace SimpleParser01
 
                 js = (IJavaScriptExecutor)driver;
             }
-
-           
-                driver.Navigate().GoToUrl("https://bitcoinwisdom.com/");
+            driver.Navigate().GoToUrl("https://bitcoinwisdom.com/");
 
             driver.Manage().Window.Maximize();
             #endregion
@@ -345,6 +345,16 @@ namespace SimpleParser01
                 i++;
             }
         }
+
+        //[DllImport("wininet.dll")]
+        //private extern static bool InternetGetConnectedState(out int Description, int ReservedValue);
+
+        //public static bool CheckNet()
+        //{
+        //    int desc;
+        //    return InternetGetConnectedState(out desc, 0);
+        //}
+
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -441,6 +451,10 @@ namespace SimpleParser01
             }
         }
 
+        private void butStop_Click(object sender, EventArgs e)
+        {
+            if (backgroundWorker1.IsBusy) { backgroundWorker1.CancelAsync(); }
+        }
 
 
         #region Useless_methods
