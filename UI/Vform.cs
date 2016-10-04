@@ -149,7 +149,8 @@ namespace SimpleParser01
                 if (y == 6) { iconnection = CheckConnection(); y = 0; }
                 if (!iconnection && iconnection_Flag)
                 {                   
-                    iconnection_Flag = false; 
+                    iconnection_Flag = false;
+                    driver.Quit();
                     error_subject = "Connection lost from: " + DateTime.Now.ToString("HH:mm:ss");                             
                 }
                 if (iconnection  && !iconnection_Flag)
@@ -175,6 +176,40 @@ namespace SimpleParser01
             }
         }
 
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            int i = e.ProgressPercentage;
+
+            try
+            {
+                if (iconnection_Flag) { ReadData(); }
+                exception = false;
+                tryToConnect = 0;
+            }
+            catch (Exception ex)
+            {
+                exception = true;
+                ShowErrorInURL("Error: Failed to find elements - please check internet connection");
+            }
+
+           
+            if (!iconnection_Flag) 
+            { 
+                ShowErrorInURL(error_subject);
+            }
+            else if (max.Checked || min.Checked)
+            {
+                CheckDifference(); 
+            }
+            else 
+            {
+                ShowOKInURL("https://bitcoinwisdom.com/"); 
+            }
+
+
+            butRun.Text = i.ToString();
+            butRun.Refresh();
+        }
 
 
         public void ReadData()
@@ -361,34 +396,10 @@ namespace SimpleParser01
 
         public void ShowErrorInURL(string message)
         { URL.Text = message; URL.BackColor = Color.Red; URL.ForeColor = Color.White; URL.Refresh(); }
+
+        public void ShowOKInURL(string message)
+        { URL.Text = message; URL.BackColor = Color.LightGray; URL.ForeColor = Color.Black; URL.Refresh(); }
       
-
-
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            int i = e.ProgressPercentage;
-
-            try
-            {
-                ReadData();
-                exception = false;
-                tryToConnect = 0;
-            }
-           catch (Exception ex)
-            {
-               exception = true;
-               ShowErrorInURL("Error: Failed to find elements - please check internet connection");            
-           }
-
-            if (max.Checked || min.Checked) 
-            {
-                if (iconnection_Flag) { CheckDifference(); } else { ShowErrorInURL(error_subject); }
-            }
-            
-            butRun.Text = i.ToString();
-            butRun.Refresh();
-        }
-
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             driver.Quit();
@@ -444,10 +455,6 @@ namespace SimpleParser01
         }
 
    
-  
-
-
-
         public void RemovePhantomjsProcesses()
         {
            Thread.Sleep(1000);
@@ -461,8 +468,8 @@ namespace SimpleParser01
             {
                 this.Hide();
                 ShowIcon = false;
-                notifyIcon1.Visible = true;
-                notifyIcon1.ShowBalloonTip(1000);
+                simpleParser.Visible = true;
+                simpleParser.ShowBalloonTip(1000);
             
             }
         }
@@ -524,8 +531,11 @@ namespace SimpleParser01
 
         private void Vform_Load(object sender, EventArgs e)
         {
-            notifyIcon1.BalloonTipTitle = "SimpleParser";
-            notifyIcon1.BalloonTipText = "Minimazed";
+            
+            simpleParser.BalloonTipTitle = "SimpleParser";
+            simpleParser.BalloonTipText = "see you";
+
+            
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -550,7 +560,7 @@ namespace SimpleParser01
         {
             this.Show();
             ShowInTaskbar = true;
-            notifyIcon1.Visible = false;
+            simpleParser.Visible = false;
             WindowState = FormWindowState.Normal;
             this.Show();
         }
@@ -568,6 +578,12 @@ namespace SimpleParser01
         private void isHidden_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Vform_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Thread.Sleep(1700);
+            RemovePhantomjsProcesses();
         }
 
        

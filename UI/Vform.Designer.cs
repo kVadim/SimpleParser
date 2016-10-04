@@ -54,7 +54,7 @@
             this.label_frequency = new System.Windows.Forms.Label();
             this.label_max = new System.Windows.Forms.Label();
             this.label_min = new System.Windows.Forms.Label();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.simpleParser = new System.Windows.Forms.NotifyIcon(this.components);
             this.M = new System.Windows.Forms.NumericUpDown();
             this.label_mins = new System.Windows.Forms.Label();
             this.CNY = new System.Windows.Forms.NumericUpDown();
@@ -382,12 +382,12 @@
             this.label_min.Text = "Minimum %";
             this.label_min.Click += new System.EventHandler(this.label1_Click);
             // 
-            // notifyIcon1
+            // simpleParser
             // 
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
-            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            this.simpleParser.Icon = ((System.Drawing.Icon)(resources.GetObject("simpleParser.Icon")));
+            this.simpleParser.Text = "notifyIcon1";
+            this.simpleParser.Visible = true;
+            this.simpleParser.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // M
             // 
@@ -536,6 +536,7 @@
             this.ShowInTaskbar = false;
             this.Text = "SimpleParser  0.4";
             this.TopMost = true;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Vform_FormClosed);
             this.Load += new System.EventHandler(this.Vform_Load);
             this.Resize += new System.EventHandler(this.butRefresh_Click);
             ((System.ComponentModel.ISupportInitialize)(this.N)).EndInit();
@@ -574,7 +575,7 @@
         private System.Windows.Forms.Label label_frequency;
         private System.Windows.Forms.Label label_max;
         private System.Windows.Forms.Label label_min;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.NotifyIcon simpleParser;
         private System.Windows.Forms.NumericUpDown M;
         private System.Windows.Forms.Label label_mins;
         private System.Windows.Forms.NumericUpDown CNY;
