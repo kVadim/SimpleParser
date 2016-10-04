@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Vform));
             this.butRun = new System.Windows.Forms.Button();
             this.butStop = new System.Windows.Forms.Button();
-            this.butRefresh = new System.Windows.Forms.Button();
             this.URL = new System.Windows.Forms.TextBox();
             this.N = new System.Windows.Forms.NumericUpDown();
             this.Bitstamp = new System.Windows.Forms.Label();
@@ -98,19 +97,6 @@
             this.butStop.UseVisualStyleBackColor = true;
             this.butStop.Click += new System.EventHandler(this.butStop_Click);
             // 
-            // butRefresh
-            // 
-            this.butRefresh.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.butRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.butRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.butRefresh.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.butRefresh.Location = new System.Drawing.Point(12, 224);
-            this.butRefresh.Name = "butRefresh";
-            this.butRefresh.Size = new System.Drawing.Size(460, 6);
-            this.butRefresh.TabIndex = 0;
-            this.butRefresh.UseVisualStyleBackColor = true;
-            this.butRefresh.Click += new System.EventHandler(this.butRefresh_Click);
-            // 
             // URL
             // 
             this.URL.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -143,7 +129,6 @@
             0,
             0,
             0});
-            this.N.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
             // 
             // Bitstamp
             // 
@@ -245,7 +230,6 @@
             this.isHidden.TabIndex = 4;
             this.isHidden.Text = "Hidden Run";
             this.isHidden.UseVisualStyleBackColor = true;
-            this.isHidden.CheckedChanged += new System.EventHandler(this.isHidden_CheckedChanged);
             // 
             // backgroundWorker1
             // 
@@ -263,7 +247,6 @@
             this.comboBoxBurse.Size = new System.Drawing.Size(130, 21);
             this.comboBoxBurse.TabIndex = 5;
             this.comboBoxBurse.Text = "No data ..";
-            this.comboBoxBurse.SelectedIndexChanged += new System.EventHandler(this.comboBoxBurse_SelectedIndexChanged);
             // 
             // persentMin
             // 
@@ -287,7 +270,6 @@
             0,
             0,
             65536});
-            this.persentMin.ValueChanged += new System.EventHandler(this.persent_ValueChanged);
             // 
             // comboBoxBurse1
             // 
@@ -297,7 +279,6 @@
             this.comboBoxBurse1.Size = new System.Drawing.Size(130, 21);
             this.comboBoxBurse1.TabIndex = 5;
             this.comboBoxBurse1.Text = "No data ..";
-            this.comboBoxBurse1.SelectedIndexChanged += new System.EventHandler(this.comboBoxBurse1_SelectedIndexChanged_1);
             // 
             // persentMax
             // 
@@ -321,7 +302,6 @@
             0,
             0,
             65536});
-            this.persentMax.ValueChanged += new System.EventHandler(this.persent_ValueChanged);
             // 
             // max
             // 
@@ -334,7 +314,6 @@
             this.max.Size = new System.Drawing.Size(15, 14);
             this.max.TabIndex = 7;
             this.max.UseVisualStyleBackColor = true;
-            this.max.CheckedChanged += new System.EventHandler(this.P2_CheckedChanged);
             // 
             // min
             // 
@@ -347,7 +326,6 @@
             this.min.Size = new System.Drawing.Size(15, 14);
             this.min.TabIndex = 7;
             this.min.UseVisualStyleBackColor = true;
-            this.min.CheckedChanged += new System.EventHandler(this.P2_CheckedChanged);
             // 
             // label_frequency
             // 
@@ -358,7 +336,6 @@
             this.label_frequency.Size = new System.Drawing.Size(62, 15);
             this.label_frequency.TabIndex = 9;
             this.label_frequency.Text = "Seconds";
-            this.label_frequency.Click += new System.EventHandler(this.label1_Click);
             // 
             // label_max
             // 
@@ -369,7 +346,6 @@
             this.label_max.Size = new System.Drawing.Size(86, 15);
             this.label_max.TabIndex = 9;
             this.label_max.Text = "Maximum %";
-            this.label_max.Click += new System.EventHandler(this.label1_Click);
             // 
             // label_min
             // 
@@ -380,12 +356,12 @@
             this.label_min.Size = new System.Drawing.Size(83, 15);
             this.label_min.TabIndex = 9;
             this.label_min.Text = "Minimum %";
-            this.label_min.Click += new System.EventHandler(this.label1_Click);
             // 
             // simpleParser
             // 
+            this.simpleParser.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.simpleParser.Icon = ((System.Drawing.Icon)(resources.GetObject("simpleParser.Icon")));
-            this.simpleParser.Text = "notifyIcon1";
+            this.simpleParser.Text = "simpleParser";
             this.simpleParser.Visible = true;
             this.simpleParser.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
@@ -412,7 +388,6 @@
             0,
             0,
             0});
-            this.M.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
             // 
             // label_mins
             // 
@@ -423,7 +398,6 @@
             this.label_mins.Size = new System.Drawing.Size(51, 15);
             this.label_mins.TabIndex = 9;
             this.label_mins.Text = "Minutes";
-            this.label_mins.Click += new System.EventHandler(this.label1_Click);
             // 
             // CNY
             // 
@@ -454,7 +428,6 @@
             0,
             0,
             131072});
-            this.CNY.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
             // 
             // label_cny
             // 
@@ -465,7 +438,6 @@
             this.label_cny.Size = new System.Drawing.Size(63, 15);
             this.label_cny.TabIndex = 9;
             this.label_cny.Text = "CNY  -  $";
-            this.label_cny.Click += new System.EventHandler(this.label1_Click);
             // 
             // cny_checkBox
             // 
@@ -478,7 +450,6 @@
             this.cny_checkBox.Size = new System.Drawing.Size(15, 14);
             this.cny_checkBox.TabIndex = 7;
             this.cny_checkBox.UseVisualStyleBackColor = true;
-            this.cny_checkBox.CheckedChanged += new System.EventHandler(this.P2_CheckedChanged);
             // 
             // butReport
             // 
@@ -525,7 +496,6 @@
             this.Controls.Add(this.Bitstamp);
             this.Controls.Add(this.N);
             this.Controls.Add(this.URL);
-            this.Controls.Add(this.butRefresh);
             this.Controls.Add(this.butReport);
             this.Controls.Add(this.butStop);
             this.Controls.Add(this.butRun);
@@ -534,11 +504,11 @@
             this.Name = "Vform";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "SimpleParser  0.4";
+            this.Text = "SimpleParser  0.5";
             this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Vform_FormClosed);
             this.Load += new System.EventHandler(this.Vform_Load);
-            this.Resize += new System.EventHandler(this.butRefresh_Click);
+            this.Resize += new System.EventHandler(this.Tray);
             ((System.ComponentModel.ISupportInitialize)(this.N)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.persentMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.persentMax)).EndInit();
@@ -553,7 +523,6 @@
 
         private System.Windows.Forms.Button butRun;
         private System.Windows.Forms.Button butStop;
-        private System.Windows.Forms.Button butRefresh;
         private System.Windows.Forms.TextBox URL;
         private System.Windows.Forms.NumericUpDown N;
         private System.Windows.Forms.Label Bitstamp;

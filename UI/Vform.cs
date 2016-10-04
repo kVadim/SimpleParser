@@ -16,6 +16,7 @@ namespace SimpleParser01
 {
     public partial class Vform : Form
     {
+        #region Common_variables
         public static IWebDriver driver;
         IJavaScriptExecutor js;
         Dictionary<string, string> comboSource = new Dictionary<string, string>();
@@ -35,9 +36,8 @@ namespace SimpleParser01
         string firstB,secondB;
         string CNYvalueIfcheckd;
         string error_subject, error_body;
+        #endregion
 
-
-                   
         public Vform()
         {
             InitializeComponent();
@@ -60,7 +60,6 @@ namespace SimpleParser01
             comboBoxBurse.SelectedIndex = 3;
         }
 
-
         void butRun_Click(object sender, EventArgs e)
         {            
             # region Contorl_behavior_before
@@ -74,7 +73,6 @@ namespace SimpleParser01
             CNY.Enabled = false; 
             URL.ReadOnly = true; 
             butRun.Enabled = false; 
-            butRefresh.Enabled = false;
             isHidden.Enabled = false;
             comboBoxBurse.Enabled = false; 
             comboBoxBurse1.Enabled = false; 
@@ -211,7 +209,6 @@ namespace SimpleParser01
             butRun.Refresh();
         }
 
-
         public void ReadData()
         {
 
@@ -276,7 +273,6 @@ namespace SimpleParser01
 
            }
 
-
         public void CheckDifference()
            {
                if (comboBoxBurse.SelectedIndex == comboBoxBurse1.SelectedIndex) { ShowErrorInURL("Warning:   Monitoring has stopped. Reason - pairs are not defined"); }
@@ -303,7 +299,6 @@ namespace SimpleParser01
                    string actualPercent = Math.Round(CurrentPercent, 2).ToString("0.00");
                
                    string body = "........." + firstB + " - " + secondB + ".......CNY: " + CNYvalueIfcheckd+ "..........." + String.Format("{0:T}", dt);
-
                    string subject_max = "MAX Diff:  " + actualPercent + " > " + permax + "%";
                    string subject_min = "min Diff:  " + actualPercent + " < " + permin + "%";
                   
@@ -312,6 +307,11 @@ namespace SimpleParser01
                        URL.BackColor = Color.Green;
                        URL.ForeColor = Color.White;
                        URL.Refresh();
+                       //if (WindowState == FormWindowState.Minimized)
+                       //{
+                       //   simpleParser.BalloonTipText = "max";
+                       //   simpleParser.ShowBalloonTip(200);
+                       //}
                        flag++;
                       
 
@@ -374,7 +374,6 @@ namespace SimpleParser01
                }
            }
        
-
         public void SendMessage(string subject, string body)
         {
             try
@@ -419,7 +418,6 @@ namespace SimpleParser01
             CNY.Enabled = true;
             URL.ReadOnly = false;
             butRun.Enabled = true;
-            butRefresh.Enabled = true;
             isHidden.Enabled = true;
             comboBoxBurse.Enabled = true;
             comboBoxBurse1.Enabled = true;
@@ -439,145 +437,24 @@ namespace SimpleParser01
             {
                 tryToConnect++;
 
-                if (tryToConnect < 9)
+                if (tryToConnect < 3)
                 {
                     Thread.Sleep(7000);
                     this.butRun_Click(this, e);
                 }
-                //else if (tryToConnect == 9)
-                //{
-                //    Thread.Sleep(900000);
-                //    tryToConnect = 0;
-                //    this.butRun_Click(this, e);
-                //}
             }
-            
         }
 
-   
         public void RemovePhantomjsProcesses()
         {
            Thread.Sleep(1000);
            processes = Process.GetProcessesByName("phantomjs");
            if (processes.Length > 0) { foreach (Process p in processes) { p.Kill(); } }
         }
-
-        private void butRefresh_Click(object sender, EventArgs e)
-        {
-            if(WindowState==FormWindowState.Minimized)
-            {
-                this.Hide();
-                ShowIcon = false;
-                simpleParser.Visible = true;
-                simpleParser.ShowBalloonTip(1000);
-            
-            }
-        }
-
-      
-
+    
         public bool CheckConnection()
         {
             return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        #region Useless_methods
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-     
-        private void persent_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void P2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBoxBurse1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBoxBurse_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void countNum_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Vform_Load(object sender, EventArgs e)
-        {
-            
-            simpleParser.BalloonTipTitle = "SimpleParser";
-            simpleParser.BalloonTipText = "see you";
-
-            
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown1_ValueChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-
-        #endregion
-
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            this.Show();
-            ShowInTaskbar = true;
-            simpleParser.Visible = false;
-            WindowState = FormWindowState.Normal;
-            this.Show();
-        }
-
-        private void butReport_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBoxBurse1_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void isHidden_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void Vform_FormClosed(object sender, FormClosedEventArgs e)
@@ -586,9 +463,46 @@ namespace SimpleParser01
             RemovePhantomjsProcesses();
         }
 
-       
+
+
+
+
+        #region Tray
+        private void Tray(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                this.Hide();
+                ShowIcon = false;
+                simpleParser.Visible = true;
+               // simpleParser.ShowBalloonTip(400);
+
+            }
+        }
+
+        private void Vform_Load(object sender, EventArgs e)
+        {
+          //  simpleParser.BalloonTipTitle = "SimpleParser";
+            simpleParser.BalloonTipText = "see you";
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+           // ShowInTaskbar = true;
+            simpleParser.Visible = false;
+            WindowState = FormWindowState.Normal;
+         //   this.Show();
+        }
+        #endregion
+
+        #region Useless_methods
+        private void butReport_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not implemented yet");
+        }
+        #endregion
+
 
     }
-
-
 }
