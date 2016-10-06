@@ -294,11 +294,14 @@ namespace SimpleParser01
 
                    double OperandOne = double.Parse(dictionary[comboBoxBurse.SelectedIndex], CultureInfo.InvariantCulture);
                    double OperandTwo = double.Parse(dictionary[comboBoxBurse1.SelectedIndex], CultureInfo.InvariantCulture);
-                           
+                   string OpOne = Math.Round(OperandOne, 2).ToString("0.00");
+                   string OpTwo = Math.Round(OperandTwo, 2).ToString("0.00"); 
+
+                         
                    double CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
                    string actualPercent = Math.Round(CurrentPercent, 2).ToString("0.00");
-               
-                   string body = "........." + firstB + " - " + secondB + ".......CNY: " + CNYvalueIfcheckd+ "..........." + String.Format("{0:T}", dt);
+
+                   string body = "........." + firstB + " - " + OpOne + " --- " + secondB + " - " + OpTwo + ".......CNY: " + CNYvalueIfcheckd + "..........." + String.Format("{0:T}", dt);
                    string subject_max = "MAX Diff:  " + actualPercent + " > " + permax + "%";
                    string subject_min = "min Diff:  " + actualPercent + " < " + permin + "%";
                   
