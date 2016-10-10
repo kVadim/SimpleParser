@@ -197,7 +197,7 @@ namespace SimpleParser01
             }
             else if (max.Checked || min.Checked)
             {
-                CheckDifference(); 
+                CheckDifference(i); 
             }
             else 
             {
@@ -205,8 +205,8 @@ namespace SimpleParser01
             }
 
 
-            butRun.Text = i.ToString();
-            butRun.Refresh();
+           // butRun.Text = i.ToString();
+           // butRun.Refresh();
         }
 
         public void ReadData()
@@ -273,7 +273,7 @@ namespace SimpleParser01
 
            }
 
-        public void CheckDifference()
+        public void CheckDifference(int i)
            {
                if (comboBoxBurse.SelectedIndex == comboBoxBurse1.SelectedIndex) { ShowErrorInURL("Warning:   Monitoring has stopped. Reason - pairs are not defined"); }
                else
@@ -301,11 +301,15 @@ namespace SimpleParser01
                    double CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
                    string actualPercent = Math.Round(CurrentPercent, 2).ToString("0.00");
 
-                   string body = "........." + firstB + " - " + OpOne + " --- " + secondB + " - " + OpTwo + ".......CNY: " + CNYvalueIfcheckd + "..........." + String.Format("{0:T}", dt);
+                   string body = "........." + OpOne + " - " + firstB + " --- " + secondB + " - " + OpTwo + ".......CNY: " + CNYvalueIfcheckd + "..........." + String.Format("{0:T}", dt);
                    string subject_max = "MAX Diff:  " + actualPercent + " > " + permax + "%";
                    string subject_min = "min Diff:  " + actualPercent + " < " + permin + "%";
+                   string subject_max_negative = "MAX Diff:  " + actualPercent + " is not > " + permax + "%";
+                   string subject_min_negative = "min Diff:  " + actualPercent + " is not < " + permin + "%";
+
+
                   
-                   if (max.Checked && Math.Abs(CurrentPercent) > permax)
+                   if (max.Checked && CurrentPercent > permax)
                    {
                        URL.BackColor = Color.Green;
                        URL.ForeColor = Color.White;
@@ -330,11 +334,11 @@ namespace SimpleParser01
                        }
 
                    }
-                   if ( max.Checked && Math.Abs(CurrentPercent) < permax )
+                   if ( max.Checked && CurrentPercent < permax )
                    {
                        if (dt > dt_last_sent_max.AddSeconds(interval) && sent == true)
                        {
-                           SendMessage(subject_max, body + ".....NEGATIVE");
+                           SendMessage(subject_max_negative, body + ".....NEGATIVE");
                            sent = false;
                        }                    
 
@@ -364,14 +368,14 @@ namespace SimpleParser01
                    {
                        if (dt > dt_last_sent_min.AddSeconds(interval) && sent_min == true)
                        {
-                           SendMessage(subject_min, body + ".....NEGATIVE");
+                           SendMessage(subject_min_negative, body + ".....NEGATIVE");
                            sent_min = false;
                        }
 
                    }
                    if (!exception)
                    {
-                       URL.Text = "Current difference:  " + actualPercent + " %" + "   __FMax: " + flag.ToString() + "   __FMin: " + underflag.ToString() + "  ___time: " + String.Format("{0:T}", dt) + "___" + iconnection;
+                       URL.Text = "Current diff:  " + actualPercent + " %" + "   __FMax: " + flag.ToString() + "/" + i + "   __FMin: " + underflag.ToString() + "/" + i  +"  ___time: " + String.Format("{0:T}", dt) + "___Connection:" + iconnection;
                        URL.Refresh();
                    }
                }
@@ -414,7 +418,7 @@ namespace SimpleParser01
                 URL.BackColor = Color.LightGray;
                 URL.ForeColor = Color.Black;
             }
-            butRun.Text = "Run"; 
+          //  butRun.Text = "Run"; 
             N.Enabled = true;
             M.Enabled = true;
             cny_checkBox.Enabled = true;

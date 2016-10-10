@@ -250,7 +250,7 @@
             // 
             // persentMin
             // 
-            this.persentMin.DecimalPlaces = 1;
+            this.persentMin.DecimalPlaces = 2;
             this.persentMin.Increment = new decimal(new int[] {
             1,
             0,
@@ -282,7 +282,7 @@
             // 
             // persentMax
             // 
-            this.persentMax.DecimalPlaces = 1;
+            this.persentMax.DecimalPlaces = 2;
             this.persentMax.Increment = new decimal(new int[] {
             1,
             0,
