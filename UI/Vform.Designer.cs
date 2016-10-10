@@ -504,7 +504,7 @@
             this.Name = "Vform";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "SimpleParser  0.5";
+            this.Text = "SimpleParser  0.7";
             this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Vform_FormClosed);
             this.Load += new System.EventHandler(this.Vform_Load);
