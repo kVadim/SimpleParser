@@ -25,6 +25,7 @@ namespace SimpleParser01
         int tryToConnect;
         Process[] processes;
         DateTime dt;
+        DateTime dt_start_max, dt_start_min;
         DateTime dt_last_sent_max, dt_last_sent_min;
         bool exception;
         bool sent, sent_min;
@@ -304,17 +305,20 @@ namespace SimpleParser01
                    string body = "........." + OpOne + " -- " + firstB + " -- " + secondB + " -- " + OpTwo + ".......CNY: " + CNYvalueIfcheckd + "..........." + String.Format("{0:T}", dt);
                    string subject_max = "MAX Diff:  " + actualPercent + " > " + permax + "%";
                    string subject_min = "min Diff:  " + actualPercent + " < " + permin + "%";
-                   string subject_start_max = "Start MAX ......";
-                   string subject_start_min = "Start min ......";
 
                    string subject_max_negative = "MAX Diff:  " + actualPercent + " is not > " + permax + "%";
                    string subject_min_negative = "min Diff:  " + actualPercent + " is not < " + permin + "%";
 
 
 
-                   if (max.Checked && i == 1) { SendMessage(subject_start_max, String.Format("{0:f}", dt)); }
-                   if (min.Checked && i == 1) { SendMessage(subject_start_min, String.Format("{0:f}", dt)); }
+                   if (max.Checked && i == 1) { dt_start_max = dt; SendMessage("Start MAX ......", String.Format("{0:f}", dt)); }
+                   if (max.Checked && dt>dt_start_max.AddDays(1)) { dt_start_max = dt; SendMessage("Daily check MAX", String.Format("{0:f}", dt)); }
+
+                   if (min.Checked && i == 1) { dt_start_min = dt; SendMessage("Start min ......", String.Format("{0:f}", dt)); }
+                   if (max.Checked && dt>dt_start_min.AddDays(1)) { dt_start_min = dt; SendMessage("Daily check min", String.Format("{0:f}", dt)); }
                    
+                  
+
                   
                    if (max.Checked && CurrentPercent > permax)
                    {
