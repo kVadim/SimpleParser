@@ -103,6 +103,7 @@ namespace SimpleParser01
             string B2 = comboBoxBurse1.SelectedItem.ToString();
             firstB = B1.Substring(1, B1.Length - 5);
             secondB = B2.Substring(1, B2.Length - 5);
+            iconnection = iconnection_Flag = CheckConnection();
 
 
             if (cny_checkBox.Checked)   {CNYvalueIfcheckd = CNYvalue.ToString();}  else { CNYvalueIfcheckd = "NaN "; }
@@ -110,7 +111,6 @@ namespace SimpleParser01
                     {
                         backgroundWorker1.RunWorkerAsync();
                     }
-            iconnection = iconnection_Flag = CheckConnection();
         }
 
         private void butStop_Click(object sender, EventArgs e)
@@ -301,13 +301,20 @@ namespace SimpleParser01
                    double CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
                    string actualPercent = Math.Round(CurrentPercent, 2).ToString("0.00");
 
-                   string body = "........." + OpOne + " - " + firstB + " --- " + secondB + " - " + OpTwo + ".......CNY: " + CNYvalueIfcheckd + "..........." + String.Format("{0:T}", dt);
+                   string body = "........." + OpOne + " -- " + firstB + " -- " + secondB + " -- " + OpTwo + ".......CNY: " + CNYvalueIfcheckd + "..........." + String.Format("{0:T}", dt);
                    string subject_max = "MAX Diff:  " + actualPercent + " > " + permax + "%";
                    string subject_min = "min Diff:  " + actualPercent + " < " + permin + "%";
+                   string subject_start_max = "Start MAX ......";
+                   string subject_start_min = "Start min ......";
+
                    string subject_max_negative = "MAX Diff:  " + actualPercent + " is not > " + permax + "%";
                    string subject_min_negative = "min Diff:  " + actualPercent + " is not < " + permin + "%";
 
 
+
+                   if (max.Checked && i == 1) { SendMessage(subject_start_max, String.Format("{0:f}", dt)); }
+                   if (min.Checked && i == 1) { SendMessage(subject_start_min, String.Format("{0:f}", dt)); }
+                   
                   
                    if (max.Checked && CurrentPercent > permax)
                    {
@@ -375,7 +382,7 @@ namespace SimpleParser01
                    }
                    if (!exception)
                    {
-                       URL.Text = "Current diff:  " + actualPercent + " %" + "   __FMax: " + flag.ToString() + "/" + i + "   __FMin: " + underflag.ToString() + "/" + i  +"  ___time: " + String.Format("{0:T}", dt) + "___Connection:" + iconnection;
+                       URL.Text = "Difference:  " + actualPercent + " %" + "   .....FMax: " + flag.ToString() + "/" + i + "  .....FMin: " + underflag.ToString() + "/" + i  +"  ....time: " + String.Format("{0:T}", dt) + "............." + iconnection;
                        URL.Refresh();
                    }
                }
