@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.PhantomJS;
+using OpenQA.Selenium.IE;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Globalization;
 using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace SimpleParser01
 {
@@ -105,6 +107,7 @@ namespace SimpleParser01
             firstB = B1.Substring(1, B1.Length - 5);
             secondB = B2.Substring(1, B2.Length - 5);
             iconnection = iconnection_Flag = CheckConnection();
+            //do delete
 
 
             if (cny_checkBox.Checked)   {CNYvalueIfcheckd = CNYvalue.ToString();}  else { CNYvalueIfcheckd = "NaN "; }
@@ -121,6 +124,8 @@ namespace SimpleParser01
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
+            SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
+
             #region Driver_Initialization
             if (Hidden == true)
             {
@@ -130,6 +135,14 @@ namespace SimpleParser01
             }
             else
             {
+                //var ieDriverService = InternetExplorerDriverService.CreateDefaultService();
+                //ieDriverService.HideCommandPromptWindow = true;
+                //var options = new InternetExplorerOptions
+                //{
+                //    IgnoreZoomLevel = true
+                //};
+                //driver = new InternetExplorerDriver(ieDriverService, options);
+
                 var chromeDriverService = ChromeDriverService.CreateDefaultService();
                 chromeDriverService.HideCommandPromptWindow = true;
                 driver = new ChromeDriver(chromeDriverService, new ChromeOptions());
@@ -174,6 +187,14 @@ namespace SimpleParser01
                 y++;
             }
         }
+
+        void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
+        {
+         //   if (e.Mode == PowerModes.Suspend) PauseTimer();
+          //  else if (e.Mode == PowerModes.Resume) ResumeTimer();
+        }
+
+
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -296,10 +317,17 @@ namespace SimpleParser01
                    double OperandOne = double.Parse(dictionary[comboBoxBurse.SelectedIndex], CultureInfo.InvariantCulture);
                    double OperandTwo = double.Parse(dictionary[comboBoxBurse1.SelectedIndex], CultureInfo.InvariantCulture);
                    string OpOne = Math.Round(OperandOne, 2).ToString("0.00");
-                   string OpTwo = Math.Round(OperandTwo, 2).ToString("0.00"); 
+                   string OpTwo = Math.Round(OperandTwo, 2).ToString("0.00");
 
-                         
-                   double CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
+                   double CurrentPercent;
+
+                   if (OperandOne != 0 || OperandTwo != 0)
+                   {
+                        CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
+                   }
+                   else { CurrentPercent = 0; }
+
+
                    string actualPercent = Math.Round(CurrentPercent, 2).ToString("0.00");
 
                    string body = "........." + OpOne + " -- " + firstB + " -- " + secondB + " -- " + OpTwo + ".......CNY: " + CNYvalueIfcheckd + "..........." + String.Format("{0:T}", dt);
@@ -309,27 +337,19 @@ namespace SimpleParser01
                    string subject_max_negative = "MAX Diff:  " + actualPercent + " is not > " + permax + "%";
                    string subject_min_negative = "min Diff:  " + actualPercent + " is not < " + permin + "%";
 
-
-
                    if (max.Checked && i == 1) { dt_start_max = dt; SendMessage("Start MAX ......", String.Format("{0:f}", dt)); }
                    if (max.Checked && dt>dt_start_max.AddDays(1)) { dt_start_max = dt; SendMessage("Daily check MAX", String.Format("{0:f}", dt)); }
 
                    if (min.Checked && i == 1) { dt_start_min = dt; SendMessage("Start min ......", String.Format("{0:f}", dt)); }
-                   if (max.Checked && dt>dt_start_min.AddDays(1)) { dt_start_min = dt; SendMessage("Daily check min", String.Format("{0:f}", dt)); }
+                   if (min.Checked && dt>dt_start_min.AddDays(1)) { dt_start_min = dt; SendMessage("Daily check min", String.Format("{0:f}", dt)); }
                    
-                  
-
-                  
+                                   
                    if (max.Checked && CurrentPercent > permax)
                    {
                        URL.BackColor = Color.Green;
                        URL.ForeColor = Color.White;
                        URL.Refresh();
-                       //if (WindowState == FormWindowState.Minimized)
-                       //{
-                       //   simpleParser.BalloonTipText = "max";
-                       //   simpleParser.ShowBalloonTip(200);
-                       //}
+                      
                        flag++;
                       
 
@@ -349,7 +369,7 @@ namespace SimpleParser01
                    {
                        if (dt > dt_last_sent_max.AddSeconds(interval) && sent == true)
                        {
-                           SendMessage(subject_max_negative, body + ".....NEGATIVE");
+                           SendMessage(subject_max_negative, body + ".....Parser starts from the begining");
                            sent = false;
                        }                    
 
@@ -379,7 +399,7 @@ namespace SimpleParser01
                    {
                        if (dt > dt_last_sent_min.AddSeconds(interval) && sent_min == true)
                        {
-                           SendMessage(subject_min_negative, body + ".....NEGATIVE");
+                           SendMessage(subject_min_negative, body + ".....Parser starts from the begining");
                            sent_min = false;
                        }
 
