@@ -22,18 +22,27 @@ namespace SimpleParser01
         #region Common_variables
         public static IWebDriver driver;
         IJavaScriptExecutor js;
+        Process[] processes;
         Dictionary<string, string> comboSource = new Dictionary<string, string>();
+        Dictionary<string, string> comboSource2 = new Dictionary<string, string>();
+        string okcoin_Btccny_Handle, btcchina_Btccny_Handle, huobi_Btccny_Handle;
+        string okcoinBtccnyCurrentValue, btcchinaBtccnyCurrentValue, huobiBtccnyCurrentValue;
+        bool iconnection;         
+        bool iconnection_Flag;      //check connection at start
+        bool exception;             //false at start and becomes true if "try" fails while doing ReadData()
+        int tryToConnect;           // set equal to 0 in "try" passes while doing ReadData()
+
+        //unchecked
         int flag, underflag;
         int delay;
-        int tryToConnect;
-        Process[] processes;
+             
         DateTime dt;
         DateTime dt_start_max, dt_start_min;
         DateTime dt_last_sent_max, dt_last_sent_min;
-        bool exception;
+        
         bool sent, sent_min;
-        bool Hidden;
-        bool iconnection, iconnection_Flag;
+        //bool Hidden;
+        
         double permin, permax; 
         double interval;
         double CNYvalue;       
@@ -41,19 +50,14 @@ namespace SimpleParser01
         string CNYvalueIfcheckd;
         string error_subject, error_body;
         #endregion
-        #region Common_variables2     
-        Dictionary<string, string> comboSource2 = new Dictionary<string, string>();
-        string okcoin_Btccny_Handle, btcchina_Btccny_Handle, huobi_Btccny_Handle;
-        string okcoinBtccnyCurrentValue, btcchinaBtccnyCurrentValue, huobiBtccnyCurrentValue;   
-        #endregion
-
-        public Vform()
+  
+        public Vform()                                     
         {
             InitializeComponent();
-            MaximizeBox = false;
-            URL.Text = "https://bitcoinwisdom.com/";
-            butRun.Select();
-
+            MaximizeBox = false;                           //????? maximaze from tray
+           // URL.Text = "https://bitcoinwisdom.com/";     //Moved to properties should be deleted in 0.9
+            butRun.Select();                               //Focus on Run button
+            #region Comboboxes initializing   +++              
             comboSource.Add(Bitstamp.Text, BitstampValue.Text);
             comboSource.Add(BTC.Text, BTCvalue.Text);
             comboSource.Add(Bitfinex.Text, BitfinexValue.Text);
@@ -82,11 +86,12 @@ namespace SimpleParser01
             comboBoxBurse4.DisplayMember = "Key";
             comboBoxBurse4.ValueMember = "Value";
             comboBoxBurse4.SelectedIndex = 1;
+            #endregion
         }
 
         void butRun_Click(object sender, EventArgs e)
         {            
-            # region Contorl_behavior_before
+            # region Contorl_behavior_before +++
             checkBox_min.Enabled = false;
             checkBox_max.Enabled = false;
             checkBox_cny.Enabled = false;
@@ -133,12 +138,13 @@ namespace SimpleParser01
                 label_OkcoinValue.Enabled = false;
             }
             # endregion
-            
-            error_body = "";
+
+            # region Variable_behavior_before --- 
+            error_body = ""; 
             exception = false;
             sent = false;
             sent_min = false;
-            Hidden = checkBox_isHidden.Checked;
+            //Hidden = checkBox_isHidden.Checked;
             permin = (double)counter_Min.Value;
             permax = (double)counter_Max.Value;
             CNYvalue = (double)counter_CNY.Value;
@@ -150,18 +156,18 @@ namespace SimpleParser01
             string B2 = comboBoxBurse2.SelectedItem.ToString();
             firstB = B1.Substring(1, B1.Length - 5);
             secondB = B2.Substring(1, B2.Length - 5);
-            iconnection = iconnection_Flag = CheckConnection();
-            //do delete
+            iconnection = iconnection_Flag = CheckConnection();  //unclear why we check connection here
+            #endregion
 
-
-            if (checkBox_cny.Checked)   {CNYvalueIfcheckd = CNYvalue.ToString();}  else { CNYvalueIfcheckd = "NaN "; }
+            if (checkBox_cny.Checked)   
+            {CNYvalueIfcheckd = CNYvalue.ToString();}  else { CNYvalueIfcheckd = "NaN "; }  //unclear
             if (!backgroundWorker1.IsBusy)
                     {
                         backgroundWorker1.RunWorkerAsync();
                     }
         }
 
-        private void butStop_Click(object sender, EventArgs e)
+        private void butStop_Click(object sender, EventArgs e)  //+++
         {
             if (backgroundWorker1.IsBusy) { backgroundWorker1.CancelAsync(); }
         }
@@ -170,8 +176,8 @@ namespace SimpleParser01
         {
             SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
 
-            #region Driver_Initialization
-            if (Hidden == true)
+            #region Driver_Initialization +++
+            if (checkBox_isHidden.Checked)
             {
                 var driverService = PhantomJSDriverService.CreateDefaultService();
                 driverService.HideCommandPromptWindow = true;
@@ -209,7 +215,8 @@ namespace SimpleParser01
             }
 
             #endregion
-
+            iconnection = iconnection_Flag = CheckConnection();
+            #region Exception handling ---
             int i = 1;
             int y = 1;          
 
@@ -243,9 +250,10 @@ namespace SimpleParser01
                 i++;
                 y++;
             }
+            #endregion
         }
 
-        void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
+        void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e) //---
         {
          //   if (e.Mode == PowerModes.Suspend) PauseTimer();
           //  else if (e.Mode == PowerModes.Resume) ResumeTimer();
@@ -259,8 +267,8 @@ namespace SimpleParser01
 
             try
             {
-                if (iconnection_Flag) { ReadData(); }
-                exception = false;
+                if (iconnection_Flag) { ReadData(); }   //if good connection - read data
+                exception = false;                      // set exception flag -  false   ?????? unclear place
                 tryToConnect = 0;
             }
             catch (Exception ex)
@@ -272,29 +280,30 @@ namespace SimpleParser01
            
             if (!iconnection_Flag) 
             { 
-                ShowErrorInURL(error_subject);
+                ShowErrorInURL(error_subject);    //unclear what should be here
             }
-            else if (checkBox_max.Checked || checkBox_min.Checked)
+            else if (checkBox_max.Checked || checkBox_min.Checked )
             {
-                CheckDifference(i); 
+                if (checkBox_SecondSet.Checked) { CheckDifference2(i); }
+                else { CheckDifference(i); }               
             }
             else 
             {
-                ShowOKInURL("https://bitcoinwisdom.com/"); 
+                ShowOKInURL("https://bitcoinwisdom.com/");
             }
 
+            #region suggestion
 
-           // butRun.Text = i.ToString();
-           // butRun.Refresh();
+            #endregion
         }
 
-        public void ReadData()
+        public void ReadData() //++
         {
             if (checkBox_SecondSet.Checked){
-                #region default setting2
+                // add red highlites for explicit mode
+                #region get data from page +++
                 char[] _splitchar = { ' ' };
                 string _currentTitle;
-
 
                 _currentTitle = driver.SwitchTo().Window(btcchina_Btccny_Handle).Title;
                 string[] btcchina_Title = _currentTitle.Split(_splitchar); 
@@ -307,14 +316,15 @@ namespace SimpleParser01
                 _currentTitle = driver.SwitchTo().Window(huobi_Btccny_Handle).Title;
                 string[] huobi_Title = _currentTitle.Split(_splitchar); 
                 huobiBtccnyCurrentValue = huobi_Title[0];
+                #endregion
 
+                #region set all 3 tables to default color Gray +++
                 label_OkcoinValue.BackColor = Color.Gray;
                 label_BtcchinaValue.BackColor = Color.Gray;
                 label_HuobiValue.BackColor = Color.Gray;
-
                 # endregion
 
-                
+                #region show data in tables
                 if (label_OkcoinValue.Text != "0" && label_OkcoinValue.Text != okcoinBtccnyCurrentValue) 
                 { 
                     label_OkcoinValue.BackColor = Color.Red;
@@ -335,29 +345,33 @@ namespace SimpleParser01
                 }
                 label_HuobiValue.Text = huobiBtccnyCurrentValue;
                 label_HuobiValue.Refresh();
-
-
-
-
+                #endregion
             }
             else {
 
-                #region default setting
+                #region read elements from page --- 
+
                 IWebElement bitstamp = driver.FindElement(By.CssSelector("#market_bitstampbtcusd"));
                 IWebElement bts = driver.FindElement(By.CssSelector("#market_btcebtcusd"));
                 IWebElement bitfinex = driver.FindElement(By.CssSelector("#market_bitfinexbtcusd"));
                 IWebElement huobi = driver.FindElement(By.CssSelector("#market_huobibtccny"));
+
                 //IWebElement usa = driver.FindElement(By.CssSelector("#o_btcusd>td.r"));
                 //IWebElement cny = driver.FindElement(By.CssSelector("#o_btccny>td.r"));
+                #endregion
+
+                #region set all 4 tables to default color Gray +++
 
                 BitstampValue.BackColor = Color.Gray;
                 BTCvalue.BackColor = Color.Gray;
                 BitfinexValue.BackColor = Color.Gray;
                 HuobiValue.BackColor = Color.Gray;
 
+                # endregion
 
-                // Something wrong here .... (next if should be deleted)
-                if (Hidden == false)
+                #region set all highlites to default color black +++
+
+                if (!checkBox_isHidden.Checked)
                 {
                     js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bitstamp, " border: 3px solid black;");
                     js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bts, " border: 3px solid black;");
@@ -365,11 +379,14 @@ namespace SimpleParser01
                     js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", huobi, " border: 3px solid black;");
                 }
                 # endregion
+
+                #region show data in tables +++
+
                 if (BitstampValue.Text != "0" && BitstampValue.Text != bitstamp.Text)
                 { 
                     BitstampValue.BackColor = Color.Red;
                 }
-                if (Hidden == false)
+                if (!checkBox_isHidden.Checked)
                 {
                     js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bitstamp, " border: 3px solid red;");
                 }
@@ -381,7 +398,7 @@ namespace SimpleParser01
                 {
                     BTCvalue.BackColor = Color.Red; 
                 }
-                if (Hidden == false)
+                if (!checkBox_isHidden.Checked)
                 {
                     js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bts, " border: 3px solid red;");
                 }
@@ -392,7 +409,7 @@ namespace SimpleParser01
                 { 
                     BitfinexValue.BackColor = Color.Red;
                 }
-                if (Hidden == false)
+                if (!checkBox_isHidden.Checked)
                 {
                     js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", bitfinex, " border: 3px solid red;");
                 }
@@ -406,12 +423,14 @@ namespace SimpleParser01
                 { 
                     HuobiValue.BackColor = Color.Red;  
                 }
-                if (Hidden == false)
+                if (checkBox_isHidden.Checked)
                 {
                     js.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", huobi, " border: 3px solid red;");
                 }
                 HuobiValue.Text = _huobValueInDollars;
                 HuobiValue.Refresh();
+
+                #endregion
             }
         }
 
@@ -433,6 +452,8 @@ namespace SimpleParser01
                    dictionary.Add(1, BTCvalue.Text);
                    dictionary.Add(2, BitfinexValue.Text);
                    dictionary.Add(3, HuobiValue.Text);
+
+
 
                    double OperandOne = double.Parse(dictionary[comboBoxBurse.SelectedIndex], CultureInfo.InvariantCulture);
                    double OperandTwo = double.Parse(dictionary[comboBoxBurse2.SelectedIndex], CultureInfo.InvariantCulture);
@@ -537,6 +558,135 @@ namespace SimpleParser01
                    }
                }
            }
+        public void CheckDifference2(int i)
+        {
+            if (comboBoxBurse3.SelectedIndex == comboBoxBurse4.SelectedIndex) { ShowErrorInURL("Warning:   Monitoring has stopped. Reason - pairs are not defined"); }
+            else
+            {
+                dt = DateTime.Now;
+
+                if (!exception)
+                {
+                    URL.BackColor = Color.LightGray;
+                    URL.ForeColor = Color.Black;
+                }
+
+                Dictionary<int, string> dictionary = new Dictionary<int, string>();
+                dictionary.Add(0, label_OkcoinValue.Text);
+                dictionary.Add(1, label_OkcoinValue.Text);
+                dictionary.Add(2, label_HuobiValue.Text);
+                                                             
+                double OperandOne = double.Parse(dictionary[comboBoxBurse3.SelectedIndex], CultureInfo.InvariantCulture);
+                double OperandTwo = double.Parse(dictionary[comboBoxBurse4.SelectedIndex], CultureInfo.InvariantCulture);
+
+                string OpOne = Math.Round(OperandOne, 2).ToString("0.00");
+                string OpTwo = Math.Round(OperandTwo, 2).ToString("0.00");
+
+                string B1 = comboBoxBurse3.SelectedItem.ToString();
+                string B2 = comboBoxBurse4.SelectedItem.ToString();
+                firstB = B1.Substring(1, B1.Length - 5);
+                secondB = B2.Substring(1, B2.Length - 5);
+
+                double CurrentPercent;
+
+                if (OperandOne != 0 || OperandTwo != 0)
+                {
+                    CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
+                }
+                else { CurrentPercent = 0; }
+
+                string actualPercent = Math.Round(CurrentPercent, 2).ToString("0.00");
+                string flag1 = "flag".PadLeft(20);
+                string body = OpOne.PadLeft(15) + firstB.PadLeft(20) + " - " + secondB.PadRight(3) + OpTwo.PadRight(10) + "counter_CNY: " + CNYvalueIfcheckd.PadRight(20) + String.Format("{0:T}", dt).PadLeft(20) + flag1;
+
+
+                string subject_max = "MAX Diff:  " + actualPercent + " > " + permax + "%";
+                string subject_min = "checkBox_min Diff:  " + actualPercent + " < " + permin + "%";
+
+                string subject_max_negative = "MAX Diff:  " + actualPercent + " is not > " + permax + "%";
+                string subject_min_negative = "checkBox_min Diff:  " + actualPercent + " is not < " + permin + "%";
+
+
+                if (checkBox_max.Checked && i == 1)
+                {
+                    dt_start_max = dt;
+                    string startMaxBody = String.Format("{0:f}", dt); //+ " MAX: " + permax + "[ in fact: " + actualPercent +"]";
+                    SendMessage("Start", startMaxBody.PadLeft(30));
+                }
+
+                if (checkBox_max.Checked && dt > dt_start_max.AddDays(1)) { dt_start_max = dt; SendMessage("Daily check MAX", String.Format("{0:f}", dt)); }
+
+                if (checkBox_min.Checked && i == 1) { dt_start_min = dt; SendMessage("Start", String.Format("{0:f}", dt)); }
+                if (checkBox_min.Checked && dt > dt_start_min.AddDays(1)) { dt_start_min = dt; SendMessage("Daily check checkBox_min", String.Format("{0:f}", dt)); }
+
+
+                if (checkBox_max.Checked && CurrentPercent > permax)
+                {
+                    URL.BackColor = Color.Green;
+                    URL.ForeColor = Color.White;
+                    URL.Refresh();
+
+                    flag++;
+
+
+                    if (sent == false)
+                    {
+                        SendMessage(subject_max, body);
+                        sent = true;
+                        dt_last_sent_max = dt;
+                    }
+                    if (dt > dt_last_sent_max.AddSeconds(interval))
+                    {
+                        sent = false;
+                    }
+
+                }
+                if (checkBox_max.Checked && CurrentPercent < permax)
+                {
+                    if (dt > dt_last_sent_max.AddSeconds(interval) && sent == true)
+                    {
+                        SendMessage(subject_max_negative, body + "Parser starts from the beginning".PadLeft(40));
+                        sent = false;
+                    }
+
+                }
+
+                if (checkBox_min.Checked && CurrentPercent < permin)
+                {
+                    URL.BackColor = Color.Blue;
+                    URL.ForeColor = Color.White;
+                    URL.Refresh();
+                    underflag++;
+
+
+                    if (sent_min == false)
+                    {
+                        SendMessage(subject_min, body);
+                        sent_min = true;
+                        dt_last_sent_min = dt;
+                    }
+                    if (dt > dt_last_sent_min.AddSeconds(interval))
+                    {
+                        sent_min = false;
+                    }
+
+                }
+                if (checkBox_min.Checked && CurrentPercent > permin)
+                {
+                    if (dt > dt_last_sent_min.AddSeconds(interval) && sent_min == true)
+                    {
+                        SendMessage(subject_min_negative, body + "Parser starts from the beginning".PadLeft(40));
+                        sent_min = false;
+                    }
+
+                }
+                if (!exception)
+                {
+                    URL.Text = "Difference: " + actualPercent + " %" + "FMax ".PadLeft(10) + flag.ToString() + "/" + i.ToString().PadRight(10) + "FMin: " + underflag.ToString() + "/" + i.ToString().PadRight(10) + "time: " + String.Format("{0:T}", dt).PadRight(15) + iconnection;
+                    URL.Refresh();
+                }
+            }
+        }
        
         public void SendMessage(string subject, string body)
         {

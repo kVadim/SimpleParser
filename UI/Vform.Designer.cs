@@ -114,6 +114,7 @@
             this.URL.Name = "URL";
             this.URL.Size = new System.Drawing.Size(461, 20);
             this.URL.TabIndex = 1;
+            this.URL.Text = "https://bitcoinwisdom.com/";
             // 
             // counter_Seconds
             // 
@@ -143,7 +144,7 @@
             // 
             this.Bitstamp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.Bitstamp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Bitstamp.Location = new System.Drawing.Point(12, 260);
+            this.Bitstamp.Location = new System.Drawing.Point(366, 260);
             this.Bitstamp.Name = "Bitstamp";
             this.Bitstamp.Size = new System.Drawing.Size(106, 36);
             this.Bitstamp.TabIndex = 3;
@@ -176,7 +177,7 @@
             // 
             this.Huobi.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.Huobi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Huobi.Location = new System.Drawing.Point(366, 260);
+            this.Huobi.Location = new System.Drawing.Point(12, 260);
             this.Huobi.Name = "Huobi";
             this.Huobi.Size = new System.Drawing.Size(106, 36);
             this.Huobi.TabIndex = 3;
@@ -188,7 +189,7 @@
             this.BitstampValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.BitstampValue.BackColor = System.Drawing.Color.Gainsboro;
             this.BitstampValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BitstampValue.Location = new System.Drawing.Point(12, 296);
+            this.BitstampValue.Location = new System.Drawing.Point(366, 296);
             this.BitstampValue.Name = "BitstampValue";
             this.BitstampValue.Size = new System.Drawing.Size(106, 36);
             this.BitstampValue.TabIndex = 3;
@@ -224,7 +225,7 @@
             this.HuobiValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.HuobiValue.BackColor = System.Drawing.Color.Gainsboro;
             this.HuobiValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.HuobiValue.Location = new System.Drawing.Point(366, 296);
+            this.HuobiValue.Location = new System.Drawing.Point(12, 296);
             this.HuobiValue.Name = "HuobiValue";
             this.HuobiValue.Size = new System.Drawing.Size(106, 36);
             this.HuobiValue.TabIndex = 3;
@@ -477,7 +478,7 @@
             // 
             this.label_OkcoinBtccny.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label_OkcoinBtccny.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_OkcoinBtccny.Location = new System.Drawing.Point(12, 137);
+            this.label_OkcoinBtccny.Location = new System.Drawing.Point(248, 137);
             this.label_OkcoinBtccny.Name = "label_OkcoinBtccny";
             this.label_OkcoinBtccny.Size = new System.Drawing.Size(106, 36);
             this.label_OkcoinBtccny.TabIndex = 3;
@@ -489,7 +490,7 @@
             this.label_OkcoinValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label_OkcoinValue.BackColor = System.Drawing.Color.Gainsboro;
             this.label_OkcoinValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_OkcoinValue.Location = new System.Drawing.Point(12, 173);
+            this.label_OkcoinValue.Location = new System.Drawing.Point(248, 173);
             this.label_OkcoinValue.Name = "label_OkcoinValue";
             this.label_OkcoinValue.Size = new System.Drawing.Size(106, 36);
             this.label_OkcoinValue.TabIndex = 3;
@@ -523,7 +524,7 @@
             // 
             this.label_HuobiBtccny.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label_HuobiBtccny.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_HuobiBtccny.Location = new System.Drawing.Point(248, 137);
+            this.label_HuobiBtccny.Location = new System.Drawing.Point(12, 137);
             this.label_HuobiBtccny.Name = "label_HuobiBtccny";
             this.label_HuobiBtccny.Size = new System.Drawing.Size(106, 36);
             this.label_HuobiBtccny.TabIndex = 3;
@@ -535,7 +536,7 @@
             this.label_HuobiValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label_HuobiValue.BackColor = System.Drawing.Color.Gainsboro;
             this.label_HuobiValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_HuobiValue.Location = new System.Drawing.Point(248, 173);
+            this.label_HuobiValue.Location = new System.Drawing.Point(12, 173);
             this.label_HuobiValue.Name = "label_HuobiValue";
             this.label_HuobiValue.Size = new System.Drawing.Size(106, 36);
             this.label_HuobiValue.TabIndex = 3;
