@@ -66,9 +66,10 @@
             this.label_BtcchinaValue = new System.Windows.Forms.Label();
             this.label_HuobiBtccny = new System.Windows.Forms.Label();
             this.label_HuobiValue = new System.Windows.Forms.Label();
-            this.checkBox_2Set = new System.Windows.Forms.CheckBox();
             this.cmbBoxBurse3 = new System.Windows.Forms.ComboBox();
             this.cmbBoxBurse4 = new System.Windows.Forms.ComboBox();
+            this.radioBtn1 = new System.Windows.Forms.RadioButton();
+            this.radioBtn2 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.counter_Seconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.counter_Min)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.counter_Max)).BeginInit();
@@ -83,7 +84,7 @@
             this.butRun.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.butRun.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.butRun.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.butRun.Location = new System.Drawing.Point(11, 10);
+            this.butRun.Location = new System.Drawing.Point(11, 6);
             this.butRun.Name = "butRun";
             this.butRun.Size = new System.Drawing.Size(85, 24);
             this.butRun.TabIndex = 0;
@@ -98,7 +99,7 @@
             this.butStop.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.butStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.butStop.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.butStop.Location = new System.Drawing.Point(102, 10);
+            this.butStop.Location = new System.Drawing.Point(102, 6);
             this.butStop.Name = "butStop";
             this.butStop.Size = new System.Drawing.Size(85, 24);
             this.butStop.TabIndex = 0;
@@ -108,7 +109,7 @@
             // 
             // URL
             // 
-            this.URL.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.URL.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.URL.BackColor = System.Drawing.SystemColors.ControlLight;
             this.URL.Location = new System.Drawing.Point(11, 92);
             this.URL.Name = "URL";
@@ -120,7 +121,7 @@
             // 
             this.counter_Seconds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.counter_Seconds.InterceptArrowKeys = false;
-            this.counter_Seconds.Location = new System.Drawing.Point(102, 63);
+            this.counter_Seconds.Location = new System.Drawing.Point(238, 39);
             this.counter_Seconds.Maximum = new decimal(new int[] {
             900,
             0,
@@ -134,6 +135,7 @@
             this.counter_Seconds.Name = "counter_Seconds";
             this.counter_Seconds.Size = new System.Drawing.Size(40, 20);
             this.counter_Seconds.TabIndex = 2;
+            this.counter_Seconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.counter_Seconds.Value = new decimal(new int[] {
             5,
             0,
@@ -142,95 +144,103 @@
             // 
             // Bitstamp
             // 
-            this.Bitstamp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.Bitstamp.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.Bitstamp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Bitstamp.Location = new System.Drawing.Point(366, 260);
+            this.Bitstamp.Location = new System.Drawing.Point(366, 175);
             this.Bitstamp.Name = "Bitstamp";
             this.Bitstamp.Size = new System.Drawing.Size(106, 36);
             this.Bitstamp.TabIndex = 3;
             this.Bitstamp.Text = "Bitstamp";
             this.Bitstamp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Bitstamp.Visible = false;
             // 
             // BTC
             // 
-            this.BTC.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.BTC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BTC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BTC.Location = new System.Drawing.Point(130, 260);
+            this.BTC.Location = new System.Drawing.Point(130, 175);
             this.BTC.Name = "BTC";
             this.BTC.Size = new System.Drawing.Size(106, 36);
             this.BTC.TabIndex = 3;
             this.BTC.Text = "BTC-e";
             this.BTC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.BTC.Visible = false;
             // 
             // Bitfinex
             // 
-            this.Bitfinex.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.Bitfinex.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.Bitfinex.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Bitfinex.Location = new System.Drawing.Point(248, 260);
+            this.Bitfinex.Location = new System.Drawing.Point(248, 175);
             this.Bitfinex.Name = "Bitfinex";
             this.Bitfinex.Size = new System.Drawing.Size(106, 36);
             this.Bitfinex.TabIndex = 3;
             this.Bitfinex.Text = "Bitfinex";
             this.Bitfinex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Bitfinex.Visible = false;
             // 
             // Huobi
             // 
-            this.Huobi.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.Huobi.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.Huobi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Huobi.Location = new System.Drawing.Point(12, 260);
+            this.Huobi.Location = new System.Drawing.Point(12, 175);
             this.Huobi.Name = "Huobi";
             this.Huobi.Size = new System.Drawing.Size(106, 36);
             this.Huobi.TabIndex = 3;
             this.Huobi.Text = "Huobi";
             this.Huobi.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Huobi.Visible = false;
             // 
             // BitstampValue
             // 
-            this.BitstampValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.BitstampValue.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BitstampValue.BackColor = System.Drawing.Color.Gainsboro;
             this.BitstampValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BitstampValue.Location = new System.Drawing.Point(366, 296);
+            this.BitstampValue.Location = new System.Drawing.Point(366, 208);
             this.BitstampValue.Name = "BitstampValue";
             this.BitstampValue.Size = new System.Drawing.Size(106, 36);
             this.BitstampValue.TabIndex = 3;
             this.BitstampValue.Text = "0";
             this.BitstampValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.BitstampValue.Visible = false;
             // 
             // BTCvalue
             // 
-            this.BTCvalue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.BTCvalue.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BTCvalue.BackColor = System.Drawing.Color.Gainsboro;
             this.BTCvalue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BTCvalue.Location = new System.Drawing.Point(130, 296);
+            this.BTCvalue.Location = new System.Drawing.Point(130, 208);
             this.BTCvalue.Name = "BTCvalue";
             this.BTCvalue.Size = new System.Drawing.Size(106, 36);
             this.BTCvalue.TabIndex = 3;
             this.BTCvalue.Text = "0";
             this.BTCvalue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.BTCvalue.Visible = false;
             // 
             // BitfinexValue
             // 
-            this.BitfinexValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.BitfinexValue.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BitfinexValue.BackColor = System.Drawing.Color.Gainsboro;
             this.BitfinexValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BitfinexValue.Location = new System.Drawing.Point(248, 296);
+            this.BitfinexValue.Location = new System.Drawing.Point(248, 208);
             this.BitfinexValue.Name = "BitfinexValue";
             this.BitfinexValue.Size = new System.Drawing.Size(106, 36);
             this.BitfinexValue.TabIndex = 3;
             this.BitfinexValue.Text = "0";
             this.BitfinexValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.BitfinexValue.Visible = false;
             // 
             // HuobiValue
             // 
-            this.HuobiValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.HuobiValue.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.HuobiValue.BackColor = System.Drawing.Color.Gainsboro;
             this.HuobiValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.HuobiValue.Location = new System.Drawing.Point(12, 296);
+            this.HuobiValue.Location = new System.Drawing.Point(12, 208);
             this.HuobiValue.Name = "HuobiValue";
             this.HuobiValue.Size = new System.Drawing.Size(106, 36);
             this.HuobiValue.TabIndex = 3;
             this.HuobiValue.Text = "0";
             this.HuobiValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.HuobiValue.Visible = false;
             // 
             // checkBox_isHidden
             // 
@@ -238,12 +248,13 @@
             this.checkBox_isHidden.Checked = true;
             this.checkBox_isHidden.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_isHidden.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox_isHidden.Location = new System.Drawing.Point(195, 66);
+            this.checkBox_isHidden.Location = new System.Drawing.Point(14, 45);
             this.checkBox_isHidden.Name = "checkBox_isHidden";
             this.checkBox_isHidden.Size = new System.Drawing.Size(83, 17);
             this.checkBox_isHidden.TabIndex = 4;
             this.checkBox_isHidden.Text = "Hidden Run";
             this.checkBox_isHidden.UseVisualStyleBackColor = true;
+            this.checkBox_isHidden.CheckedChanged += new System.EventHandler(this.checkBox_isHidden_CheckedChanged);
             // 
             // backgroundWorker1
             // 
@@ -253,12 +264,14 @@
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // comboBoxBurse
+            // cmbBoxBurse
             // 
+            this.cmbBoxBurse.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cmbBoxBurse.Enabled = false;
             this.cmbBoxBurse.FormattingEnabled = true;
-            this.cmbBoxBurse.Location = new System.Drawing.Point(12, 236);
-            this.cmbBoxBurse.Name = "comboBoxBurse";
-            this.cmbBoxBurse.Size = new System.Drawing.Size(224, 21);
+            this.cmbBoxBurse.Location = new System.Drawing.Point(37, 150);
+            this.cmbBoxBurse.Name = "cmbBoxBurse";
+            this.cmbBoxBurse.Size = new System.Drawing.Size(199, 21);
             this.cmbBoxBurse.TabIndex = 5;
             this.cmbBoxBurse.Text = "No data ..";
             // 
@@ -285,11 +298,13 @@
             0,
             65536});
             // 
-            // comboBoxBurse2
+            // cmbBoxBurse2
             // 
+            this.cmbBoxBurse2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cmbBoxBurse2.Enabled = false;
             this.cmbBoxBurse2.FormattingEnabled = true;
-            this.cmbBoxBurse2.Location = new System.Drawing.Point(247, 236);
-            this.cmbBoxBurse2.Name = "comboBoxBurse2";
+            this.cmbBoxBurse2.Location = new System.Drawing.Point(247, 150);
+            this.cmbBoxBurse2.Name = "cmbBoxBurse2";
             this.cmbBoxBurse2.Size = new System.Drawing.Size(225, 21);
             this.cmbBoxBurse2.TabIndex = 5;
             this.cmbBoxBurse2.Text = "No data ..";
@@ -312,7 +327,7 @@
             this.counter_Max.Size = new System.Drawing.Size(51, 20);
             this.counter_Max.TabIndex = 6;
             this.counter_Max.Value = new decimal(new int[] {
-            77,
+            7,
             0,
             0,
             65536});
@@ -332,6 +347,8 @@
             // checkBox_min
             // 
             this.checkBox_min.AutoSize = true;
+            this.checkBox_min.Checked = true;
+            this.checkBox_min.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_min.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox_min.Location = new System.Drawing.Point(299, 39);
             this.checkBox_min.Name = "checkBox_min";
@@ -343,11 +360,11 @@
             // 
             this.label_frequency.AutoSize = true;
             this.label_frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_frequency.Location = new System.Drawing.Point(143, 65);
+            this.label_frequency.Location = new System.Drawing.Point(177, 41);
             this.label_frequency.Name = "label_frequency";
-            this.label_frequency.Size = new System.Drawing.Size(28, 15);
+            this.label_frequency.Size = new System.Drawing.Size(55, 15);
             this.label_frequency.TabIndex = 9;
-            this.label_frequency.Text = "Sec";
+            this.label_frequency.Text = "Seconds";
             // 
             // label_max
             // 
@@ -381,7 +398,7 @@
             // 
             this.counter_Minutes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.counter_Minutes.InterceptArrowKeys = false;
-            this.counter_Minutes.Location = new System.Drawing.Point(11, 63);
+            this.counter_Minutes.Location = new System.Drawing.Point(238, 63);
             this.counter_Minutes.Maximum = new decimal(new int[] {
             900,
             0,
@@ -395,6 +412,7 @@
             this.counter_Minutes.Name = "counter_Minutes";
             this.counter_Minutes.Size = new System.Drawing.Size(40, 20);
             this.counter_Minutes.TabIndex = 2;
+            this.counter_Minutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.counter_Minutes.Value = new decimal(new int[] {
             5,
             0,
@@ -405,11 +423,11 @@
             // 
             this.label_mins.AutoSize = true;
             this.label_mins.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_mins.Location = new System.Drawing.Point(53, 65);
+            this.label_mins.Location = new System.Drawing.Point(181, 65);
             this.label_mins.Name = "label_mins";
-            this.label_mins.Size = new System.Drawing.Size(34, 15);
+            this.label_mins.Size = new System.Drawing.Size(51, 15);
             this.label_mins.TabIndex = 9;
-            this.label_mins.Text = "Mins";
+            this.label_mins.Text = "Minutes";
             // 
             // counter_CNY
             // 
@@ -468,7 +486,7 @@
             this.butReport.Enabled = false;
             this.butReport.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.butReport.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.butReport.Location = new System.Drawing.Point(193, 10);
+            this.butReport.Location = new System.Drawing.Point(193, 6);
             this.butReport.Name = "butReport";
             this.butReport.Size = new System.Drawing.Size(85, 24);
             this.butReport.TabIndex = 0;
@@ -478,9 +496,9 @@
             // 
             // label_OkcoinBtccny
             // 
-            this.label_OkcoinBtccny.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label_OkcoinBtccny.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label_OkcoinBtccny.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_OkcoinBtccny.Location = new System.Drawing.Point(330, 140);
+            this.label_OkcoinBtccny.Location = new System.Drawing.Point(330, 175);
             this.label_OkcoinBtccny.Name = "label_OkcoinBtccny";
             this.label_OkcoinBtccny.Size = new System.Drawing.Size(142, 36);
             this.label_OkcoinBtccny.TabIndex = 3;
@@ -489,21 +507,21 @@
             // 
             // label_OkcoinValue
             // 
-            this.label_OkcoinValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label_OkcoinValue.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label_OkcoinValue.BackColor = System.Drawing.Color.Gainsboro;
             this.label_OkcoinValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_OkcoinValue.Location = new System.Drawing.Point(330, 173);
+            this.label_OkcoinValue.Location = new System.Drawing.Point(348, 208);
             this.label_OkcoinValue.Name = "label_OkcoinValue";
-            this.label_OkcoinValue.Size = new System.Drawing.Size(142, 36);
+            this.label_OkcoinValue.Size = new System.Drawing.Size(106, 36);
             this.label_OkcoinValue.TabIndex = 3;
             this.label_OkcoinValue.Text = "0";
             this.label_OkcoinValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_BtcchinaBtccny
             // 
-            this.label_BtcchinaBtccny.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label_BtcchinaBtccny.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label_BtcchinaBtccny.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_BtcchinaBtccny.Location = new System.Drawing.Point(170, 140);
+            this.label_BtcchinaBtccny.Location = new System.Drawing.Point(170, 175);
             this.label_BtcchinaBtccny.Name = "label_BtcchinaBtccny";
             this.label_BtcchinaBtccny.Size = new System.Drawing.Size(142, 36);
             this.label_BtcchinaBtccny.TabIndex = 3;
@@ -512,21 +530,21 @@
             // 
             // label_BtcchinaValue
             // 
-            this.label_BtcchinaValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label_BtcchinaValue.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label_BtcchinaValue.BackColor = System.Drawing.Color.Gainsboro;
             this.label_BtcchinaValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_BtcchinaValue.Location = new System.Drawing.Point(170, 173);
+            this.label_BtcchinaValue.Location = new System.Drawing.Point(188, 208);
             this.label_BtcchinaValue.Name = "label_BtcchinaValue";
-            this.label_BtcchinaValue.Size = new System.Drawing.Size(142, 36);
+            this.label_BtcchinaValue.Size = new System.Drawing.Size(106, 36);
             this.label_BtcchinaValue.TabIndex = 3;
             this.label_BtcchinaValue.Text = "0";
             this.label_BtcchinaValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_HuobiBtccny
             // 
-            this.label_HuobiBtccny.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label_HuobiBtccny.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label_HuobiBtccny.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_HuobiBtccny.Location = new System.Drawing.Point(12, 140);
+            this.label_HuobiBtccny.Location = new System.Drawing.Point(12, 175);
             this.label_HuobiBtccny.Name = "label_HuobiBtccny";
             this.label_HuobiBtccny.Size = new System.Drawing.Size(142, 36);
             this.label_HuobiBtccny.TabIndex = 3;
@@ -535,46 +553,63 @@
             // 
             // label_HuobiValue
             // 
-            this.label_HuobiValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label_HuobiValue.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label_HuobiValue.BackColor = System.Drawing.Color.Gainsboro;
             this.label_HuobiValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_HuobiValue.Location = new System.Drawing.Point(12, 173);
+            this.label_HuobiValue.Location = new System.Drawing.Point(30, 208);
             this.label_HuobiValue.Name = "label_HuobiValue";
-            this.label_HuobiValue.Size = new System.Drawing.Size(142, 36);
+            this.label_HuobiValue.Size = new System.Drawing.Size(106, 36);
             this.label_HuobiValue.TabIndex = 3;
             this.label_HuobiValue.Text = "0";
             this.label_HuobiValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox_SecondSet
+            // cmbBoxBurse3
             // 
-            this.checkBox_2Set.AutoSize = true;
-            this.checkBox_2Set.Checked = true;
-            this.checkBox_2Set.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_2Set.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox_2Set.Location = new System.Drawing.Point(195, 46);
-            this.checkBox_2Set.Name = "checkBox_SecondSet";
-            this.checkBox_2Set.Size = new System.Drawing.Size(61, 17);
-            this.checkBox_2Set.TabIndex = 7;
-            this.checkBox_2Set.Text = "btchina";
-            this.checkBox_2Set.UseVisualStyleBackColor = true;
-            // 
-            // comboBoxBurse3
-            // 
+            this.cmbBoxBurse3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cmbBoxBurse3.FormattingEnabled = true;
-            this.cmbBoxBurse3.Location = new System.Drawing.Point(12, 120);
-            this.cmbBoxBurse3.Name = "comboBoxBurse3";
-            this.cmbBoxBurse3.Size = new System.Drawing.Size(225, 21);
+            this.cmbBoxBurse3.Location = new System.Drawing.Point(37, 121);
+            this.cmbBoxBurse3.Name = "cmbBoxBurse3";
+            this.cmbBoxBurse3.Size = new System.Drawing.Size(199, 21);
             this.cmbBoxBurse3.TabIndex = 5;
             this.cmbBoxBurse3.Text = "No data ..";
             // 
-            // comboBoxBurse4
+            // cmbBoxBurse4
             // 
+            this.cmbBoxBurse4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cmbBoxBurse4.FormattingEnabled = true;
-            this.cmbBoxBurse4.Location = new System.Drawing.Point(247, 120);
-            this.cmbBoxBurse4.Name = "comboBoxBurse4";
+            this.cmbBoxBurse4.Location = new System.Drawing.Point(247, 121);
+            this.cmbBoxBurse4.Name = "cmbBoxBurse4";
             this.cmbBoxBurse4.Size = new System.Drawing.Size(225, 21);
             this.cmbBoxBurse4.TabIndex = 5;
             this.cmbBoxBurse4.Text = "No data ..";
+            this.cmbBoxBurse4.SelectedIndexChanged += new System.EventHandler(this.cmbBoxBurse4_SelectedIndexChanged);
+            // 
+            // radioBtn1
+            // 
+            this.radioBtn1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.radioBtn1.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioBtn1.BackColor = System.Drawing.Color.Maroon;
+            this.radioBtn1.Checked = true;
+            this.radioBtn1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.radioBtn1.Location = new System.Drawing.Point(11, 121);
+            this.radioBtn1.MaximumSize = new System.Drawing.Size(20, 20);
+            this.radioBtn1.Name = "radioBtn1";
+            this.radioBtn1.Size = new System.Drawing.Size(18, 18);
+            this.radioBtn1.TabIndex = 11;
+            this.radioBtn1.UseVisualStyleBackColor = false;
+            this.radioBtn1.CheckedChanged += new System.EventHandler(this.radioBtn1_CheckedChanged);
+            // 
+            // radioBtn2
+            // 
+            this.radioBtn2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.radioBtn2.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioBtn2.BackColor = System.Drawing.Color.Maroon;
+            this.radioBtn2.Location = new System.Drawing.Point(11, 150);
+            this.radioBtn2.Name = "radioBtn2";
+            this.radioBtn2.Size = new System.Drawing.Size(18, 18);
+            this.radioBtn2.TabIndex = 11;
+            this.radioBtn2.UseVisualStyleBackColor = false;
+            this.radioBtn2.CheckedChanged += new System.EventHandler(this.radioBtn2_CheckedChanged);
             // 
             // Vform
             // 
@@ -582,13 +617,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.butStop;
-            this.ClientSize = new System.Drawing.Size(484, 362);
+            this.ClientSize = new System.Drawing.Size(484, 258);
+            this.Controls.Add(this.radioBtn2);
+            this.Controls.Add(this.radioBtn1);
             this.Controls.Add(this.label_min);
             this.Controls.Add(this.label_max);
             this.Controls.Add(this.label_cny);
             this.Controls.Add(this.label_mins);
             this.Controls.Add(this.label_frequency);
-            this.Controls.Add(this.checkBox_2Set);
             this.Controls.Add(this.checkBox_cny);
             this.Controls.Add(this.checkBox_min);
             this.Controls.Add(this.checkBox_max);
@@ -678,9 +714,10 @@
         private System.Windows.Forms.Label label_BtcchinaValue;
         private System.Windows.Forms.Label label_HuobiBtccny;
         private System.Windows.Forms.Label label_HuobiValue;
-        private System.Windows.Forms.CheckBox checkBox_2Set;
         private System.Windows.Forms.ComboBox cmbBoxBurse3;
         private System.Windows.Forms.ComboBox cmbBoxBurse4;
+        private System.Windows.Forms.RadioButton radioBtn1;
+        private System.Windows.Forms.RadioButton radioBtn2;
     }
 }
 

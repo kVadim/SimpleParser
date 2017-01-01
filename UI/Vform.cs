@@ -92,7 +92,7 @@ namespace SimpleParser01
             checkBox_min.Enabled = false;
             checkBox_max.Enabled = false;
             checkBox_cny.Enabled = false;
-            checkBox_2Set.Enabled = false;
+            radioBtn1.Enabled = false;
             checkBox_isHidden.Enabled = false;
             cmbBoxBurse.Enabled = false;
             cmbBoxBurse2.Enabled = false;
@@ -113,8 +113,8 @@ namespace SimpleParser01
             label_max.Enabled = false;
             label_frequency.Enabled = false;
             label_mins.Enabled = false;
-            label_cny.Enabled = false; 
-            if(checkBox_2Set.Checked)
+            label_cny.Enabled = false;
+            if (radioBtn1.Checked)
             {
                 Bitstamp.Enabled = false;
                 BTC.Enabled = false;
@@ -153,15 +153,15 @@ namespace SimpleParser01
 
             # region Getting selected burse names
 
-            if (checkBox_2Set.Checked)
+            if (radioBtn1.Checked)
             {
                 firstBurseName = cmbBoxBurse3.SelectedItem.ToString().Substring(1, cmbBoxBurse3.SelectedItem.ToString().Length - 5);
-                secondBurseName = cmbBoxBurse4.SelectedItem.ToString().Substring(1, cmbBoxBurse4.SelectedItem.ToString().Length - 5); ;           
+                secondBurseName = cmbBoxBurse4.SelectedItem.ToString().Substring(1, cmbBoxBurse4.SelectedItem.ToString().Length - 5);           
             }
             else
             {
-                firstBurseName = cmbBoxBurse.SelectedItem.ToString();
-                secondBurseName = cmbBoxBurse2.SelectedItem.ToString();
+                firstBurseName = cmbBoxBurse.SelectedItem.ToString().Substring(1, cmbBoxBurse.SelectedItem.ToString().Length - 5);
+                secondBurseName = cmbBoxBurse2.SelectedItem.ToString().Substring(1, cmbBoxBurse2.SelectedItem.ToString().Length - 5);
             }
 
             #endregion
@@ -201,7 +201,7 @@ namespace SimpleParser01
                 js = (IJavaScriptExecutor)driver;
             }
             
-            if (checkBox_2Set.Checked){
+            if (radioBtn1.Checked){
 
                 driver.Navigate().GoToUrl("https://bitcoinwisdom.com/markets/okcoin/btccny");
                 driver.Manage().Window.Maximize();
@@ -306,7 +306,7 @@ namespace SimpleParser01
 
         public void ReadData() //++
         {
-            if (checkBox_2Set.Checked){
+            if (radioBtn1.Checked){
                 // add red highlites for explicit mode
                 #region get data from page +++
                 char[] _splitchar = { ' ' };
@@ -443,7 +443,7 @@ namespace SimpleParser01
 
         public void CheckDifference(int i)
         {
-            if (checkBox_2Set.Checked && cmbBoxBurse3.SelectedIndex == cmbBoxBurse4.SelectedIndex || checkBox_2Set.Checked && cmbBoxBurse.SelectedIndex == cmbBoxBurse2.SelectedIndex)
+            if (radioBtn1.Checked && cmbBoxBurse3.SelectedIndex == cmbBoxBurse4.SelectedIndex || radioBtn1.Checked && cmbBoxBurse.SelectedIndex == cmbBoxBurse2.SelectedIndex)
             {
                 ShowErrorInURL("Warning:   Monitoring has stopped. Reason - pairs are not defined");
             }
@@ -455,7 +455,7 @@ namespace SimpleParser01
                 Dictionary<int, string> dictionary = new Dictionary<int, string>();
 
                 #region separate code +++
-                if (checkBox_2Set.Checked)
+                if (radioBtn1.Checked)
                 {
 
                     dictionary.Add(0, label_OkcoinValue.Text);
@@ -499,7 +499,7 @@ namespace SimpleParser01
                 else { CurrentPercent = 0; }
 
                 string actualPercent = Math.Round(CurrentPercent, 2).ToString("0.00");
-                string body = OpOne +" "+ firstBurseName + " - " + secondBurseName +" "+ OpTwo + "CNY: " + CNYvalueIfcheckd + String.Format("{0:T}", dt);
+                string body = OpOne +" "+ firstBurseName + " - " + secondBurseName +" "+ OpTwo +" "+ " CNY: " + CNYvalueIfcheckd +" "+ String.Format("{0:T}", dt);
 
 
                 string subject_max = "MAX Diff:  " + actualPercent + " > " + permax + "%";
@@ -532,7 +532,7 @@ namespace SimpleParser01
                         }
                     }
                 }
-                else if (checkBox_min.Checked)
+                if (checkBox_min.Checked)
                 {
                     if (i == 1) { dt_start_min = dt; SendMessage("Start min", String.Format("{0:f}", dt)); }
                     if (dt > dt_start_min.AddDays(1)) { dt_start_min = dt; SendMessage("Daily check min", String.Format("{0:f}", dt)); }
@@ -608,12 +608,18 @@ namespace SimpleParser01
             checkBox_min.Enabled = true;
             checkBox_max.Enabled = true;
             checkBox_cny.Enabled = true;
-            checkBox_2Set.Enabled = true;
+            radioBtn1.Enabled = true;
             checkBox_isHidden.Enabled = true;
-            cmbBoxBurse.Enabled = true;
-            cmbBoxBurse2.Enabled = true;
-            cmbBoxBurse3.Enabled = true;
-            cmbBoxBurse4.Enabled = true;
+            if (radioBtn1.Checked)
+            {
+                cmbBoxBurse3.Enabled = true;
+                cmbBoxBurse4.Enabled = true;
+            }
+            else
+            {
+                cmbBoxBurse.Enabled = true;
+                cmbBoxBurse2.Enabled = true;          
+            }           
             counter_Min.Enabled = true;
             counter_Max.Enabled = true;
             counter_Seconds.Enabled = true;
@@ -712,6 +718,66 @@ namespace SimpleParser01
             MessageBox.Show("Not implemented yet");
         }
         #endregion
+
+        private void cmbBoxBurse4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox_isHidden_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioBtn1_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbBoxBurse.Enabled = false;
+            cmbBoxBurse2.Enabled = false;
+            cmbBoxBurse3.Enabled = true;
+            cmbBoxBurse4.Enabled = true;
+
+            HuobiValue.Visible = false;
+            BTCvalue.Visible = false;
+            BitfinexValue.Visible = false;
+            BitstampValue.Visible = false;
+            Huobi.Visible = false;
+            BTC.Visible = false;
+            Bitfinex.Visible = false;
+            Bitstamp.Visible = false;
+
+            label_HuobiValue.Visible = true;
+            label_BtcchinaValue.Visible = true;
+            label_OkcoinValue.Visible = true;
+            label_OkcoinBtccny.Visible = true;
+            label_HuobiBtccny.Visible = true;
+            label_BtcchinaBtccny.Visible = true;
+        }
+
+        private void radioBtn2_CheckedChanged(object sender, EventArgs e)
+        {
+            
+            cmbBoxBurse.Enabled = true;
+            cmbBoxBurse2.Enabled = true;
+            cmbBoxBurse3.Enabled = false;
+            cmbBoxBurse4.Enabled = false;
+
+            HuobiValue.Visible = true;
+            BTCvalue.Visible = true;
+            BitfinexValue.Visible = true;
+            BitstampValue.Visible = true;
+            Huobi.Visible = true;
+            BTC.Visible = true;
+            Bitfinex.Visible = true;
+            Bitstamp.Visible = true;
+
+            label_HuobiValue.Visible = false;
+            label_BtcchinaValue.Visible = false;
+            label_OkcoinValue.Visible = false;
+            label_OkcoinBtccny.Visible = false;
+            label_HuobiBtccny.Visible = false;
+            label_BtcchinaBtccny.Visible = false;
+
+        }
 
 
     }
