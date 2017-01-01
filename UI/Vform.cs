@@ -27,6 +27,8 @@ namespace SimpleParser01
         Dictionary<string, string> comboSource2 = new Dictionary<string, string>();
         string okcoin_Btccny_Handle, btcchina_Btccny_Handle, huobi_Btccny_Handle;
         string okcoinBtccnyCurrentValue, btcchinaBtccnyCurrentValue, huobiBtccnyCurrentValue;
+        string firstBurseName, secondBurseName;   // selected burse names for letters
+        string CNYvalueIfcheckd;   //cny valut if checkbox checked
         bool iconnection;         
         bool iconnection_Flag;      //check connection at start
         bool exception;             //false at start and becomes true if "try" fails while doing ReadData()
@@ -34,20 +36,15 @@ namespace SimpleParser01
 
         //unchecked
         int flag, underflag;
-        int delay;
-             
+        int delay;            
         DateTime dt;
         DateTime dt_start_max, dt_start_min;
-        DateTime dt_last_sent_max, dt_last_sent_min;
-        
-        bool sent, sent_min;
-        //bool Hidden;
-        
+        DateTime dt_last_sent_max, dt_last_sent_min;       
+        bool sent, sent_min;       
         double permin, permax; 
         double interval;
-        double CNYvalue;       
-        string firstB,secondB;
-        string CNYvalueIfcheckd;
+        double CNYvalue;             
+        
         string error_subject, error_body;
         #endregion
   
@@ -67,25 +64,25 @@ namespace SimpleParser01
             comboSource2.Add(label_BtcchinaBtccny.Text, label_BtcchinaValue.Text);
             comboSource2.Add(label_HuobiBtccny.Text, label_HuobiValue.Text);         
 
-            comboBoxBurse2.DataSource = new BindingSource(comboSource, null); ;
-            comboBoxBurse2.DisplayMember = "Key";
-            comboBoxBurse2.ValueMember = "Value";
-            comboBoxBurse2.SelectedIndex = 1;
+            cmbBoxBurse2.DataSource = new BindingSource(comboSource, null); ;
+            cmbBoxBurse2.DisplayMember = "Key";
+            cmbBoxBurse2.ValueMember = "Value";
+            cmbBoxBurse2.SelectedIndex = 1;
 
-            comboBoxBurse.DataSource = new BindingSource(comboSource, null); ;
-            comboBoxBurse.DisplayMember = "Key";
-            comboBoxBurse.ValueMember = "Value";
-            comboBoxBurse.SelectedIndex = 3;
+            cmbBoxBurse.DataSource = new BindingSource(comboSource, null); ;
+            cmbBoxBurse.DisplayMember = "Key";
+            cmbBoxBurse.ValueMember = "Value";
+            cmbBoxBurse.SelectedIndex = 3;
 
-            comboBoxBurse3.DataSource = new BindingSource(comboSource2, null); ;
-            comboBoxBurse3.DisplayMember = "Key";
-            comboBoxBurse3.ValueMember = "Value";
-            comboBoxBurse3.SelectedIndex = 2;
+            cmbBoxBurse3.DataSource = new BindingSource(comboSource2, null); ;
+            cmbBoxBurse3.DisplayMember = "Key";
+            cmbBoxBurse3.ValueMember = "Value";
+            cmbBoxBurse3.SelectedIndex = 2;
 
-            comboBoxBurse4.DataSource = new BindingSource(comboSource2, null); ;
-            comboBoxBurse4.DisplayMember = "Key";
-            comboBoxBurse4.ValueMember = "Value";
-            comboBoxBurse4.SelectedIndex = 1;
+            cmbBoxBurse4.DataSource = new BindingSource(comboSource2, null); ;
+            cmbBoxBurse4.DisplayMember = "Key";
+            cmbBoxBurse4.ValueMember = "Value";
+            cmbBoxBurse4.SelectedIndex = 1;
             #endregion
         }
 
@@ -95,12 +92,12 @@ namespace SimpleParser01
             checkBox_min.Enabled = false;
             checkBox_max.Enabled = false;
             checkBox_cny.Enabled = false;
-            checkBox_SecondSet.Enabled = false;
+            checkBox_2Set.Enabled = false;
             checkBox_isHidden.Enabled = false;
-            comboBoxBurse.Enabled = false;
-            comboBoxBurse2.Enabled = false;
-            comboBoxBurse3.Enabled = false;
-            comboBoxBurse4.Enabled = false;
+            cmbBoxBurse.Enabled = false;
+            cmbBoxBurse2.Enabled = false;
+            cmbBoxBurse3.Enabled = false;
+            cmbBoxBurse4.Enabled = false;
             counter_Seconds.Enabled = false;
             counter_Minutes.Enabled = false;
             counter_Min.Enabled = false;
@@ -117,7 +114,7 @@ namespace SimpleParser01
             label_frequency.Enabled = false;
             label_mins.Enabled = false;
             label_cny.Enabled = false; 
-            if(checkBox_SecondSet.Checked)
+            if(checkBox_2Set.Checked)
             {
                 Bitstamp.Enabled = false;
                 BTC.Enabled = false;
@@ -152,13 +149,24 @@ namespace SimpleParser01
             delay = (int)counter_Seconds.Value;
             flag = 0;
             underflag = 0;
-            string B1 = comboBoxBurse.SelectedItem.ToString();
-            string B2 = comboBoxBurse2.SelectedItem.ToString();
-            firstB = B1.Substring(1, B1.Length - 5);
-            secondB = B2.Substring(1, B2.Length - 5);
-            iconnection = iconnection_Flag = CheckConnection();  //unclear why we check connection here
             #endregion
 
+            # region Getting selected burse names
+
+            if (checkBox_2Set.Checked)
+            {
+                firstBurseName = cmbBoxBurse3.SelectedItem.ToString().Substring(1, cmbBoxBurse3.SelectedItem.ToString().Length - 5);
+                secondBurseName = cmbBoxBurse4.SelectedItem.ToString().Substring(1, cmbBoxBurse4.SelectedItem.ToString().Length - 5); ;           
+            }
+            else
+            {
+                firstBurseName = cmbBoxBurse.SelectedItem.ToString();
+                secondBurseName = cmbBoxBurse2.SelectedItem.ToString();
+            }
+
+            #endregion
+
+            iconnection = iconnection_Flag = CheckConnection();  //unclear why we check connection here
             if (checkBox_cny.Checked)   
             {CNYvalueIfcheckd = CNYvalue.ToString();}  else { CNYvalueIfcheckd = "NaN "; }  //unclear
             if (!backgroundWorker1.IsBusy)
@@ -193,7 +201,7 @@ namespace SimpleParser01
                 js = (IJavaScriptExecutor)driver;
             }
             
-            if (checkBox_SecondSet.Checked){
+            if (checkBox_2Set.Checked){
 
                 driver.Navigate().GoToUrl("https://bitcoinwisdom.com/markets/okcoin/btccny");
                 driver.Manage().Window.Maximize();
@@ -283,9 +291,8 @@ namespace SimpleParser01
                 ShowErrorInURL(error_subject);    //unclear what should be here
             }
             else if (checkBox_max.Checked || checkBox_min.Checked )
-            {
-                if (checkBox_SecondSet.Checked) { CheckDifference2(i); }
-                else { CheckDifference(i); }               
+            {              
+                CheckDifference(i);               
             }
             else 
             {
@@ -299,7 +306,7 @@ namespace SimpleParser01
 
         public void ReadData() //++
         {
-            if (checkBox_SecondSet.Checked){
+            if (checkBox_2Set.Checked){
                 // add red highlites for explicit mode
                 #region get data from page +++
                 char[] _splitchar = { ' ' };
@@ -435,157 +442,53 @@ namespace SimpleParser01
         }
 
         public void CheckDifference(int i)
-           {
-               if (comboBoxBurse.SelectedIndex == comboBoxBurse2.SelectedIndex) { ShowErrorInURL("Warning:   Monitoring has stopped. Reason - pairs are not defined"); }
-               else
-               {
-                   dt = DateTime.Now;
-
-                   if (!exception )
-                   {
-                       URL.BackColor = Color.LightGray;
-                       URL.ForeColor = Color.Black;
-                   }
-                  
-                   Dictionary<int, string> dictionary = new Dictionary<int, string>();
-                   dictionary.Add(0, BitstampValue.Text);
-                   dictionary.Add(1, BTCvalue.Text);
-                   dictionary.Add(2, BitfinexValue.Text);
-                   dictionary.Add(3, HuobiValue.Text);
-
-
-
-                   double OperandOne = double.Parse(dictionary[comboBoxBurse.SelectedIndex], CultureInfo.InvariantCulture);
-                   double OperandTwo = double.Parse(dictionary[comboBoxBurse2.SelectedIndex], CultureInfo.InvariantCulture);
-                   string OpOne = Math.Round(OperandOne, 2).ToString("0.00");
-                   string OpTwo = Math.Round(OperandTwo, 2).ToString("0.00");
-
-                   double CurrentPercent;
-
-                   if (OperandOne != 0 || OperandTwo != 0)
-                   {
-                        CurrentPercent = ((OperandOne - OperandTwo) * 200) / (OperandOne + OperandTwo);
-                   }
-                   else { CurrentPercent = 0; }
-
-                   string actualPercent = Math.Round(CurrentPercent, 2).ToString("0.00");
-                   string flag1 = "flag".PadLeft(20);
-                   string body = OpOne.PadLeft(15) + firstB.PadLeft(20) + " - " + secondB.PadRight(3) + OpTwo.PadRight(10) + "counter_CNY: " + CNYvalueIfcheckd.PadRight(20) + String.Format("{0:T}", dt).PadLeft(20) + flag1 ;
-
-
-                   string subject_max = "MAX Diff:  " + actualPercent + " > " + permax + "%";
-                   string subject_min = "checkBox_min Diff:  " + actualPercent + " < " + permin + "%";
-
-                   string subject_max_negative = "MAX Diff:  " + actualPercent + " is not > " + permax + "%";
-                   string subject_min_negative = "checkBox_min Diff:  " + actualPercent + " is not < " + permin + "%";
-                   
-
-                   if (checkBox_max.Checked && i == 1) { 
-                                               dt_start_max = dt;
-                                               string startMaxBody = String.Format("{0:f}", dt); //+ " MAX: " + permax + "[ in fact: " + actualPercent +"]";
-                                               SendMessage("Start", startMaxBody.PadLeft(30) ); }
-
-                   if (checkBox_max.Checked && dt>dt_start_max.AddDays(1)) { dt_start_max = dt; SendMessage("Daily check MAX", String.Format("{0:f}", dt)); }
-
-                   if (checkBox_min.Checked && i == 1) { dt_start_min = dt; SendMessage("Start", String.Format("{0:f}", dt)); }
-                   if (checkBox_min.Checked && dt>dt_start_min.AddDays(1)) { dt_start_min = dt; SendMessage("Daily check checkBox_min", String.Format("{0:f}", dt)); }
-                   
-                                   
-                   if (checkBox_max.Checked && CurrentPercent > permax)
-                   {
-                       URL.BackColor = Color.Green;
-                       URL.ForeColor = Color.White;
-                       URL.Refresh();
-                      
-                       flag++;
-                      
-
-                       if (sent == false)
-                       {
-                           SendMessage(subject_max, body);
-                           sent = true;
-                           dt_last_sent_max=dt;
-                       }
-                       if (dt > dt_last_sent_max.AddSeconds(interval))
-                       {
-                           sent = false;
-                       }
-
-                   }
-                   if ( checkBox_max.Checked && CurrentPercent < permax )
-                   {
-                       if (dt > dt_last_sent_max.AddSeconds(interval) && sent == true)
-                       {
-                           SendMessage(subject_max_negative, body + "Parser starts from the beginning".PadLeft(40));
-                           sent = false;
-                       }                    
-
-                   }
-
-                   if (checkBox_min.Checked && CurrentPercent < permin)
-                   {
-                       URL.BackColor = Color.Blue;
-                       URL.ForeColor = Color.White;
-                       URL.Refresh();
-                       underflag++;
-
-
-                       if (sent_min == false)
-                       {
-                           SendMessage(subject_min, body);
-                           sent_min = true;
-                           dt_last_sent_min = dt;
-                       }
-                       if (dt > dt_last_sent_min.AddSeconds(interval))
-                       {
-                           sent_min = false;
-                       }
-
-                   }
-                   if (checkBox_min.Checked && CurrentPercent > permin)
-                   {
-                       if (dt > dt_last_sent_min.AddSeconds(interval) && sent_min == true)
-                       {
-                           SendMessage(subject_min_negative, body + "Parser starts from the beginning".PadLeft(40));
-                           sent_min = false;
-                       }
-
-                   }
-                   if (!exception)
-                   {
-                       URL.Text = "Difference: " + actualPercent + " %" + "FMax ".PadLeft(10) +flag.ToString() + "/" + i.ToString().PadRight(10) + "FMin: " + underflag.ToString() + "/" + i.ToString().PadRight(10) + "time: " + String.Format("{0:T}", dt).PadRight(15) + iconnection;
-                       URL.Refresh();
-                   }
-               }
-           }
-        public void CheckDifference2(int i)
         {
-            if (comboBoxBurse3.SelectedIndex == comboBoxBurse4.SelectedIndex) { ShowErrorInURL("Warning:   Monitoring has stopped. Reason - pairs are not defined"); }
+            if (checkBox_2Set.Checked && cmbBoxBurse3.SelectedIndex == cmbBoxBurse4.SelectedIndex || checkBox_2Set.Checked && cmbBoxBurse.SelectedIndex == cmbBoxBurse2.SelectedIndex)
+            {
+                ShowErrorInURL("Warning:   Monitoring has stopped. Reason - pairs are not defined");
+            }
             else
             {
-                dt = DateTime.Now;
 
+                double OperandOne = 0;
+                double OperandTwo = 0;
+                Dictionary<int, string> dictionary = new Dictionary<int, string>();
+
+                #region separate code +++
+                if (checkBox_2Set.Checked)
+                {
+
+                    dictionary.Add(0, label_OkcoinValue.Text);
+                    dictionary.Add(1, label_BtcchinaValue.Text);
+                    dictionary.Add(2, label_HuobiValue.Text);
+
+                    OperandOne = double.Parse(dictionary[cmbBoxBurse3.SelectedIndex], CultureInfo.InvariantCulture);
+                    OperandTwo = double.Parse(dictionary[cmbBoxBurse4.SelectedIndex], CultureInfo.InvariantCulture);
+                }
+                else
+                {
+                    dictionary.Add(0, BitstampValue.Text);
+                    dictionary.Add(1, BTCvalue.Text);
+                    dictionary.Add(2, BitfinexValue.Text);
+                    dictionary.Add(3, HuobiValue.Text);
+
+                    OperandOne = double.Parse(dictionary[cmbBoxBurse.SelectedIndex], CultureInfo.InvariantCulture);
+                    OperandTwo = double.Parse(dictionary[cmbBoxBurse2.SelectedIndex], CultureInfo.InvariantCulture);
+                }
+
+                #endregion
+
+                #region common code
+
+                dt = DateTime.Now;
                 if (!exception)
                 {
                     URL.BackColor = Color.LightGray;
                     URL.ForeColor = Color.Black;
                 }
 
-                Dictionary<int, string> dictionary = new Dictionary<int, string>();
-                dictionary.Add(0, label_OkcoinValue.Text);
-                dictionary.Add(1, label_OkcoinValue.Text);
-                dictionary.Add(2, label_HuobiValue.Text);
-                                                             
-                double OperandOne = double.Parse(dictionary[comboBoxBurse3.SelectedIndex], CultureInfo.InvariantCulture);
-                double OperandTwo = double.Parse(dictionary[comboBoxBurse4.SelectedIndex], CultureInfo.InvariantCulture);
-
                 string OpOne = Math.Round(OperandOne, 2).ToString("0.00");
                 string OpTwo = Math.Round(OperandTwo, 2).ToString("0.00");
-
-                string B1 = comboBoxBurse3.SelectedItem.ToString();
-                string B2 = comboBoxBurse4.SelectedItem.ToString();
-                firstB = B1.Substring(1, B1.Length - 5);
-                secondB = B2.Substring(1, B2.Length - 5);
 
                 double CurrentPercent;
 
@@ -596,96 +499,72 @@ namespace SimpleParser01
                 else { CurrentPercent = 0; }
 
                 string actualPercent = Math.Round(CurrentPercent, 2).ToString("0.00");
-                string flag1 = "flag".PadLeft(20);
-                string body = OpOne.PadLeft(15) + firstB.PadLeft(20) + " - " + secondB.PadRight(3) + OpTwo.PadRight(10) + "counter_CNY: " + CNYvalueIfcheckd.PadRight(20) + String.Format("{0:T}", dt).PadLeft(20) + flag1;
+                string body = OpOne +" "+ firstBurseName + " - " + secondBurseName +" "+ OpTwo + "CNY: " + CNYvalueIfcheckd + String.Format("{0:T}", dt);
 
 
                 string subject_max = "MAX Diff:  " + actualPercent + " > " + permax + "%";
-                string subject_min = "checkBox_min Diff:  " + actualPercent + " < " + permin + "%";
+                string subject_min = "min Diff:  " + actualPercent + " < " + permin + "%";
 
                 string subject_max_negative = "MAX Diff:  " + actualPercent + " is not > " + permax + "%";
-                string subject_min_negative = "checkBox_min Diff:  " + actualPercent + " is not < " + permin + "%";
+                string subject_min_negative = "min Diff:  " + actualPercent + " is not < " + permin + "%";
 
-
-                if (checkBox_max.Checked && i == 1)
+                if (checkBox_max.Checked)
                 {
-                    dt_start_max = dt;
-                    string startMaxBody = String.Format("{0:f}", dt); //+ " MAX: " + permax + "[ in fact: " + actualPercent +"]";
-                    SendMessage("Start", startMaxBody.PadLeft(30));
+                    if (i == 1) { dt_start_max = dt; SendMessage("Start", String.Format("{0:f}", dt));}
+                    if (dt > dt_start_max.AddDays(1)) { dt_start_max = dt; SendMessage("Daily check MAX", String.Format("{0:f}", dt)); }
+                    if (CurrentPercent > permax)
+                    {
+                        URL.BackColor = Color.Green; URL.ForeColor = Color.White; URL.Refresh(); flag++;
+                        if (sent == false)
+                        {
+                            SendMessage(subject_max, body);
+                            sent = true;
+                            dt_last_sent_max = dt;
+                        }
+                        if (dt > dt_last_sent_max.AddSeconds(interval)) {sent = false;}
+                    }
+                    else
+                    {
+                        if (dt > dt_last_sent_max.AddSeconds(interval) && sent == true)
+                        {
+                            SendMessage(subject_max_negative, body + "Parser starts from the beginning");
+                            sent = false;
+                        }
+                    }
                 }
-
-                if (checkBox_max.Checked && dt > dt_start_max.AddDays(1)) { dt_start_max = dt; SendMessage("Daily check MAX", String.Format("{0:f}", dt)); }
-
-                if (checkBox_min.Checked && i == 1) { dt_start_min = dt; SendMessage("Start", String.Format("{0:f}", dt)); }
-                if (checkBox_min.Checked && dt > dt_start_min.AddDays(1)) { dt_start_min = dt; SendMessage("Daily check checkBox_min", String.Format("{0:f}", dt)); }
-
-
-                if (checkBox_max.Checked && CurrentPercent > permax)
+                else if (checkBox_min.Checked)
                 {
-                    URL.BackColor = Color.Green;
-                    URL.ForeColor = Color.White;
-                    URL.Refresh();
-
-                    flag++;
-
-
-                    if (sent == false)
+                    if (i == 1) { dt_start_min = dt; SendMessage("Start min", String.Format("{0:f}", dt)); }
+                    if (dt > dt_start_min.AddDays(1)) { dt_start_min = dt; SendMessage("Daily check min", String.Format("{0:f}", dt)); }
+                    if (CurrentPercent < permin)
                     {
-                        SendMessage(subject_max, body);
-                        sent = true;
-                        dt_last_sent_max = dt;
+                        URL.BackColor = Color.Blue; URL.ForeColor = Color.White; URL.Refresh(); underflag++;
+                        if (sent_min == false)
+                        {
+                            SendMessage(subject_min, body);
+                            sent_min = true;
+                            dt_last_sent_min = dt;
+                        }
+                        if (dt > dt_last_sent_min.AddSeconds(interval)) { sent_min = false; }
                     }
-                    if (dt > dt_last_sent_max.AddSeconds(interval))
+                    else
                     {
-                        sent = false;
-                    }
+                        if (dt > dt_last_sent_min.AddSeconds(interval) && sent_min == true)
+                        {
+                            SendMessage(subject_min_negative, body + "Parser starts from the beginning");
+                            sent_min = false;
+                        }
 
+                    }
                 }
-                if (checkBox_max.Checked && CurrentPercent < permax)
-                {
-                    if (dt > dt_last_sent_max.AddSeconds(interval) && sent == true)
-                    {
-                        SendMessage(subject_max_negative, body + "Parser starts from the beginning".PadLeft(40));
-                        sent = false;
-                    }
-
-                }
-
-                if (checkBox_min.Checked && CurrentPercent < permin)
-                {
-                    URL.BackColor = Color.Blue;
-                    URL.ForeColor = Color.White;
-                    URL.Refresh();
-                    underflag++;
-
-
-                    if (sent_min == false)
-                    {
-                        SendMessage(subject_min, body);
-                        sent_min = true;
-                        dt_last_sent_min = dt;
-                    }
-                    if (dt > dt_last_sent_min.AddSeconds(interval))
-                    {
-                        sent_min = false;
-                    }
-
-                }
-                if (checkBox_min.Checked && CurrentPercent > permin)
-                {
-                    if (dt > dt_last_sent_min.AddSeconds(interval) && sent_min == true)
-                    {
-                        SendMessage(subject_min_negative, body + "Parser starts from the beginning".PadLeft(40));
-                        sent_min = false;
-                    }
-
-                }
+                
                 if (!exception)
                 {
                     URL.Text = "Difference: " + actualPercent + " %" + "FMax ".PadLeft(10) + flag.ToString() + "/" + i.ToString().PadRight(10) + "FMin: " + underflag.ToString() + "/" + i.ToString().PadRight(10) + "time: " + String.Format("{0:T}", dt).PadRight(15) + iconnection;
                     URL.Refresh();
                 }
-            }
+            }              
+            #endregion
         }
        
         public void SendMessage(string subject, string body)
@@ -729,12 +608,12 @@ namespace SimpleParser01
             checkBox_min.Enabled = true;
             checkBox_max.Enabled = true;
             checkBox_cny.Enabled = true;
-            checkBox_SecondSet.Enabled = true;
+            checkBox_2Set.Enabled = true;
             checkBox_isHidden.Enabled = true;
-            comboBoxBurse.Enabled = true;
-            comboBoxBurse2.Enabled = true;
-            comboBoxBurse3.Enabled = true;
-            comboBoxBurse4.Enabled = true;
+            cmbBoxBurse.Enabled = true;
+            cmbBoxBurse2.Enabled = true;
+            cmbBoxBurse3.Enabled = true;
+            cmbBoxBurse4.Enabled = true;
             counter_Min.Enabled = true;
             counter_Max.Enabled = true;
             counter_Seconds.Enabled = true;

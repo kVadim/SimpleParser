@@ -44,9 +44,9 @@
             this.HuobiValue = new System.Windows.Forms.Label();
             this.checkBox_isHidden = new System.Windows.Forms.CheckBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.comboBoxBurse = new System.Windows.Forms.ComboBox();
+            this.cmbBoxBurse = new System.Windows.Forms.ComboBox();
             this.counter_Min = new System.Windows.Forms.NumericUpDown();
-            this.comboBoxBurse2 = new System.Windows.Forms.ComboBox();
+            this.cmbBoxBurse2 = new System.Windows.Forms.ComboBox();
             this.counter_Max = new System.Windows.Forms.NumericUpDown();
             this.checkBox_max = new System.Windows.Forms.CheckBox();
             this.checkBox_min = new System.Windows.Forms.CheckBox();
@@ -66,9 +66,9 @@
             this.label_BtcchinaValue = new System.Windows.Forms.Label();
             this.label_HuobiBtccny = new System.Windows.Forms.Label();
             this.label_HuobiValue = new System.Windows.Forms.Label();
-            this.checkBox_SecondSet = new System.Windows.Forms.CheckBox();
-            this.comboBoxBurse3 = new System.Windows.Forms.ComboBox();
-            this.comboBoxBurse4 = new System.Windows.Forms.ComboBox();
+            this.checkBox_2Set = new System.Windows.Forms.CheckBox();
+            this.cmbBoxBurse3 = new System.Windows.Forms.ComboBox();
+            this.cmbBoxBurse4 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.counter_Seconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.counter_Min)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.counter_Max)).BeginInit();
@@ -255,12 +255,12 @@
             // 
             // comboBoxBurse
             // 
-            this.comboBoxBurse.FormattingEnabled = true;
-            this.comboBoxBurse.Location = new System.Drawing.Point(12, 236);
-            this.comboBoxBurse.Name = "comboBoxBurse";
-            this.comboBoxBurse.Size = new System.Drawing.Size(224, 21);
-            this.comboBoxBurse.TabIndex = 5;
-            this.comboBoxBurse.Text = "No data ..";
+            this.cmbBoxBurse.FormattingEnabled = true;
+            this.cmbBoxBurse.Location = new System.Drawing.Point(12, 236);
+            this.cmbBoxBurse.Name = "comboBoxBurse";
+            this.cmbBoxBurse.Size = new System.Drawing.Size(224, 21);
+            this.cmbBoxBurse.TabIndex = 5;
+            this.cmbBoxBurse.Text = "No data ..";
             // 
             // counter_Min
             // 
@@ -287,12 +287,12 @@
             // 
             // comboBoxBurse2
             // 
-            this.comboBoxBurse2.FormattingEnabled = true;
-            this.comboBoxBurse2.Location = new System.Drawing.Point(247, 236);
-            this.comboBoxBurse2.Name = "comboBoxBurse2";
-            this.comboBoxBurse2.Size = new System.Drawing.Size(225, 21);
-            this.comboBoxBurse2.TabIndex = 5;
-            this.comboBoxBurse2.Text = "No data ..";
+            this.cmbBoxBurse2.FormattingEnabled = true;
+            this.cmbBoxBurse2.Location = new System.Drawing.Point(247, 236);
+            this.cmbBoxBurse2.Name = "comboBoxBurse2";
+            this.cmbBoxBurse2.Size = new System.Drawing.Size(225, 21);
+            this.cmbBoxBurse2.TabIndex = 5;
+            this.cmbBoxBurse2.Text = "No data ..";
             // 
             // counter_Max
             // 
@@ -312,7 +312,7 @@
             this.counter_Max.Size = new System.Drawing.Size(51, 20);
             this.counter_Max.TabIndex = 6;
             this.counter_Max.Value = new decimal(new int[] {
-            7,
+            77,
             0,
             0,
             65536});
@@ -320,6 +320,8 @@
             // checkBox_max
             // 
             this.checkBox_max.AutoSize = true;
+            this.checkBox_max.Checked = true;
+            this.checkBox_max.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_max.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox_max.Location = new System.Drawing.Point(299, 13);
             this.checkBox_max.Name = "checkBox_max";
@@ -478,9 +480,9 @@
             // 
             this.label_OkcoinBtccny.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label_OkcoinBtccny.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_OkcoinBtccny.Location = new System.Drawing.Point(248, 137);
+            this.label_OkcoinBtccny.Location = new System.Drawing.Point(330, 140);
             this.label_OkcoinBtccny.Name = "label_OkcoinBtccny";
-            this.label_OkcoinBtccny.Size = new System.Drawing.Size(106, 36);
+            this.label_OkcoinBtccny.Size = new System.Drawing.Size(142, 36);
             this.label_OkcoinBtccny.TabIndex = 3;
             this.label_OkcoinBtccny.Text = "Okcoin_btc";
             this.label_OkcoinBtccny.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -490,9 +492,9 @@
             this.label_OkcoinValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label_OkcoinValue.BackColor = System.Drawing.Color.Gainsboro;
             this.label_OkcoinValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_OkcoinValue.Location = new System.Drawing.Point(248, 173);
+            this.label_OkcoinValue.Location = new System.Drawing.Point(330, 173);
             this.label_OkcoinValue.Name = "label_OkcoinValue";
-            this.label_OkcoinValue.Size = new System.Drawing.Size(106, 36);
+            this.label_OkcoinValue.Size = new System.Drawing.Size(142, 36);
             this.label_OkcoinValue.TabIndex = 3;
             this.label_OkcoinValue.Text = "0";
             this.label_OkcoinValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -501,9 +503,9 @@
             // 
             this.label_BtcchinaBtccny.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label_BtcchinaBtccny.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_BtcchinaBtccny.Location = new System.Drawing.Point(130, 137);
+            this.label_BtcchinaBtccny.Location = new System.Drawing.Point(170, 140);
             this.label_BtcchinaBtccny.Name = "label_BtcchinaBtccny";
-            this.label_BtcchinaBtccny.Size = new System.Drawing.Size(106, 36);
+            this.label_BtcchinaBtccny.Size = new System.Drawing.Size(142, 36);
             this.label_BtcchinaBtccny.TabIndex = 3;
             this.label_BtcchinaBtccny.Text = "Btcchina_btc";
             this.label_BtcchinaBtccny.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -513,9 +515,9 @@
             this.label_BtcchinaValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label_BtcchinaValue.BackColor = System.Drawing.Color.Gainsboro;
             this.label_BtcchinaValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_BtcchinaValue.Location = new System.Drawing.Point(130, 173);
+            this.label_BtcchinaValue.Location = new System.Drawing.Point(170, 173);
             this.label_BtcchinaValue.Name = "label_BtcchinaValue";
-            this.label_BtcchinaValue.Size = new System.Drawing.Size(106, 36);
+            this.label_BtcchinaValue.Size = new System.Drawing.Size(142, 36);
             this.label_BtcchinaValue.TabIndex = 3;
             this.label_BtcchinaValue.Text = "0";
             this.label_BtcchinaValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -524,9 +526,9 @@
             // 
             this.label_HuobiBtccny.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label_HuobiBtccny.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_HuobiBtccny.Location = new System.Drawing.Point(12, 137);
+            this.label_HuobiBtccny.Location = new System.Drawing.Point(12, 140);
             this.label_HuobiBtccny.Name = "label_HuobiBtccny";
-            this.label_HuobiBtccny.Size = new System.Drawing.Size(106, 36);
+            this.label_HuobiBtccny.Size = new System.Drawing.Size(142, 36);
             this.label_HuobiBtccny.TabIndex = 3;
             this.label_HuobiBtccny.Text = "Huobi_btc";
             this.label_HuobiBtccny.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -538,40 +540,41 @@
             this.label_HuobiValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_HuobiValue.Location = new System.Drawing.Point(12, 173);
             this.label_HuobiValue.Name = "label_HuobiValue";
-            this.label_HuobiValue.Size = new System.Drawing.Size(106, 36);
+            this.label_HuobiValue.Size = new System.Drawing.Size(142, 36);
             this.label_HuobiValue.TabIndex = 3;
             this.label_HuobiValue.Text = "0";
             this.label_HuobiValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // checkBox_SecondSet
             // 
-            this.checkBox_SecondSet.AutoSize = true;
-            this.checkBox_SecondSet.Checked = true;
-            this.checkBox_SecondSet.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_SecondSet.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox_SecondSet.Location = new System.Drawing.Point(409, 185);
-            this.checkBox_SecondSet.Name = "checkBox_SecondSet";
-            this.checkBox_SecondSet.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_SecondSet.TabIndex = 7;
-            this.checkBox_SecondSet.UseVisualStyleBackColor = true;
+            this.checkBox_2Set.AutoSize = true;
+            this.checkBox_2Set.Checked = true;
+            this.checkBox_2Set.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_2Set.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox_2Set.Location = new System.Drawing.Point(195, 46);
+            this.checkBox_2Set.Name = "checkBox_SecondSet";
+            this.checkBox_2Set.Size = new System.Drawing.Size(61, 17);
+            this.checkBox_2Set.TabIndex = 7;
+            this.checkBox_2Set.Text = "btchina";
+            this.checkBox_2Set.UseVisualStyleBackColor = true;
             // 
             // comboBoxBurse3
             // 
-            this.comboBoxBurse3.FormattingEnabled = true;
-            this.comboBoxBurse3.Location = new System.Drawing.Point(12, 120);
-            this.comboBoxBurse3.Name = "comboBoxBurse3";
-            this.comboBoxBurse3.Size = new System.Drawing.Size(225, 21);
-            this.comboBoxBurse3.TabIndex = 5;
-            this.comboBoxBurse3.Text = "No data ..";
+            this.cmbBoxBurse3.FormattingEnabled = true;
+            this.cmbBoxBurse3.Location = new System.Drawing.Point(12, 120);
+            this.cmbBoxBurse3.Name = "comboBoxBurse3";
+            this.cmbBoxBurse3.Size = new System.Drawing.Size(225, 21);
+            this.cmbBoxBurse3.TabIndex = 5;
+            this.cmbBoxBurse3.Text = "No data ..";
             // 
             // comboBoxBurse4
             // 
-            this.comboBoxBurse4.FormattingEnabled = true;
-            this.comboBoxBurse4.Location = new System.Drawing.Point(247, 120);
-            this.comboBoxBurse4.Name = "comboBoxBurse4";
-            this.comboBoxBurse4.Size = new System.Drawing.Size(225, 21);
-            this.comboBoxBurse4.TabIndex = 5;
-            this.comboBoxBurse4.Text = "No data ..";
+            this.cmbBoxBurse4.FormattingEnabled = true;
+            this.cmbBoxBurse4.Location = new System.Drawing.Point(247, 120);
+            this.cmbBoxBurse4.Name = "comboBoxBurse4";
+            this.cmbBoxBurse4.Size = new System.Drawing.Size(225, 21);
+            this.cmbBoxBurse4.TabIndex = 5;
+            this.cmbBoxBurse4.Text = "No data ..";
             // 
             // Vform
             // 
@@ -585,16 +588,16 @@
             this.Controls.Add(this.label_cny);
             this.Controls.Add(this.label_mins);
             this.Controls.Add(this.label_frequency);
-            this.Controls.Add(this.checkBox_SecondSet);
+            this.Controls.Add(this.checkBox_2Set);
             this.Controls.Add(this.checkBox_cny);
             this.Controls.Add(this.checkBox_min);
             this.Controls.Add(this.checkBox_max);
             this.Controls.Add(this.counter_Max);
             this.Controls.Add(this.counter_Min);
-            this.Controls.Add(this.comboBoxBurse4);
-            this.Controls.Add(this.comboBoxBurse3);
-            this.Controls.Add(this.comboBoxBurse2);
-            this.Controls.Add(this.comboBoxBurse);
+            this.Controls.Add(this.cmbBoxBurse4);
+            this.Controls.Add(this.cmbBoxBurse3);
+            this.Controls.Add(this.cmbBoxBurse2);
+            this.Controls.Add(this.cmbBoxBurse);
             this.Controls.Add(this.checkBox_isHidden);
             this.Controls.Add(this.HuobiValue);
             this.Controls.Add(this.Huobi);
@@ -653,9 +656,9 @@
         private System.Windows.Forms.Label HuobiValue;
         private System.Windows.Forms.CheckBox checkBox_isHidden;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.ComboBox comboBoxBurse;
+        private System.Windows.Forms.ComboBox cmbBoxBurse;
         private System.Windows.Forms.NumericUpDown counter_Min;
-        private System.Windows.Forms.ComboBox comboBoxBurse2;
+        private System.Windows.Forms.ComboBox cmbBoxBurse2;
         private System.Windows.Forms.NumericUpDown counter_Max;
         private System.Windows.Forms.CheckBox checkBox_max;
         private System.Windows.Forms.CheckBox checkBox_min;
@@ -675,9 +678,9 @@
         private System.Windows.Forms.Label label_BtcchinaValue;
         private System.Windows.Forms.Label label_HuobiBtccny;
         private System.Windows.Forms.Label label_HuobiValue;
-        private System.Windows.Forms.CheckBox checkBox_SecondSet;
-        private System.Windows.Forms.ComboBox comboBoxBurse3;
-        private System.Windows.Forms.ComboBox comboBoxBurse4;
+        private System.Windows.Forms.CheckBox checkBox_2Set;
+        private System.Windows.Forms.ComboBox cmbBoxBurse3;
+        private System.Windows.Forms.ComboBox cmbBoxBurse4;
     }
 }
 
