@@ -89,6 +89,7 @@ namespace SimpleParser01
         void butRun_Click(object sender, EventArgs e)
         {            
             # region Contorl_behavior_before +++
+            butReport.Enabled = false;
             checkBox_min.Enabled = false;
             checkBox_max.Enabled = false;
             checkBox_cny.Enabled = false;
@@ -134,6 +135,8 @@ namespace SimpleParser01
                 label_BtcchinaValue.Enabled = false;
                 label_OkcoinValue.Enabled = false;
             }
+            radioBtn1.Enabled = false;
+            radioBtn2.Enabled = false;
             # endregion
 
             # region Variable_behavior_before --- 
@@ -646,6 +649,9 @@ namespace SimpleParser01
             BitfinexValue.Enabled = true;
             BTCvalue.Enabled = true;
             BitstampValue.Enabled = true;
+            radioBtn1.Enabled = true;
+            radioBtn2.Enabled = true;
+            butReport.Enabled = true;
             # endregion
 
                 
@@ -715,7 +721,17 @@ namespace SimpleParser01
         #region Useless_methods
         private void butReport_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Not implemented yet");
+            PopupForm popup = new PopupForm();
+            DialogResult dialogresult = popup.ShowDialog();
+            if (dialogresult == DialogResult.OK)
+            {
+                Console.WriteLine("You clicked OK");
+            }
+            else if (dialogresult == DialogResult.Cancel)
+            {
+                Console.WriteLine("You clicked either Cancel or X button in the top right corner");
+            }
+            popup.Dispose();
         }
         #endregion
 
@@ -755,7 +771,6 @@ namespace SimpleParser01
 
         private void radioBtn2_CheckedChanged(object sender, EventArgs e)
         {
-            
             cmbBoxBurse.Enabled = true;
             cmbBoxBurse2.Enabled = true;
             cmbBoxBurse3.Enabled = false;

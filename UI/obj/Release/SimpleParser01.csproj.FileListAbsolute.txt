@@ -40,3 +40,4 @@ D:\SimpleParser\UI\obj\Release\SimpleParser01.csproj.GenerateResource.Cache
 D:\SimpleParser\UI\obj\Release\UI.exe.manifest
 D:\SimpleParser\UI\obj\Release\UI.application
 D:\SimpleParser\UI\obj\Release\SimpleParser01.csprojResolveAssemblyReference.cache
+D:\SimpleParser\UI\obj\Release\SimpleParser01.PopupForm.resources

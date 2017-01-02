@@ -483,7 +483,6 @@
             // 
             // butReport
             // 
-            this.butReport.Enabled = false;
             this.butReport.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.butReport.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.butReport.Location = new System.Drawing.Point(193, 6);
@@ -604,6 +603,10 @@
             this.radioBtn2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.radioBtn2.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioBtn2.BackColor = System.Drawing.Color.Maroon;
+            this.radioBtn2.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.radioBtn2.FlatAppearance.BorderSize = 2;
+            this.radioBtn2.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.MenuText;
+            this.radioBtn2.ForeColor = System.Drawing.Color.Black;
             this.radioBtn2.Location = new System.Drawing.Point(11, 150);
             this.radioBtn2.Name = "radioBtn2";
             this.radioBtn2.Size = new System.Drawing.Size(18, 18);
