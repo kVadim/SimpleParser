@@ -513,7 +513,7 @@ namespace SimpleParser01
 
                 if (checkBox_max.Checked)
                 {
-                    if (i == 1) { dt_start_max = dt; SendMessage("Start", String.Format("{0:f}", dt));}
+                    if (i == 1) { dt_start_max = dt; SendMessage("Start", body + "\r\n" + " Started MAX Expected " + permax + " % (actual: " + actualPercent + " %)"); }
                     if (dt > dt_start_max.AddDays(1)) { dt_start_max = dt; SendMessage("Daily check MAX", String.Format("{0:f}", dt)); }
                     if (CurrentPercent > permax)
                     {
@@ -530,14 +530,14 @@ namespace SimpleParser01
                     {
                         if (dt > dt_last_sent_max.AddSeconds(interval) && sent == true)
                         {
-                            SendMessage(subject_max_negative, body + "Parser starts from the beginning");
+                            SendMessage(subject_max_negative, body + "\r\n" + "Parser starts from the beginning");
                             sent = false;
                         }
                     }
                 }
                 if (checkBox_min.Checked)
                 {
-                    if (i == 1) { dt_start_min = dt; SendMessage("Start min", String.Format("{0:f}", dt)); }
+                    if (i == 1) { dt_start_min = dt; SendMessage("Start min", body + "\r\n" + " Started min Expected " + permin + " % (actual: " + actualPercent + " %)"); }
                     if (dt > dt_start_min.AddDays(1)) { dt_start_min = dt; SendMessage("Daily check min", String.Format("{0:f}", dt)); }
                     if (CurrentPercent < permin)
                     {
@@ -554,7 +554,7 @@ namespace SimpleParser01
                     {
                         if (dt > dt_last_sent_min.AddSeconds(interval) && sent_min == true)
                         {
-                            SendMessage(subject_min_negative, body + "Parser starts from the beginning");
+                            SendMessage(subject_min_negative, body + "\r\n" + "Parser starts from the beginning");
                             sent_min = false;
                         }
 

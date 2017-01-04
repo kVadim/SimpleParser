@@ -501,7 +501,7 @@
             this.label_OkcoinBtccny.Name = "label_OkcoinBtccny";
             this.label_OkcoinBtccny.Size = new System.Drawing.Size(142, 36);
             this.label_OkcoinBtccny.TabIndex = 3;
-            this.label_OkcoinBtccny.Text = "Okcoin_btc";
+            this.label_OkcoinBtccny.Text = "Okcoin_cny";
             this.label_OkcoinBtccny.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_OkcoinValue
@@ -524,7 +524,7 @@
             this.label_BtcchinaBtccny.Name = "label_BtcchinaBtccny";
             this.label_BtcchinaBtccny.Size = new System.Drawing.Size(142, 36);
             this.label_BtcchinaBtccny.TabIndex = 3;
-            this.label_BtcchinaBtccny.Text = "Btcchina_btc";
+            this.label_BtcchinaBtccny.Text = "Btcchina_cny";
             this.label_BtcchinaBtccny.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_BtcchinaValue
@@ -547,7 +547,7 @@
             this.label_HuobiBtccny.Name = "label_HuobiBtccny";
             this.label_HuobiBtccny.Size = new System.Drawing.Size(142, 36);
             this.label_HuobiBtccny.TabIndex = 3;
-            this.label_HuobiBtccny.Text = "Huobi_btc";
+            this.label_HuobiBtccny.Text = "Huobi_cny";
             this.label_HuobiBtccny.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_HuobiValue
@@ -595,6 +595,7 @@
             this.radioBtn1.Name = "radioBtn1";
             this.radioBtn1.Size = new System.Drawing.Size(18, 18);
             this.radioBtn1.TabIndex = 11;
+            this.radioBtn1.TabStop = true;
             this.radioBtn1.UseVisualStyleBackColor = false;
             this.radioBtn1.CheckedChanged += new System.EventHandler(this.radioBtn1_CheckedChanged);
             // 
@@ -620,7 +621,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.butStop;
-            this.ClientSize = new System.Drawing.Size(484, 258);
+            this.ClientSize = new System.Drawing.Size(484, 262);
             this.Controls.Add(this.radioBtn2);
             this.Controls.Add(this.radioBtn1);
             this.Controls.Add(this.label_min);
@@ -659,8 +660,8 @@
             this.Controls.Add(this.butReport);
             this.Controls.Add(this.butStop);
             this.Controls.Add(this.butRun);
-            this.MaximumSize = new System.Drawing.Size(600, 480);
-            this.MinimumSize = new System.Drawing.Size(500, 280);
+            this.MaximumSize = new System.Drawing.Size(500, 300);
+            this.MinimumSize = new System.Drawing.Size(500, 300);
             this.Name = "Vform";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
