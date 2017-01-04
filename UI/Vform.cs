@@ -52,7 +52,6 @@ namespace SimpleParser01
         {
             InitializeComponent();
             MaximizeBox = false;                           //????? maximaze from tray
-           // URL.Text = "https://bitcoinwisdom.com/";     //Moved to properties should be deleted in 0.9
             butRun.Select();                               //Focus on Run button
             #region Comboboxes initializing   +++              
             comboSource.Add(Bitstamp.Text, BitstampValue.Text);
@@ -244,7 +243,7 @@ namespace SimpleParser01
                 {
                     driver.Navigate().GoToUrl("https://bitcoinwisdom.com/");
                     iconnection_Flag = true; 
-                    error_body = "...till... " + DateTime.Now.ToString("HH:mm:ss");                  
+                    error_body = "  till " + DateTime.Now.ToString("HH:mm:ss");                  
                     Thread.Sleep(2000);
                     SendMessage(error_subject, error_body); 
                 }
@@ -310,7 +309,6 @@ namespace SimpleParser01
         public void ReadData() //++
         {
             if (radioBtn1.Checked){
-                // add red highlites for explicit mode
                 #region get data from page +++
                 char[] _splitchar = { ' ' };
                 string _currentTitle;
@@ -318,6 +316,7 @@ namespace SimpleParser01
                 _currentTitle = driver.SwitchTo().Window(btcchina_Btccny_Handle).Title;
                 string[] btcchina_Title = _currentTitle.Split(_splitchar); 
                 btcchinaBtccnyCurrentValue = btcchina_Title[0];
+                if (!checkBox_isHidden.Checked)
 
                 _currentTitle = driver.SwitchTo().Window(okcoin_Btccny_Handle).Title;
                 string[] okcoin_Title = _currentTitle.Split(_splitchar); 
@@ -338,7 +337,7 @@ namespace SimpleParser01
                 if (label_OkcoinValue.Text != "0" && label_OkcoinValue.Text != okcoinBtccnyCurrentValue) 
                 { 
                     label_OkcoinValue.BackColor = Color.Red;
-                }
+                }               
                 label_OkcoinValue.Text = okcoinBtccnyCurrentValue;
                 label_OkcoinValue.Refresh();
 

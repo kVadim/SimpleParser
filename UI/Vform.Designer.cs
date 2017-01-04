@@ -405,7 +405,7 @@
             0,
             0});
             this.counter_Minutes.Minimum = new decimal(new int[] {
-            4,
+            3,
             0,
             0,
             0});
@@ -483,6 +483,7 @@
             // 
             // butReport
             // 
+            this.butReport.Enabled = false;
             this.butReport.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.butReport.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.butReport.Location = new System.Drawing.Point(193, 6);
